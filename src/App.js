@@ -82,7 +82,7 @@ class App {
         
         await this.loadAssets();
         
-        const minLoadTime = this.isFirstVisit ? 30000 : 2000;
+        const minLoadTime = this.isFirstVisit ? 40000 : 2000;
         await this.delay(minLoadTime);
         
         stateManager.setState(AppStates.TRANSITION_TO_HOME);
