@@ -1,4 +1,4 @@
-# The Heart Of Golden Project 
+# TheHeartOfGold
 
 Nothing here yet.
-# TheHeartOfGold
+
