@@ -1,0 +1,9 @@
+/**
+ * Main Styles - Imports all CSS modules
+ */
+
+@import url('splash.css');
+@import url('transition.css');
+@import url('loading.css');
+@import url('nav.css');
+@import url('home.css');

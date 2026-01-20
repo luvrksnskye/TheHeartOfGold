@@ -1,0 +1,51 @@
+/**
+ * Transition Styles
+ */
+
+.transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-transition);
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.transition-slice {
+    flex: 1;
+    background-color: var(--color-black);
+    position: relative;
+    will-change: transform;
+}
+
+.transition-slice::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 100% 80px;
+    border-color: transparent transparent var(--color-black) transparent;
+    transform: translateX(100%);
+}
+
+.transition-slice:nth-child(odd)::after {
+    border-width: 100% 0 0 80px;
+    border-color: transparent transparent transparent var(--color-black);
+    transform: translateX(100%) scaleX(-1);
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+}
+
+@media (max-width: 768px) {
+    .transition-slice::after {
+        border-width: 0 0 100% 40px;
+    }
+    
+    .transition-slice:nth-child(odd)::after {
+        border-width: 100% 0 0 40px;
+    }
+}

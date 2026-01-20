@@ -1,0 +1,143 @@
+/**
+ * General Styles - Variables, Reset, Base, Cursor
+ */
+
+@font-face {
+    font-family: 'TheGoldenHeart';
+    src: url('./src/fonts/Thegoldenheart-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixeled';
+    src: url('./src/fonts/Pixeled.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('./src/fonts/pixel.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-pink-dark: #c41e5c;
+    --color-pink-light: #d64d7a;
+    --color-pink-accent: #e8789a;
+    --color-purple-dark: #1a0a2e;
+    --color-purple-light: #6b4c9a;
+    
+    --font-title: 'TheGoldenHeart', sans-serif;
+    --font-pixel: 'Pixeled', monospace;
+    --font-pixel-alt: 'Pixel', monospace;
+    --font-system: system-ui, -apple-system, sans-serif;
+    
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.4s ease;
+    --transition-slow: 0.8s ease;
+    
+    --z-base: 1;
+    --z-nav: 50;
+    --z-loading: 100;
+    --z-transition: 200;
+    --z-splash: 300;
+    --z-cursor: 9999;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-system);
+    background-color: var(--color-black);
+    color: var(--color-white);
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+body.custom-cursor-active,
+body.custom-cursor-active * {
+    cursor: none !important;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: var(--z-cursor);
+    transform: translate(-2px, -2px);
+    transition: transform 0.1s ease;
+}
+
+.cursor-image {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+.custom-cursor.hovering {
+    transform: translate(-2px, -2px) scale(1.1);
+}
+
+/* Particle Container */
+.particle-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: calc(var(--z-cursor) - 1);
+    overflow: hidden;
+}
+
+.cursor-particle {
+    position: fixed;
+    background: linear-gradient(135deg, #fff8e7, #ffd6f0);
+    pointer-events: none;
+    border-radius: 1px;
+    box-shadow: 0 0 6px 2px rgba(255, 214, 240, 0.6);
+}
+
+/* Pixel art rendering */
+.pixel-art {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
