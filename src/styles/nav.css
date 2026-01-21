@@ -273,21 +273,6 @@
     }
 }
 
-/* Icon animations */
-@keyframes sparkle {
-    0%, 100% { 
-        transform: scale(1) rotate(0deg);
-        filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.6));
-    }
-    50% { 
-        transform: scale(1.15) rotate(45deg);
-        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 1));
-    }
-}
-
-.nav-item[data-section="home"] .nav-icon {
-    animation: sparkle 2s ease-in-out infinite;
-}
 
 .nav-item[data-section="settings"] .nav-icon {
     transition: transform 0.5s ease;
