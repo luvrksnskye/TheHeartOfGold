@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: 'TheGoldenHeart';
-    src: url('./src/fonts/Thegoldenheart-Regular.otf') format('opentype');
+    src: url('../fonts/Thegoldenheart-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -12,7 +12,7 @@
 
 @font-face {
     font-family: 'Pixeled';
-    src: url('./src/fonts/Pixeled.ttf') format('truetype');
+    src: url('../fonts/Pixeled.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -20,7 +20,7 @@
 
 @font-face {
     font-family: 'Pixel';
-    src: url('./src/fonts/pixel.ttf') format('truetype');
+    src: url('../fonts/pixel.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -34,6 +34,7 @@
     --color-pink-accent: #e8789a;
     --color-purple-dark: #1a0a2e;
     --color-purple-light: #6b4c9a;
+    --color-purple-deep: #170042;
     
     --font-title: 'TheGoldenHeart', sans-serif;
     --font-pixel: 'Pixeled', monospace;
@@ -140,4 +141,39 @@ a {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Scrollbar Styling */
+.home-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.home-scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.home-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--color-pink-dark);
+    border-radius: 3px;
+}
+
+.home-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink-light);
+}
+
+/* Firefox scrollbar */
+.home-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-pink-dark) rgba(0, 0, 0, 0.2);
+}
+
+/* Selection styling */
+::selection {
+    background: var(--color-pink-dark);
+    color: var(--color-white);
+}
+
+::-moz-selection {
+    background: var(--color-pink-dark);
+    color: var(--color-white);
 }

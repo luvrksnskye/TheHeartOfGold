@@ -1,5 +1,5 @@
 /**
- * LoadingScreen - Pantalla de carga con configuracion de audio
+ * LoadingScreen - Pantalla de carga con configuracion de audio y tips
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
@@ -10,6 +10,13 @@ class LoadingScreen {
         this.container = null;
         this.textAnimation = null;
         this.bgAnimation = null;
+        this.tipInterval = null;
+        this.currentTipIndex = 0;
+        this.tips = [
+            "Ayuda",
+            "XD",
+            "Testing stuff over here",
+        ];
     }
 
     create() {
@@ -28,15 +35,23 @@ class LoadingScreen {
         const musicEnabled = audioManager.isMusicEnabled();
         const sfxEnabled = audioManager.isSfxEnabled();
         
+        // Get random initial tip
+        const initialTip = this.tips[Math.floor(Math.random() * this.tips.length)];
+        
         this.container.innerHTML = `
             <div class="loading-bg-pattern"></div>
             <div class="loading-audio-toggles">
-                <button class="audio-toggle music-toggle ${musicEnabled ? 'active' : ''}" data-type="music" aria-label="Toggle Music">
+                <button class="audio-toggle music-toggle clickable ${musicEnabled ? 'active' : ''}" data-type="music" aria-label="Toggle Music">
                     <img src="./src/assets/${musicEnabled ? 'musicon' : 'musicoff'}.png" alt="" class="toggle-icon">
                 </button>
-                <button class="audio-toggle sfx-toggle ${sfxEnabled ? 'active' : ''}" data-type="sfx" aria-label="Toggle Sound Effects">
+                <button class="audio-toggle sfx-toggle clickable ${sfxEnabled ? 'active' : ''}" data-type="sfx" aria-label="Toggle Sound Effects">
                     <img src="./src/assets/${sfxEnabled ? 'soundon' : 'soundoff'}.png" alt="" class="toggle-icon">
                 </button>
+            </div>
+            <div class="loading-tip-container">
+                <div class="loading-tip">
+                    <span class="tip-text">${initialTip}</span>
+                </div>
             </div>
             <div class="loading-corner">
                 <div class="loading-text">${letters}</div>
@@ -50,6 +65,7 @@ class LoadingScreen {
         document.body.appendChild(this.container);
         this.initAnimations();
         this.bindAudioToggles();
+        this.startTipRotation();
         return this;
     }
 
@@ -57,7 +73,8 @@ class LoadingScreen {
         const toggles = this.container.querySelectorAll('.audio-toggle');
         
         toggles.forEach(toggle => {
-            toggle.addEventListener('click', () => {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const type = toggle.dataset.type;
                 const isActive = toggle.classList.contains('active');
                 const newState = !isActive;
@@ -90,6 +107,64 @@ class LoadingScreen {
         this.animateBackground();
         this.animateText();
         this.animateToggles();
+        this.animateTipEntrance();
+    }
+
+    animateTipEntrance() {
+        const tipContainer = this.container.querySelector('.loading-tip-container');
+        gsap.fromTo(tipContainer,
+            { opacity: 0, y: 20 },
+            { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.8, 
+                ease: 'power2.out',
+                delay: 0.8
+            }
+        );
+    }
+
+    startTipRotation() {
+        this.tipInterval = setInterval(() => {
+            this.showNextTip();
+        }, 4000);
+    }
+
+    showNextTip() {
+        const tipText = this.container.querySelector('.tip-text');
+        if (!tipText) return;
+        
+        // Get random tip (different from current)
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * this.tips.length);
+        } while (newIndex === this.currentTipIndex && this.tips.length > 1);
+        
+        this.currentTipIndex = newIndex;
+        const newTip = this.tips[newIndex];
+        
+        // Animate out
+        gsap.to(tipText, {
+            opacity: 0,
+            y: -15,
+            duration: 0.3,
+            ease: 'power2.in',
+            onComplete: () => {
+                // Change text
+                tipText.textContent = newTip;
+                
+                // Animate in with typewriter-like effect
+                gsap.fromTo(tipText,
+                    { opacity: 0, y: 15 },
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 0.4, 
+                        ease: 'power2.out'
+                    }
+                );
+            }
+        });
     }
 
     animateToggles() {
@@ -190,6 +265,7 @@ class LoadingScreen {
     destroy() {
         if (this.textAnimation) this.textAnimation.kill();
         if (this.bgAnimation) this.bgAnimation.kill();
+        if (this.tipInterval) clearInterval(this.tipInterval);
         if (this.container && this.container.parentNode) {
             this.container.parentNode.removeChild(this.container);
         }

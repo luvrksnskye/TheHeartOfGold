@@ -29,7 +29,10 @@ class App {
             { type: 'image', src: './src/assets/musicon.png' },
             { type: 'image', src: './src/assets/musicoff.png' },
             { type: 'image', src: './src/assets/soundon.png' },
-            { type: 'image', src: './src/assets/soundoff.png' }
+            { type: 'image', src: './src/assets/soundoff.png' },
+            { type: 'image', src: './src/assets/arrowLx1.png' },
+            { type: 'image', src: './src/assets/barrax3.png' },
+            { type: 'image', src: './src/assets/Hud_Cat_marco.png' }
         ];
         this.isFirstVisit = this.checkFirstVisit();
     }
@@ -98,6 +101,9 @@ class App {
         stateManager.setState(AppStates.HOME);
         
         await transition.transitionOut();
+        
+        // Start home animations AFTER transition is complete
+        homeScreen.startAnimations();
     }
 
     async preloadFonts() {
