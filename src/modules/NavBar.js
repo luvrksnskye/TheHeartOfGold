@@ -10,7 +10,7 @@ class NavBar {
         this.links = [
             { name: 'Home', icon: '', submenu: null },
             { name: 'About', icon: 'fa-solid fa-angle-down', submenu: ['Overview', 'Characters'] },
-            { name: 'Socials', icon: 'fa-solid fa-angle-down', submenu: ['Twitter', 'Discord'] },
+            { name: 'Socials', icon: 'fa-solid fa-angle-down', submenu: ['Twitter(X)', 'Kickstarter'] },
             { name: 'Media', icon: 'fa-solid fa-angle-down', submenu: ['Soundtrack', 'Voice Cast'] },
             { name: 'Settings', icon: 'fa-solid fa-gear', submenu: null }
         ];
