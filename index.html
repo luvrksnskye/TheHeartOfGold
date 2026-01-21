@@ -8,6 +8,7 @@
     <meta name="theme-color" content="#c41e5c">
     <link rel="icon" type="image/x-icon" href="./src/assets/Logo.png">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="./src/styles/general.css">
     <link rel="stylesheet" href="./src/styles/styles.css">
 </head>
@@ -105,7 +106,7 @@ void main(void) {
     else { r = ellipse(flwrp, vec2(0.065, 0.024) * 0.5, vec2(0.58, 0.96) * 0.5); }
     if(r > rstop) discard;
     
-    // Color ajustado a tonos rosados/púrpura suaves
+    // Color ajustado a tonos rosados/pÃºrpura suaves
     vec3 col = mix(vec3(0.95, 0.6, 0.8), vec3(1.0, 0.85, 0.9), r);
     
     float grady = mix(0.0, 1.0, pow(coord.y * 0.5 + 0.5, 0.35));
@@ -189,7 +190,7 @@ void main(void) {
     // Mezcla de bloom suavizada
     vec4 col = srccol + bloomcol * 0.5;
     
-    // Viñeteado ajustado para mayor claridad en los bordes
+    // ViÃ±eteado ajustado para mayor claridad en los bordes
     col *= smoothstep(1.2, 0.2, pow(length((texCoord - vec2(0.5)) * 2.0), 1.2) * 0.5);
     
     col = pow(col, vec4(0.45454545454545));

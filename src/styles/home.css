@@ -1,5 +1,5 @@
 /**
- * Home Screen Styles
+ * Home Screen Styles - Steam flip solo con click, rosa pastel
  */
 
 .home-screen {
@@ -36,7 +36,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 30vh; /* Altura del difuminado */
+    height: 30vh;
     background: linear-gradient(
         to bottom,
         transparent,
@@ -44,7 +44,7 @@
     );
     z-index: 5;
 }
-/* Sakura Petals Canvas */
+
 #sakura-canvas {
     position: absolute;
     inset: 0;
@@ -120,16 +120,21 @@
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    gap: 2rem;
+    gap: 1rem;
 }
 
-/* Logo Wrapper - contains everything */
+/* Logo Wrapper - Clickeable */
 .logo-wrapper {
     position: relative;
     width: min(85vw, 650px);
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-/* Logo Container - clips shimmer to logo shape */
+.logo-wrapper:hover {
+    transform: scale(1.02);
+}
+
 .logo-container {
     position: relative;
     width: 100%;
@@ -150,9 +155,9 @@
     filter: drop-shadow(0 4px 25px rgba(255, 255, 255, 0.568));
     position: relative;
     z-index: 1;
+    will-change: transform;
 }
 
-/* Shimmer - clipped by the mask */
 .logo-shimmer {
     position: absolute;
     top: 0;
@@ -174,17 +179,15 @@
     transform: skewX(-20deg);
 }
 
-/* Sparkle Cross - cruz brillante que gira */
 .shooting-star {
     position: absolute;
-    top: 18%;
-    right: 8%;
-    width: 30px;
-    height: 30px;
+    top: 20%;
+    right: 25%;
+    width: 80px;
+    height: 80px;
     z-index: 10;
 }
 
-/* Linea horizontal de la cruz */
 .shooting-star::before {
     content: '';
     position: absolute;
@@ -203,7 +206,6 @@
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 1));
 }
 
-/* Linea vertical de la cruz */
 .shooting-star::after {
     content: '';
     position: absolute;
@@ -222,7 +224,6 @@
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 1));
 }
 
-/* Core brillante en el centro */
 .star-core {
     position: absolute;
     top: 50%;
@@ -240,10 +241,19 @@
     box-shadow: 0 0 15px rgba(255, 215, 0, 1);
 }
 
-/* Subtitle */
+/* Subtitle Container */
+.subtitle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Subtitle - Clickeable */
 .home-subtitle {
     font-family: var(--font-pixel);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: clamp(1.8rem, 4.5vw, 2.8rem);
     color: var(--color-white);
     text-transform: uppercase;
     letter-spacing: 0.2em;
@@ -252,16 +262,75 @@
     flex-wrap: wrap;
     min-height: 3.5rem;
     text-shadow: 2px 2px 4px rgba(15, 4, 42, 0.751);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.home-subtitle:hover {
+    transform: scale(1.02);
 }
 
 .subtitle-letter.space {
     width: 0.4em;
 }
+
 .subtitle-letter {
     display: inline-block;
     will-change: transform, opacity;
     transform-origin: center bottom;
-    color: var(--color-white); 
+    color: var(--color-white);
+}
+
+/* Steam Badge - Clickeable */
+.steam-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.steam-badge:hover {
+    transform: scale(1.05);
+}
+
+.steam-icon {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 2px 8px rgba(102, 192, 244, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.steam-badge:hover .steam-icon {
+    transform: rotate(5deg);
+}
+
+/* Steam Text - Sin animación automática */
+.steam-text-container {
+    display: flex;
+    gap: 0.1em;
+    perspective: 1000px;
+}
+
+.steam-letter {
+    font-family: var(--font-pixel);
+    font-size: 1.2rem;
+    color: #ffb3d9; /* Rosa pastel por defecto */
+    text-transform: uppercase;
+    display: inline-block;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(255, 179, 217, 0.5);
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: color 0.3s ease;
+}
+
+.steam-badge:hover .steam-letter {
+    color: #ff99cc; /* Rosa más intenso en hover */
 }
 
 /* ==================== */
@@ -283,7 +352,7 @@
 }
 
 .news-gradient-overlay {
-    display: none; 
+    display: none;
 }
 
 .news-content {
@@ -298,7 +367,6 @@
     padding-top: 1rem;
 }
 
-/* News Title */
 .news-title {
     font-family: var(--font-pixel);
     font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -337,7 +405,6 @@
     50% { background-position: 100% 50%; }
 }
 
-/* Carousel Wrapper */
 .news-carousel-wrapper {
     display: flex;
     align-items: center;
@@ -345,7 +412,6 @@
     width: 100%;
 }
 
-/* Navigation Arrows */
 .news-nav {
     width: 70px;
     height: 70px;
@@ -384,7 +450,6 @@
     transform: scaleX(-1);
 }
 
-/* Carousel */
 .news-carousel {
     flex: 1;
     overflow: visible;
@@ -397,15 +462,13 @@
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ==================== */
-/* News Panel - Large & Skewed */
-/* ==================== */
+/* News Panels */
 .news-panel {
     flex: 0 0 380px;
     height: 480px;
     position: relative;
     transform: skewX(-5deg);
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     cursor: pointer;
 }
 
@@ -413,7 +476,6 @@
     transform: skewX(5deg);
 }
 
-/* Panel Background using barrax3 */
 .panel-bg {
     position: absolute;
     inset: 0;
@@ -429,7 +491,6 @@
     opacity: 0.95;
 }
 
-/* Panel Content */
 .panel-content {
     position: relative;
     z-index: 2;
@@ -444,7 +505,6 @@
     background: linear-gradient(135deg, rgba(26, 10, 46, 0.8) 0%, rgba(45, 21, 72, 0.6) 100%);
     overflow: hidden;
     margin-bottom: 1rem;
-    /* Clip lateral mucho mas pronunciado hacia la izquierda */
     clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 5% 100%);
 }
 
@@ -454,8 +514,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: 
-        radial-gradient(circle at 30% 30%, rgba(196, 30, 92, 0.2) 0%, transparent 50%);
+    background: radial-gradient(circle at 30% 30%, rgba(196, 30, 92, 0.2) 0%, transparent 50%);
 }
 
 .placeholder-icon {
@@ -506,7 +565,6 @@
     overflow: hidden;
 }
 
-/* Cat Marco - hidden by default */
 .panel-cat-marco {
     position: absolute;
     bottom: -30px;
@@ -527,7 +585,6 @@
     filter: drop-shadow(0 0 20px rgba(196, 30, 92, 0.8));
 }
 
-/* Panel Hover State */
 .news-panel:hover {
     filter: brightness(1.1);
 }
@@ -536,7 +593,6 @@
     filter: brightness(1.05);
 }
 
-/* Indicators */
 .news-indicators {
     display: flex;
     gap: 0.75rem;
@@ -618,6 +674,19 @@
         right: 5%;
     }
     
+    .steam-badge {
+        gap: 0.5rem;
+    }
+    
+    .steam-icon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .steam-letter {
+        font-size: 1rem;
+    }
+    
     .home-news-section {
         padding: 3rem 1rem;
     }
@@ -645,15 +714,6 @@
     .news-carousel-track {
         gap: 1rem;
     }
-    
-    .panel-title {
-        font-size: 1rem;
-    }
-    
-    .panel-description {
-        font-size: 0.8rem;
-        -webkit-line-clamp: 2;
-    }
 }
 
 @media (max-width: 480px) {
@@ -678,7 +738,7 @@
     
     .home-subtitle {
         letter-spacing: 0.12em;
-        font-size: clamp(1.1rem, 5vw, 1.6rem);
+        font-size: clamp(1.4rem, 5vw, 2rem);
     }
     
     .shooting-star {
@@ -686,13 +746,13 @@
         height: 20px;
     }
     
-    .news-title {
-        gap: 0.4rem;
-        font-size: 0.9rem;
+    .steam-icon {
+        width: 24px;
+        height: 24px;
     }
     
-    .news-content {
-        gap: 1.5rem;
+    .steam-letter {
+        font-size: 0.9rem;
     }
     
     .news-panel {
@@ -704,29 +764,5 @@
         height: 100px;
         bottom: -15px;
         right: -20px;
-    }
-    
-    .placeholder-icon {
-        font-size: 2.5rem;
-    }
-}
-
-/* Touch device hint */
-@media (hover: none) and (pointer: coarse) {
-    .news-carousel-wrapper {
-        position: relative;
-    }
-    
-    .news-carousel-wrapper::after {
-        content: 'Swipe';
-        position: absolute;
-        bottom: -40px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--font-pixel-alt);
-        font-size: 0.7rem;
-        color: rgba(255, 255, 255, 0.25);
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
     }
 }
