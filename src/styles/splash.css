@@ -1,5 +1,6 @@
 /**
  * Splash Screen Styles
+ * The Heart of Gold
  */
 
 .splash-screen {
@@ -10,6 +11,7 @@
     align-items: center;
     justify-content: center;
     z-index: var(--z-splash);
+    padding: var(--space-xl);
 }
 
 .splash-content {
@@ -17,29 +19,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: var(--space-lg);
 }
 
 .unity-logo {
-    width: 200px;
+    width: clamp(120px, 30vw, 200px);
     height: auto;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
 }
 
 .unity-gif {
-    width: 160px;
+    width: clamp(100px, 25vw, 160px);
     height: auto;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
-}
-
-@media (max-width: 480px) {
-    .unity-logo {
-        width: 140px;
-    }
-    
-    .unity-gif {
-        width: 120px;
-    }
 }

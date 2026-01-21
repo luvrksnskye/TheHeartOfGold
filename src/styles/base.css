@@ -1,0 +1,172 @@
+/**
+ * Base Styles & Utilities
+ * The Heart of Gold
+ */
+
+/* ==================== */
+/* Font Faces */
+/* ==================== */
+
+@font-face {
+    font-family: 'TheGoldenHeart';
+    src: url('../fonts/Thegoldenheart-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixeled';
+    src: url('../fonts/Pixeled.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('../fonts/pixel.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==================== */
+/* Utility Classes */
+/* ==================== */
+
+/* Pixel Art Rendering */
+.pixel-art {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Visually Hidden (for accessibility) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Clickable elements */
+.clickable {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Prevent text selection */
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Hardware acceleration */
+.gpu {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ==================== */
+/* Scrollbar Styling */
+/* ==================== */
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-pink-dark) rgba(0, 0, 0, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-full);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-pink-dark);
+    border-radius: var(--radius-full);
+    transition: background var(--transition-fast);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-pink-main);
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* ==================== */
+/* Touch Optimizations */
+/* ==================== */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Increase tap targets on touch devices */
+    .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Disable hover effects on touch */
+    .no-touch-hover:hover {
+        transform: none !important;
+    }
+}
+
+/* ==================== */
+/* Container */
+/* ==================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container-2xl);
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-inline: var(--space-xl);
+    }
+}
+
+/* ==================== */
+/* Glass Effect */
+/* ==================== */
+
+.glass {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== */
+/* Glow Effects */
+/* ==================== */
+
+.glow-pink {
+    box-shadow: var(--shadow-glow-pink);
+}
+
+.glow-text-pink {
+    text-shadow: 0 0 10px rgba(196, 30, 92, 0.5);
+}
