@@ -1,7 +1,3 @@
-/**
- * App - Controlador principal de la aplicacion
- */
-
 import stateManager, { AppStates } from './utils/StateManager.js';
 import assetLoader from './utils/AssetLoader.js';
 import audioManager from './utils/AudioManager.js';
@@ -20,7 +16,6 @@ class App {
             { type: 'font', name: 'Pixel', src: './src/fonts/pixel.ttf' },
             { type: 'image', src: './src/assets/bg.png' },
             { type: 'image', src: './src/assets/loading.gif' },
-            { type: 'image', src: './src/assets/transition_01_in.png' },
             { type: 'image', src: './src/assets/unity_logo.gif' },
             { type: 'image', src: './src/assets/unity.png' },
             { type: 'image', src: './src/assets/Logo_main.svg' },
@@ -38,112 +33,56 @@ class App {
     }
 
     checkFirstVisit() {
-        try {
-            const visited = localStorage.getItem('hasVisited');
-            if (!visited) {
-                localStorage.setItem('hasVisited', 'true');
-                return true;
-            }
-            return false;
-        } catch {
-            return true;
-        }
+        try { const v = localStorage.getItem('hasVisited'); if (!v) { localStorage.setItem('hasVisited', 'true'); return true; } return false; } catch { return true; }
     }
 
     async init() {
         stateManager.on('stateChange', this.handleStateChange.bind(this));
-        
         cursorManager.init();
         transition.init();
-        
         await this.startSequence();
     }
 
     async startSequence() {
         stateManager.setState(AppStates.SPLASH);
-        
         await this.preloadFonts();
-        
         splashScreen.create();
         await splashScreen.play();
         splashScreen.destroy();
-        
+
         stateManager.setState(AppStates.TRANSITION_TO_LOADING);
-        
         loadingScreen.create();
-        
         await transition.transitionIn();
         await loadingScreen.show();
-        
         stateManager.setState(AppStates.LOADING);
-        
         await transition.transitionOut();
-        
-        assetLoader.onProgress((progress) => {
-            loadingScreen.updateProgress(progress);
-        });
-        
+
+        assetLoader.onProgress((p) => loadingScreen.updateProgress(p));
         await this.loadAssets();
-        
-        const minLoadTime = this.isFirstVisit ? 40000 : 2000;
-        await this.delay(minLoadTime);
-        
+        await this.delay(this.isFirstVisit ? 3000 : 1500);
+
         stateManager.setState(AppStates.TRANSITION_TO_HOME);
-        
         navBar.create();
         homeScreen.create();
-        
         await transition.transitionIn();
         loadingScreen.destroy();
         await homeScreen.show();
         await navBar.show();
-        
         stateManager.setState(AppStates.HOME);
-        
         await transition.transitionOut();
-        
-        // Start home animations AFTER transition is complete
         homeScreen.startAnimations();
     }
 
     async preloadFonts() {
-        const fonts = [
-            { name: 'TheGoldenHeart', src: './src/fonts/Thegoldenheart-Regular.otf' },
-            { name: 'Pixeled', src: './src/fonts/Pixeled.ttf' },
-            { name: 'Pixel', src: './src/fonts/pixel.ttf' }
-        ];
-
-        const promises = fonts.map(async ({ name, src }) => {
-            try {
-                const font = new FontFace(name, `url(${src})`);
-                const loadedFont = await font.load();
-                document.fonts.add(loadedFont);
-            } catch (error) {
-                console.warn(`Font ${name} preload failed:`, error);
-            }
-        });
-
-        await Promise.all(promises);
+        const fonts = [{ name: 'TheGoldenHeart', src: './src/fonts/Thegoldenheart-Regular.otf' }, { name: 'Pixeled', src: './src/fonts/Pixeled.ttf' }, { name: 'Pixel', src: './src/fonts/pixel.ttf' }];
+        await Promise.all(fonts.map(async ({ name, src }) => { try { const f = new FontFace(name, `url(${src})`); document.fonts.add(await f.load()); } catch {} }));
     }
 
-    async loadAssets() {
-        await assetLoader.loadAll(this.assetsToLoad);
-        stateManager.setAssetsLoaded(true);
-    }
-
-    delay(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    handleStateChange({ current, previous }) {
-        document.body.setAttribute('data-state', current);
-    }
+    async loadAssets() { await assetLoader.loadAll(this.assetsToLoad); stateManager.setAssetsLoaded(true); }
+    delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+    handleStateChange({ current }) { document.body.setAttribute('data-state', current); }
 }
 
 const app = new App();
-
-document.addEventListener('DOMContentLoaded', () => {
-    app.init();
-});
-
+document.addEventListener('DOMContentLoaded', () => app.init());
 export default app;

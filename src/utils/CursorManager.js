@@ -1,28 +1,29 @@
-/**
- * CursorManager - Cursor personalizado con efectos de particulas
- */
-
 class CursorManager {
     constructor() {
         this.cursor = null;
         this.particleContainer = null;
         this.isHovering = false;
         this.particles = [];
+        this.particlePool = [];
         this.animationFrame = null;
+        this.maxParticles = 50;
+        this.isActive = false;
     }
 
     init() {
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
         this.createCursor();
         this.createParticleContainer();
         this.bindEvents();
         this.startParticleLoop();
         document.body.classList.add('custom-cursor-active');
+        this.isActive = true;
     }
 
     createCursor() {
         this.cursor = document.createElement('div');
         this.cursor.className = 'custom-cursor';
-        this.cursor.innerHTML = `<img src="./src/assets/Cursor.png" alt="" class="cursor-image">`;
+        this.cursor.innerHTML = '<img src="./src/assets/Cursor.png" alt="" class="cursor-image">';
         document.body.appendChild(this.cursor);
     }
 
@@ -33,108 +34,56 @@ class CursorManager {
     }
 
     bindEvents() {
-        document.addEventListener('mousemove', (e) => this.onMouseMove(e));
-        
-        document.addEventListener('mouseover', (e) => {
-            const target = e.target;
-            if (this.isClickable(target)) {
-                this.isHovering = true;
-                this.cursor.classList.add('hovering');
-            }
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            const target = e.target;
-            if (this.isClickable(target)) {
-                this.isHovering = false;
-                this.cursor.classList.remove('hovering');
-            }
-        });
+        document.addEventListener('mousemove', this.onMouseMove.bind(this), { passive: true });
+        document.addEventListener('mouseover', (e) => { if (this.isClickable(e.target)) { this.isHovering = true; this.cursor.classList.add('hovering'); } }, { passive: true });
+        document.addEventListener('mouseout', (e) => { if (this.isClickable(e.target)) { this.isHovering = false; this.cursor.classList.remove('hovering'); } }, { passive: true });
     }
 
-    isClickable(element) {
-        if (!element) return false;
-        const clickableTags = ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'];
-        const hasClickableClass = element.classList && (
-            element.classList.contains('clickable') ||
-            element.classList.contains('audio-toggle') ||
-            element.classList.contains('nav-link')
-        );
-        const hasOnClick = element.onclick !== null;
-        const isClickableTag = clickableTags.includes(element.tagName);
-        const hasPointerCursor = window.getComputedStyle(element).cursor === 'pointer';
-        
-        return isClickableTag || hasClickableClass || hasOnClick || hasPointerCursor;
+    isClickable(el) {
+        if (!el) return false;
+        const tags = ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'];
+        const hasClass = el.classList && (el.classList.contains('clickable') || el.classList.contains('audio-toggle') || el.classList.contains('nav-link') || el.classList.contains('news-panel'));
+        return tags.includes(el.tagName) || hasClass;
     }
 
     onMouseMove(e) {
-        if (this.cursor) {
-            this.cursor.style.left = `${e.clientX}px`;
-            this.cursor.style.top = `${e.clientY}px`;
-        }
-
-        if (this.isHovering && Math.random() > 0.6) {
-            this.createParticle(e.clientX, e.clientY);
-        }
+        if (this.cursor) { this.cursor.style.left = `${e.clientX}px`; this.cursor.style.top = `${e.clientY}px`; }
+        if (this.isHovering && Math.random() > 0.7 && this.particles.length < this.maxParticles) this.createParticle(e.clientX, e.clientY);
     }
 
+    getParticleFromPool() { return this.particlePool.length > 0 ? this.particlePool.pop() : Object.assign(document.createElement('div'), { className: 'cursor-particle' }); }
+    returnParticleToPool(p) { p.style.opacity = '0'; this.particlePool.push(p); }
+
     createParticle(x, y) {
-        const particle = document.createElement('div');
-        particle.className = 'cursor-particle';
-        
-        const offsetX = (Math.random() - 0.5) * 20;
-        const offsetY = (Math.random() - 0.5) * 20;
-        const size = Math.random() * 4 + 2;
-        
-        particle.style.left = `${x + offsetX}px`;
-        particle.style.top = `${y + offsetY}px`;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        this.particleContainer.appendChild(particle);
-        
-        const particleData = {
-            element: particle,
-            life: 1,
-            decay: 0.02 + Math.random() * 0.02,
-            vx: (Math.random() - 0.5) * 2,
-            vy: -Math.random() * 2 - 1
-        };
-        
-        this.particles.push(particleData);
+        const p = this.getParticleFromPool();
+        const ox = (Math.random() - 0.5) * 20, oy = (Math.random() - 0.5) * 20, sz = Math.random() * 4 + 2;
+        p.style.left = `${x + ox}px`; p.style.top = `${y + oy}px`; p.style.width = `${sz}px`; p.style.height = `${sz}px`; p.style.opacity = '1';
+        this.particleContainer.appendChild(p);
+        this.particles.push({ element: p, x: x + ox, y: y + oy, life: 1, decay: 0.02 + Math.random() * 0.02, vx: (Math.random() - 0.5) * 2, vy: -Math.random() * 2 - 1 });
     }
 
     startParticleLoop() {
-        const update = () => {
-            this.particles = this.particles.filter(p => {
-                p.life -= p.decay;
-                p.element.style.opacity = p.life;
-                
-                const currentX = parseFloat(p.element.style.left);
-                const currentY = parseFloat(p.element.style.top);
-                p.element.style.left = `${currentX + p.vx}px`;
-                p.element.style.top = `${currentY + p.vy}px`;
-                
-                if (p.life <= 0) {
-                    p.element.remove();
-                    return false;
-                }
-                return true;
-            });
-            
+        let last = performance.now();
+        const update = (now) => {
+            const dt = (now - last) / 16.67; last = now;
+            for (let i = this.particles.length - 1; i >= 0; i--) {
+                const p = this.particles[i];
+                p.life -= p.decay * dt;
+                if (p.life <= 0) { p.element.remove(); this.returnParticleToPool(p.element); this.particles.splice(i, 1); continue; }
+                p.x += p.vx * dt; p.y += p.vy * dt;
+                p.element.style.opacity = p.life; p.element.style.left = `${p.x}px`; p.element.style.top = `${p.y}px`;
+            }
             this.animationFrame = requestAnimationFrame(update);
         };
-        
-        update();
+        this.animationFrame = requestAnimationFrame(update);
     }
 
     destroy() {
-        if (this.animationFrame) {
-            cancelAnimationFrame(this.animationFrame);
-        }
+        if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
         if (this.cursor) this.cursor.remove();
         if (this.particleContainer) this.particleContainer.remove();
         document.body.classList.remove('custom-cursor-active');
+        this.particles = []; this.particlePool = []; this.isActive = false;
     }
 }
 

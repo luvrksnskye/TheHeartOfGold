@@ -6,7 +6,7 @@
     position: fixed;
     inset: 0;
     z-index: var(--z-base);
-    background-color: #1a0a2e;
+    background-color: #fca5ff;
 }
 
 .home-scroll-container {
@@ -23,10 +23,36 @@
 .home-hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 130vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+.home-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30vh; /* Altura del difuminado */
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--color-purple-deep)
+    );
+    z-index: 5;
+}
+/* Sakura Petals Canvas */
+#sakura-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-petals);
+    pointer-events: none;
+    background: transparent;
 }
 
 .home-bg {
@@ -87,7 +113,7 @@
 /* Home Content */
 .home-content {
     position: relative;
-    z-index: 2;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -121,7 +147,7 @@
 .home-logo {
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 4px 25px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 4px 25px rgba(255, 255, 255, 0.568));
     position: relative;
     z-index: 1;
 }
@@ -225,17 +251,17 @@
     justify-content: center;
     flex-wrap: wrap;
     min-height: 3.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.subtitle-letter {
-    display: inline-block;
-    will-change: transform, opacity;
-    transform-origin: center bottom;
+    text-shadow: 2px 2px 4px rgba(15, 4, 42, 0.751);
 }
 
 .subtitle-letter.space {
     width: 0.4em;
+}
+.subtitle-letter {
+    display: inline-block;
+    will-change: transform, opacity;
+    transform-origin: center bottom;
+    color: var(--color-white); 
 }
 
 /* ==================== */
@@ -251,26 +277,13 @@
     justify-content: flex-start;
     background: linear-gradient(
         180deg,
-        var(--color-purple-deep, #170042) 0%,
-        var(--color-purple-dark, #1a0a2e) 25%,
-        #0f0620 100%
+        var(--color-purple-deep) 0%,
+        var(--color-purple-dark) 100%
     );
 }
 
 .news-gradient-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    background: linear-gradient(
-        180deg,
-        #170042 0%,
-        #170042 50%,
-        transparent 100%
-    );
-    z-index: 1;
-    pointer-events: none;
+    display: none; 
 }
 
 .news-content {
