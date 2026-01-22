@@ -53,11 +53,8 @@ class HomeScreen {
                                 <div class="steam-text-container">
                                     <span class="steam-letter">S</span>
                                     <span class="steam-letter">T</span>
-                                    <span class="steam-letter">E</span>
-                                    <span class="steam-letter">A</span>
-                                    <span class="steam-letter">M</span>
-                                </div>
-                            </div>
+                                                                    </div>
+                            </button>
                         </div>
                     </div>
                 </section>
