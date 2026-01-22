@@ -8,7 +8,7 @@ class NavBar {
     constructor() {
         this.container = null;
         this.links = [
-            { name: 'Home', icon: 'fa-solid fa-house', submenu: null },
+            { name: 'Homepage', icon: 'fa-solid fa-house', submenu: null },
             { name: 'About', icon: 'fa-solid fa-angle-down', submenu: ['Overview', 'Characters'] },
             { name: 'Socials', icon: 'fa-solid fa-angle-down', submenu: ['Twitter (X)', 'Kickstarter'] },
             { name: 'Media', icon: 'fa-solid fa-angle-down', submenu: ['Soundtrack', 'Voice Cast'] },
