@@ -35,7 +35,6 @@
     overflow: hidden;
 }
 
-/* Gradient fade to next section */
 .home-hero::after {
     content: '';
     position: absolute;
@@ -43,16 +42,11 @@
     left: 0;
     width: 100%;
     height: 30vh;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        var(--color-purple-deep)
-    );
+    background: linear-gradient(to bottom, transparent, var(--color-purple-deep));
     z-index: 5;
     pointer-events: none;
 }
 
-/* Sakura Canvas */
 #sakura-canvas {
     position: absolute;
     inset: 0;
@@ -63,7 +57,6 @@
     background: transparent;
 }
 
-/* Background Image */
 .home-bg {
     position: absolute;
     inset: 0;
@@ -76,7 +69,10 @@
     z-index: 1;
 }
 
+/* ==================== */
 /* Audio Toggles */
+/* ==================== */
+
 .home-audio-toggles {
     position: absolute;
     top: var(--space-xl);
@@ -84,7 +80,7 @@
     z-index: 20;
     display: flex;
     gap: var(--space-md);
-    padding-top: calc(var(--safe-top) + 60px); /* Below navbar */
+    padding-top: calc(var(--safe-top) + 60px);
     padding-left: var(--safe-left);
 }
 
@@ -143,7 +139,10 @@
     gap: var(--space-md);
 }
 
-/* Logo Wrapper */
+/* ==================== */
+/* Logo */
+/* ==================== */
+
 .logo-wrapper {
     position: relative;
     width: min(85vw, 650px);
@@ -182,7 +181,6 @@
     will-change: transform, opacity;
 }
 
-/* Logo Shimmer Effect */
 .logo-shimmer {
     position: absolute;
     top: 0;
@@ -205,7 +203,10 @@
     will-change: transform, opacity;
 }
 
+/* ==================== */
 /* Shooting Star */
+/* ==================== */
+
 .shooting-star {
     position: absolute;
     top: 20%;
@@ -223,12 +224,7 @@
     left: 50%;
     width: 100%;
     height: 3px;
-    background: linear-gradient(
-        90deg,
-        rgba(255, 200, 50, 0),
-        rgba(255, 240, 180, 1) 50%,
-        rgba(255, 200, 50, 0)
-    );
+    background: linear-gradient(90deg, rgba(255, 200, 50, 0), rgba(255, 240, 180, 1) 50%, rgba(255, 200, 50, 0));
     transform: translate(-50%, -50%);
     border-radius: var(--radius-full);
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 1));
@@ -241,12 +237,7 @@
     left: 50%;
     width: 3px;
     height: 100%;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 200, 50, 0),
-        rgba(255, 240, 180, 1) 50%,
-        rgba(255, 200, 50, 0)
-    );
+    background: linear-gradient(180deg, rgba(255, 200, 50, 0), rgba(255, 240, 180, 1) 50%, rgba(255, 200, 50, 0));
     transform: translate(-50%, -50%);
     border-radius: var(--radius-full);
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 1));
@@ -258,12 +249,7 @@
     left: 50%;
     width: 8px;
     height: 8px;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 230, 150, 0.8) 50%,
-        transparent 100%
-    );
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 230, 150, 0.8) 50%, transparent 100%);
     transform: translate(-50%, -50%);
     border-radius: 50%;
     box-shadow: 0 0 15px rgba(255, 215, 0, 1);
@@ -311,47 +297,95 @@
     width: 0.4em;
 }
 
-/* Steam Badge */
-.steam-badge {
+/* ==================== */
+/* Platform Badges (Steam & Kickstarter) */
+/* ==================== */
+
+.platform-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.platform-badge {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
-    padding: 0;
-    background: none;
-    border: none;
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(0, 0, 0, 0.086);
+    border-radius: var(--radius-md);
+    border: 2px solid transparent;
     cursor: pointer;
-    transition: transform var(--transition-bounce);
+    text-decoration: none;
+    transition: 
+        transform var(--transition-bounce),
+        background var(--transition-normal),
+        border-color var(--transition-normal),
+        box-shadow var(--transition-normal);
+}
+
+.platform-badge:hover {
+    transform: scale(1.08);
+    background: rgba(0, 0, 0, 0.022);
+}
+
+.platform-badge:active {
+    transform: scale(0.95);
+}
+
+/* Steam Badge Specific */
+.steam-badge {
+    border-color: rgba(255, 179, 231, 0.3);
 }
 
 .steam-badge:hover {
-    transform: scale(1.05);
-}
-
-.steam-badge:active {
-    transform: scale(0.95);
+    border-color: rgba(255, 110, 178, 0.37);
+    box-shadow: 0 0 20px rgba(255, 148, 207, 0.28);
 }
 
 .steam-icon {
     width: 32px;
     height: 32px;
-    filter: drop-shadow(0 2px 8px rgba(102, 192, 244, 0.5));
+    filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.534));
     transition: transform var(--transition-normal);
 }
 
 .steam-badge:hover .steam-icon {
-    transform: rotate(5deg);
+    transform: rotate(5deg) scale(1.1);
 }
 
-/* Steam Text */
-.steam-text-container {
+/* Kickstarter Badge Specific */
+.kickstarter-badge {
+    border-color: rgba(231, 183, 255, 0.3);
+}
+
+.kickstarter-badge:hover {
+    border-color: rgba(200, 152, 255, 0.7);
+    box-shadow: 0 0 20px rgba(59, 5, 206, 0.4);
+}
+
+.kickstarter-badge:hover .kickstarter-icon {
+    transform: rotate(-5deg) scale(1.1);
+}
+
+/* Platform Icon Common */
+.platform-icon {
+    image-rendering: auto;
+    flex-shrink: 0;
+}
+
+/* Platform Text Container */
+.platform-text-container {
     display: flex;
-    gap: 0.1em;
+    gap: 0.05em;
     perspective: 1000px;
 }
 
-.steam-letter {
+.platform-letter {
     font-family: var(--font-pixel);
-    font-size: var(--fs-lg);
+    font-size: var(--fs-md);
     color: var(--color-pink-accent);
     text-transform: uppercase;
     display: inline-block;
@@ -363,6 +397,63 @@
     transition: color var(--transition-normal);
 }
 
-.steam-badge:hover .steam-letter {
-    color: #ff99cc;
+.steam-badge .platform-letter {
+    color: #ffb6dc;
+}
+
+.steam-badge:hover .platform-letter {
+    color: #ff95cd;
+    text-shadow: 
+        0 2px 4px rgba(43, 0, 34, 0.324),
+        0 0 15px rgba(111, 0, 68, 0.495);
+}
+
+.kickstarter-badge .platform-letter {
+    color: #bc86ff;
+}
+
+.kickstarter-badge:hover .platform-letter {
+    color: #d5a6ff;
+    text-shadow: 
+        0 2px 4px rgba(157, 95, 255, 0.5),
+        0 0 15px rgba(92, 5, 206, 0.7);
+}
+
+/* ==================== */
+/* Responsive - Platform Badges */
+/* ==================== */
+
+@media (max-width: 639px) {
+    .platform-badges {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .platform-badge {
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .platform-icon {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .platform-letter {
+        font-size: var(--fs-sm);
+    }
+}
+
+@media (max-width: 479px) {
+    .platform-badges {
+        gap: var(--space-sm);
+    }
+    
+    .platform-icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .platform-letter {
+        font-size: var(--fs-xs);
+    }
 }

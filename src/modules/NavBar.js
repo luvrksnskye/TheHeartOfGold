@@ -1,5 +1,6 @@
 /**
- * NavBar - Barra de navegacion principal con menús desplegables
+ * NavBar - Main Navigation Bar with Dropdown Menus
+ * The Heart of Gold
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
@@ -8,11 +9,19 @@ class NavBar {
     constructor() {
         this.container = null;
         this.links = [
-            { name: 'Homepage', icon: 'fa-solid fa-house', submenu: null },
-            { name: 'About', icon: 'fa-solid fa-angle-down', submenu: ['Overview', 'Characters'] },
-            { name: 'Socials', icon: 'fa-solid fa-angle-down', submenu: ['Twitter (X)', 'Kickstarter'] },
-            { name: 'Media', icon: 'fa-solid fa-angle-down', submenu: ['Soundtrack', 'Voice Cast'] },
-            { name: 'Settings', icon: 'fa-solid fa-gear', submenu: null }
+            { name: 'Homepage', icon: 'fa-solid fa-house', submenu: null, href: '#homepage' },
+            { name: 'About', icon: 'fa-solid fa-angle-down', submenu: [
+                { name: 'Overview', href: '#overview' },
+                { name: 'Characters', href: '#characters' }
+            ]},
+            { name: 'Socials', icon: 'fa-solid fa-angle-down', submenu: [
+                { name: 'Twitter (X)', href: 'https://x.com/TheHeartOfGold7', external: true }
+            ]},
+            { name: 'Media', icon: 'fa-solid fa-angle-down', submenu: [
+                { name: 'Soundtrack', href: '#soundtrack' },
+                { name: 'Voice Cast', href: '#voice-cast' }
+            ]},
+            { name: 'Settings', icon: 'fa-solid fa-gear', submenu: null, href: '#settings' }
         ];
         this.activeDropdown = null;
     }
@@ -27,8 +36,11 @@ class NavBar {
             const submenuHtml = hasSubmenu ? `
                 <div class="nav-submenu">
                     ${link.submenu.map(item => `
-                        <a href="#${item.toLowerCase().replace(' ', '-')}" class="nav-submenu-item clickable">
-                            ${item}
+                        <a href="${item.href}" 
+                           class="nav-submenu-item clickable"
+                           ${item.external ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+                            ${item.name}
+                            ${item.external ? '<i class="fa-solid fa-arrow-up-right-from-square nav-external-icon"></i>' : ''}
                         </a>
                     `).join('')}
                 </div>
@@ -36,7 +48,7 @@ class NavBar {
             
             return `
                 <div class="nav-item ${hasSubmenu ? 'has-submenu' : ''}" data-section="${link.name.toLowerCase()}">
-                    <a href="#${link.name.toLowerCase()}" class="nav-link clickable">
+                    <a href="${link.href || '#'}" class="nav-link clickable">
                         <span class="nav-link-text">${link.name}</span>
                         <i class="${link.icon} nav-icon"></i>
                     </a>
@@ -89,29 +101,41 @@ class NavBar {
                 item.addEventListener('mouseleave', () => {
                     this.hideSubmenu(submenu);
                 });
-            }
-            
-            // Click en el link principal
-            const link = item.querySelector('.nav-link');
-            link.addEventListener('click', (e) => {
-                if (!hasSubmenu) {
+                
+                const link = item.querySelector('.nav-link');
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const section = item.dataset.section;
-                    console.log(`Navigate to: ${section}`);
-                    // TODO: Implementar navegacion
-                }
-            });
+                });
+            } else {
+                const link = item.querySelector('.nav-link');
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const section = item.dataset.section;
+                        this.navigateToSection(section);
+                    }
+                });
+            }
         });
         
-        // Click en items del submenu
         const submenuItems = this.container.querySelectorAll('.nav-submenu-item');
         submenuItems.forEach(subitem => {
             subitem.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log(`Navigate to: ${subitem.textContent.trim()}`);
-                // TODO: Implementar navegacion
+                const href = subitem.getAttribute('href');
+                const isExternal = subitem.hasAttribute('target');
+                
+                if (!isExternal && href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const sectionName = subitem.textContent.trim();
+                    this.navigateToSection(sectionName.toLowerCase().replace(/\s+/g, '-'));
+                }
             });
         });
+    }
+
+    navigateToSection(section) {
+        console.log(`Navigate to: ${section}`);
     }
 
     showSubmenu(submenu) {
