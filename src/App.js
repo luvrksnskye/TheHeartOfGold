@@ -1,6 +1,6 @@
 /**
  * Main Application Entry Point
- * All documentation and comments are included for clarity.
+ * The Heart of Gold
  */
 
 import stateManager, { AppStates } from './utils/StateManager.js';
@@ -43,9 +43,6 @@ class App {
         this.shadersReady = false;
     }
 
-    /**
-     * Check if this is the user's first visit
-     */
     checkFirstVisit() {
         try {
             const visited = localStorage.getItem('thog_visited');
@@ -59,37 +56,18 @@ class App {
         }
     }
 
-    /**
-     * Initialize the application
-     */
     async init() {
-        // Set up state change listener
         stateManager.on('stateChange', this.handleStateChange.bind(this));
-        
-        // Initialize cursor (only on non-touch devices)
         cursorManager.init();
-        
-        // Initialize transition overlay
         transition.init();
-        
-        // Start the main sequence
         await this.startSequence();
     }
 
-    /**
-     * Preload and compile shaders during loading screen
-     * This ensures sakura petals are ready when Home appears
-     */
     async preloadShaders() {
         try {
-            // Wait for shader script elements to be in DOM
             await this.waitForShaderScripts();
-            
-            // Precompile shaders (doesn't create canvas yet)
             const success = await sakuraPetals.preload();
             this.shadersReady = success;
-            
-            console.log('Shaders preloaded:', success);
             return success;
         } catch (error) {
             console.error('Shader preload error:', error);
@@ -97,9 +75,6 @@ class App {
         }
     }
 
-    /**
-     * Wait for all shader script elements to be available in DOM
-     */
     waitForShaderScripts() {
         return new Promise((resolve) => {
             const requiredScripts = [
@@ -126,7 +101,6 @@ class App {
                 }
             };
             
-            // Start checking
             if (document.readyState === 'complete') {
                 checkScripts();
             } else {
@@ -135,18 +109,15 @@ class App {
         });
     }
 
-    /**
-     * Main startup sequence
-     */
     async startSequence() {
-        // ========== SPLASH SCREEN ==========
+        // Splash Screen
         stateManager.setState(AppStates.SPLASH);
         await this.preloadFonts();
         splashScreen.create();
         await splashScreen.play();
         splashScreen.destroy();
 
-        // ========== TRANSITION TO LOADING ==========
+        // Transition to Loading
         stateManager.setState(AppStates.TRANSITION_TO_LOADING);
         loadingScreen.create();
         await transition.transitionIn();
@@ -154,8 +125,7 @@ class App {
         stateManager.setState(AppStates.LOADING);
         await transition.transitionOut();
 
-        // ========== LOADING PHASE ==========
-        // Load assets AND precompile shaders in parallel
+        // Loading Phase
         assetLoader.onProgress((p) => loadingScreen.updateProgress(p));
         
         const [assetsLoaded, shadersLoaded] = await Promise.all([
@@ -163,39 +133,27 @@ class App {
             this.preloadShaders()
         ]);
         
-        console.log('Assets loaded:', assetsLoaded, 'Shaders loaded:', shadersLoaded);
-        
-        // Wait a bit for visual feedback
         await this.delay(this.isFirstVisit ? 2500 : 1200);
 
-        // ========== TRANSITION TO HOME ==========
+        // Transition to Home
         stateManager.setState(AppStates.TRANSITION_TO_HOME);
         
-        // Create home screen and navbar (sakura petals init here, shaders already compiled)
         navBar.create();
         homeScreen.create();
-        
-        // Initialize sakura petals BEFORE transition completes
-        // This way petals are rendering when the screen is revealed
         homeScreen.initPetals();
         
         await transition.transitionIn();
         loadingScreen.destroy();
         
-        // Show elements
         await homeScreen.show();
         await navBar.show();
         
         stateManager.setState(AppStates.HOME);
         await transition.transitionOut();
         
-        // Start other animations (logo, subtitle, etc.)
         homeScreen.startAnimations();
     }
 
-    /**
-     * Preload fonts for splash screen
-     */
     async preloadFonts() {
         const fonts = [
             { name: 'TheGoldenHeart', src: './src/fonts/Thegoldenheart-Regular.otf' },
@@ -214,31 +172,21 @@ class App {
         }));
     }
 
-    /**
-     * Load all assets
-     */
     async loadAssets() {
         await assetLoader.loadAll(this.assetsToLoad);
         stateManager.setAssetsLoaded(true);
         return true;
     }
 
-    /**
-     * Utility delay function
-     */
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    /**
-     * Handle state changes
-     */
     handleStateChange({ current }) {
         document.body.setAttribute('data-state', current);
     }
 }
 
-// Create and initialize app
 const app = new App();
 document.addEventListener('DOMContentLoaded', () => app.init());
 

@@ -160,8 +160,8 @@ class NewsCarousel {
                      data-category="${n.category}">
                 <div class="panel-bg">
                     <img src="./src/assets/barrax3.png" alt="" class="panel-bar">
+                    <div class="panel-shimmer"></div>
                 </div>
-                <div class="panel-shimmer"></div>
                 <div class="panel-content clickable">
                     <div class="panel-image">
                         <div class="panel-image-placeholder">

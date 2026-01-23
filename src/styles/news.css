@@ -1,4 +1,5 @@
-/*
+/**
+ * News Section Styles
  * The Heart of Gold
  */
 
@@ -11,6 +12,7 @@
     min-height: 100vh;
     min-height: 100dvh;
     padding: var(--space-3xl) var(--space-xl);
+    padding-bottom: var(--space-4xl);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -311,19 +313,8 @@
     transform-style: preserve-3d;
 }
 
-.news-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 360px;
-    height: 450px;
-    transform: skewX(-5deg);
-    cursor: pointer;
-    will-change: transform, opacity;
-}
-
 /* ==================== */
-/* News Panel - Original Style Enhanced */
+/* News Panel - Fixed Shimmer */
 /* ==================== */
 
 .news-panel {
@@ -336,17 +327,15 @@
     cursor: pointer;
     will-change: transform, opacity;
     transform-style: preserve-3d;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
 }
 
 .news-panel.featured {
     width: 380px;
 }
 
-.news-panel > * {
-    transform: skewX(5deg);
-}
-
-/* Panel Background */
+/* Panel Background - Contains the shimmer */
 .panel-bg {
     position: absolute;
     inset: 0;
@@ -360,9 +349,10 @@
     object-fit: cover;
     image-rendering: pixelated;
     opacity: 0.95;
+    transform: skewX(5deg) scale(1.1);
 }
 
-/* Panel Shimmer */
+/* Panel Shimmer - Now contained properly */
 .panel-shimmer {
     position: absolute;
     inset: 0;
@@ -370,15 +360,14 @@
         100deg,
         transparent 0%,
         rgba(255, 255, 255, 0) 25%,
-        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0.4) 50%,
         rgba(255, 255, 255, 0) 75%,
         transparent 100%
     );
-    transform: translateX(-100%);
+    transform: translateX(-100%) skewX(5deg);
     opacity: 0;
-    z-index: 3;
+    z-index: 10;
     pointer-events: none;
-    border-radius: var(--radius-lg);
 }
 
 /* Panel Content */
@@ -389,6 +378,7 @@
     display: flex;
     flex-direction: column;
     padding: var(--space-lg);
+    transform: skewX(5deg);
 }
 
 .panel-image {
@@ -619,4 +609,3 @@
         drop-shadow(0 0 35px rgba(255, 179, 217, 0.25));
     opacity: 0.8;
 }
-
