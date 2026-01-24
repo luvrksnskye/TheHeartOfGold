@@ -19,24 +19,27 @@ class GameFeatures {
         this.timelines = [];
         
         this.features = [
-            {
-                id: 'team',
-                number: '01',
-                title: 'Build Your Dream Team',
-                subtitle: 'Strategic Party System'
-            },
-            {
-                id: 'combat',
-                number: '02', 
-                title: 'Intense Bullet Heaven Combat',
-                subtitle: 'Fast-Paced Action'
-            },
-            {
-                id: 'shop',
-                number: '03',
-                title: 'Upgrade & Evolve',
-                subtitle: 'Deep Equipment System'
-            }
+    {
+        id: 'team', 
+        number: '01',
+        title: 'Strategic Party System',
+        subtitle: 'Build Your Dream Team',
+        description: 'Command a roster of 18 visually unique characters, each with distinct combat styles and voice acting. Venture into RPG-style dungeons using up to 14 heroes divided into two specialized squads to gather rare materials and experience.'
+    },
+    {
+        id: 'combat', 
+        number: '02', 
+        title: 'Intense Bullet Heaven',
+        subtitle: 'Survival of the Fittest',
+        description: 'Face thousands of creatures in maps with dynamic day/night cycles. Master a deep combat system featuring unique stat scaling, two active skills, and powerful Ultimates to survive the waves before time runs out.'
+    },
+    {
+        id: 'shop', 
+        number: '03',
+        title: 'Deep Evolution System',
+        subtitle: 'Upgrade And Gachapon',
+        description: 'Enhance your power through a unique Gachapon system using in-game coins to collect stat-boosting cards. Evolve your weaponry at the blacksmith, unlocking devastating forms through specific item synergies and level mastery.'
+    }
         ];
     }
 
@@ -60,7 +63,7 @@ class GameFeatures {
                 <div class="gf-left-panel">
                     <div class="gf-panel-inner">
                         <div class="gf-label">
-                            <span class="gf-label-text">Game Features</span>
+                            <span class="gf-label-text">// Game Features //</span>
                         </div>
                         <div class="gf-number">03</div>
                         <div class="gf-indicators">
@@ -100,9 +103,10 @@ class GameFeatures {
                     <!-- Info bar at bottom right -->
                     <div class="gf-info-bar">
                         <div class="gf-info-content">
-                            <h3 class="gf-title">${this.features[0].title},</h3>
-                            <p class="gf-subtitle">${this.features[0].subtitle}</p>
-                        </div>
+    <h3 class="gf-title">${this.features[0].title},</h3>
+    <p class="gf-subtitle">${this.features[0].subtitle}</p>
+    <p class="gf-description">${this.features[0].description}</p> 
+    </div>
                     </div>
                 </div>
             </div>
@@ -131,6 +135,7 @@ class GameFeatures {
         this.nextBtn = this.container.querySelector('.gf-next');
         this.infoTitle = this.container.querySelector('.gf-title');
         this.infoSubtitle = this.container.querySelector('.gf-subtitle');
+        this.infoDescription = this.container.querySelector('.gf-description');
     }
 
     initVideos() {
@@ -230,15 +235,22 @@ class GameFeatures {
         const tl = gsap.timeline();
         this.timelines.push(tl);
         
-        tl.to([this.infoTitle, this.infoSubtitle], { y: dir * -20, opacity: 0, scaleY: 0.85, duration: 0.15, stagger: 0.03, ease: 'power2.in' })
-          .call(() => {
-              this.infoTitle.textContent = feature.title + ',';
-              this.infoSubtitle.textContent = feature.subtitle;
-          })
-          .fromTo([this.infoTitle, this.infoSubtitle], 
-              { y: dir * 20, opacity: 0, scaleY: 1.15 },
-              { y: 0, opacity: 1, scaleY: 1, duration: 0.3, stagger: 0.05, ease: 'back.out(1.5)' });
-    }
+       tl.to([this.infoTitle, this.infoSubtitle, this.infoDescription], { 
+        y: dir * -20, 
+        opacity: 0, 
+        duration: 0.15, 
+        stagger: 0.03, 
+        ease: 'power2.in' 
+    })
+    .call(() => {
+        this.infoTitle.textContent = feature.title + ',';
+        this.infoSubtitle.textContent = feature.subtitle;
+        this.infoDescription.textContent = feature.description; 
+    })
+    .fromTo([this.infoTitle, this.infoSubtitle, this.infoDescription], 
+        { y: dir * 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: 'back.out(1.5)' });
+}
 
     initScrollAnimations(scroller) {
         const trigger = ScrollTrigger.create({

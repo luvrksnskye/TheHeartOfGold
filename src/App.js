@@ -17,18 +17,15 @@ import navBar from './modules/NavBar.js';
 class App {
     constructor() {
         this.assetsToLoad = [
-            // Fonts
             { type: 'font', name: 'TheGoldenHeart', src: './src/fonts/Thegoldenheart-Regular.otf' },
             { type: 'font', name: 'Pixeled', src: './src/fonts/Pixeled.ttf' },
             { type: 'font', name: 'Pixel', src: './src/fonts/pixel.ttf' },
-            // Images
             { type: 'image', src: './src/assets/bg.png' },
             { type: 'image', src: './src/assets/loading.gif' },
             { type: 'image', src: './src/assets/unity_logo.gif' },
             { type: 'image', src: './src/assets/unity.png' },
             { type: 'image', src: './src/assets/Logo_main.svg' },
             { type: 'image', src: './src/assets/portada.png' },
-            { type: 'image', src: './src/assets/menu_bg2x3.gif' },
             { type: 'image', src: './src/assets/Cursor.png' },
             { type: 'image', src: './src/assets/musicon.png' },
             { type: 'image', src: './src/assets/musicoff.png' },
@@ -78,14 +75,9 @@ class App {
     waitForShaderScripts() {
         return new Promise((resolve) => {
             const requiredScripts = [
-                'sakura_point_vsh',
-                'sakura_point_fsh',
-                'fx_common_vsh',
-                'bg_fsh',
-                'fx_brightbuf_fsh',
-                'fx_dirblur_r4_fsh',
-                'pp_final_vsh',
-                'pp_final_fsh'
+                'sakura_point_vsh', 'sakura_point_fsh', 'fx_common_vsh',
+                'bg_fsh', 'fx_brightbuf_fsh', 'fx_dirblur_r4_fsh',
+                'pp_final_vsh', 'pp_final_fsh'
             ];
             
             const checkScripts = () => {

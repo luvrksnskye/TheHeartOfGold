@@ -1,10 +1,12 @@
 /**
  * OverviewSection - Game Overview with Video Background
+ * Separate from Game Features with gradient divider
  * The Heart of Gold
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
+import gameFeatures from './GameFeatures.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,38 +16,32 @@ class OverviewSection {
         this.video = null;
         this.isVideoPlaying = false;
         this.scrollTriggers = [];
-        this.wordAnimations = [];
+        this.timelines = [];
         
         this.storyContent = [
             {
                 text: 'A <span class="highlight">Bullet Heaven</span> RPG with deep mechanics and high replayability.',
                 position: 'center',
-                delay: 0
             },
             {
                 text: 'Each character features a <span class="emphasis">unique combat style</span> with custom stat scaling, two active skills, one passive, and an ultimate ability.',
                 position: 'left',
-                delay: 0.2
             },
             {
                 text: 'Face <span class="highlight">thousands of enemies</span> across maps infested with creatures. Collect weapons, upgrade your equipment, and survive to face the final boss.',
                 position: 'right',
-                delay: 0.2
             },
             {
                 text: 'Between runs, explore <span class="emphasis">turn-based dungeons</span> using up to 14 characters divided into two teams of seven.',
                 position: 'left',
-                delay: 0.2
             },
             {
                 text: 'With <span class="highlight">18 unique characters</span> from different worlds, each with their own stories and voice acting in Spanish, English, and Japanese.',
                 position: 'right',
-                delay: 0.2
             },
             {
                 text: 'Run. Dodge. Fight. <span class="highlight">Survive.</span>',
                 position: 'center',
-                delay: 0.3
             }
         ];
     }
@@ -56,41 +52,72 @@ class OverviewSection {
         this.container.className = 'overview-section';
         
         this.container.innerHTML = `
-            <div class="overview-gradient-top"></div>
-            
-            <div class="overview-video-container">
-                <video 
-                    class="overview-video" 
-                    src="./src/video/first-trailer.mp4" 
-                    muted 
-                    loop 
-                    playsinline
-                    preload="metadata"
-                ></video>
-                <div class="video-overlay"></div>
-            </div>
-            
-            
-            
-            <div class="overview-content">
-                <header class="overview-header">
-                    <div class="overview-title-wrapper">
-                        <div class="overview-title-glow"></div>
-                        <h2 class="overview-title">OVERVIEW</h2>
-                    </div>
-                    <p class="overview-subtitle">A Bullet Heaven Experience</p>
-                </header>
+            <!-- Part 1: Video Overview -->
+            <div class="overview-video-part">
+                <div class="overview-gradient-top"></div>
                 
-                <div class="overview-story">
-                    ${this.storyContent.map((block, i) => `
-                        <div class="story-block ${block.position}" data-index="${i}">
-                            <p class="story-text">${block.text}</p>
-                        </div>
-                    `).join('')}
+                <div class="overview-video-container">
+                    <video 
+                        class="overview-video" 
+                        src="./src/video/first-trailer.mp4" 
+                        muted 
+                        loop 
+                        playsinline
+                        preload="metadata"
+                    ></video>
+                    <div class="video-overlay"></div>
                 </div>
                 
-               
+                <div class="overview-particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+                
+                <div class="overview-lines">
+                    <div class="floating-line"></div>
+                    <div class="floating-line"></div>
+                    <div class="floating-line"></div>
+                    <div class="floating-line"></div>
+                </div>
+                
+                <div class="overview-content">
+                    <header class="overview-header">
+                        <div class="overview-title-wrapper">
+                            <div class="overview-title-glow"></div>
+                            <h2 class="overview-title">OVERVIEW</h2>
+                        </div>
+                        <p class="overview-subtitle">A Bullet Heaven Experience</p>
+                    </header>
+                    
+                    <div class="overview-story">
+                        ${this.storyContent.map((block, i) => `
+                            <div class="story-block ${block.position}" data-index="${i}">
+                                <p class="story-text">${block.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
             </div>
+            
+            <!-- Divider with gradient -->
+            <div class="overview-divider">
+                <div class="divider-gradient"></div>
+                <div class="divider-line">
+                    <div class="divider-glow"></div>
+                </div>
+                <div class="divider-particles">
+                    <span class="divider-dot"></span>
+                    <span class="divider-dot"></span>
+                    <span class="divider-dot"></span>
+                </div>
+            </div>
+            
+            <!-- Part 2: Game Features (separate container) -->
+            <div class="features-wrapper"></div>
             
             <div class="overview-gradient-bottom"></div>
         `;
@@ -98,6 +125,10 @@ class OverviewSection {
         parent.appendChild(this.container);
         
         this.video = this.container.querySelector('.overview-video');
+        
+        // Create Game Features in its own container
+        const featuresWrapper = this.container.querySelector('.features-wrapper');
+        gameFeatures.create(featuresWrapper);
         
         this.setInitialStates();
         this.initScrollAnimations();
@@ -109,11 +140,11 @@ class OverviewSection {
     setInitialStates() {
         const header = this.container.querySelector('.overview-header');
         const storyBlocks = this.container.querySelectorAll('.story-block');
-        const featureCards = this.container.querySelectorAll('.feature-card');
+        const divider = this.container.querySelector('.overview-divider');
         
         gsap.set(header, { opacity: 0, y: 50 });
         gsap.set(storyBlocks, { opacity: 0, y: 40 });
-        gsap.set(featureCards, { opacity: 0, y: 30, scale: 0.95 });
+        gsap.set(divider, { opacity: 0 });
     }
 
     initScrollAnimations() {
@@ -122,26 +153,27 @@ class OverviewSection {
         
         const header = this.container.querySelector('.overview-header');
         const storyBlocks = this.container.querySelectorAll('.story-block');
-        const featureCards = this.container.querySelectorAll('.feature-card');
+        const divider = this.container.querySelector('.overview-divider');
         
         // Header animation
         const headerTrigger = ScrollTrigger.create({
             trigger: header,
             scroller: scroller,
             start: 'top 85%',
+            once: true,
             onEnter: () => {
-                gsap.to(header, {
+                const tl = gsap.timeline();
+                this.timelines.push(tl);
+                
+                tl.to(header, {
                     opacity: 1,
                     y: 0,
                     duration: 1,
                     ease: 'power2.out'
                 });
                 
-                // Animate title letters
                 const title = header.querySelector('.overview-title');
-                if (title) {
-                    this.animateTitle(title);
-                }
+                if (title) this.animateTitle(title);
             }
         });
         this.scrollTriggers.push(headerTrigger);
@@ -152,14 +184,16 @@ class OverviewSection {
                 trigger: block,
                 scroller: scroller,
                 start: 'top 80%',
+                once: true,
                 onEnter: () => {
-                    const delay = index * 0.1;
+                    const tl = gsap.timeline();
+                    this.timelines.push(tl);
                     
-                    gsap.to(block, {
+                    tl.to(block, {
                         opacity: 1,
                         y: 0,
                         duration: 0.8,
-                        delay: delay,
+                        delay: index * 0.08,
                         ease: 'power2.out',
                         onComplete: () => {
                             block.classList.add('visible');
@@ -171,80 +205,53 @@ class OverviewSection {
             this.scrollTriggers.push(trigger);
         });
         
-        // Feature cards animation
-        featureCards.forEach((card, index) => {
-            const trigger = ScrollTrigger.create({
-                trigger: card,
-                scroller: scroller,
-                start: 'top 85%',
-                onEnter: () => {
-                    gsap.to(card, {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        duration: 0.6,
-                        delay: index * 0.15,
-                        ease: 'back.out(1.5)',
-                        onComplete: () => {
-                            card.classList.add('visible');
-                        }
-                    });
-                }
-            });
-            this.scrollTriggers.push(trigger);
-        });
-        
-        // Parallax effect for decorative elements
-        ScrollTrigger.create({
-            trigger: this.container,
+        // Divider animation
+        const dividerTrigger = ScrollTrigger.create({
+            trigger: divider,
             scroller: scroller,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-            onUpdate: (self) => {
-                const progress = self.progress;
-                const particles = this.container.querySelectorAll('.particle');
-                const lines = this.container.querySelectorAll('.floating-line');
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+                const tl = gsap.timeline();
+                this.timelines.push(tl);
                 
-                particles.forEach((p, i) => {
-                    gsap.set(p, { 
-                        y: (progress - 0.5) * (100 + i * 20)
-                    });
-                });
+                const line = divider.querySelector('.divider-line');
+                const glow = divider.querySelector('.divider-glow');
+                const dots = divider.querySelectorAll('.divider-dot');
                 
-                lines.forEach((l, i) => {
-                    gsap.set(l, { 
-                        y: (progress - 0.5) * (80 + i * 15)
-                    });
-                });
+                gsap.set(line, { scaleX: 0 });
+                gsap.set(dots, { scale: 0, opacity: 0 });
+                
+                tl.to(divider, { opacity: 1, duration: 0.3 })
+                  .to(line, { scaleX: 1, duration: 0.8, ease: 'power2.inOut' })
+                  .to(glow, { opacity: 1, duration: 0.5 }, '-=0.3')
+                  .to(dots, { 
+                      scale: 1, 
+                      opacity: 1, 
+                      duration: 0.4, 
+                      stagger: 0.1,
+                      ease: 'back.out(2)'
+                  }, '-=0.3');
             }
         });
+        this.scrollTriggers.push(dividerTrigger);
+        
+        // Initialize Game Features scroll animations
+        gameFeatures.initScrollAnimations(scroller);
     }
 
     animateTitle(titleElement) {
         const text = titleElement.textContent;
         titleElement.innerHTML = text.split('').map((char, i) => {
             if (char === ' ') return '<span class="title-char space">&nbsp;</span>';
-            return `<span class="title-char" style="animation-delay: ${i * 0.05}s">${char}</span>`;
+            return `<span class="title-char">${char}</span>`;
         }).join('');
         
         const chars = titleElement.querySelectorAll('.title-char:not(.space)');
         
         gsap.fromTo(chars, 
-            { 
-                opacity: 0, 
-                y: 30, 
-                rotateX: -90,
-                transformOrigin: 'center bottom'
-            },
-            { 
-                opacity: 1, 
-                y: 0, 
-                rotateX: 0,
-                duration: 0.6, 
-                stagger: 0.04,
-                ease: 'back.out(1.7)'
-            }
+            { opacity: 0, y: 30, rotateX: -90, transformOrigin: 'center bottom' },
+            { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: 0.04, ease: 'back.out(1.7)' }
         );
     }
 
@@ -252,14 +259,10 @@ class OverviewSection {
         const textElement = block.querySelector('.story-text');
         if (!textElement) return;
         
-        // Store original HTML with highlights
         const originalHTML = textElement.innerHTML;
-        
-        // Create a temporary element to parse the HTML
         const temp = document.createElement('div');
         temp.innerHTML = originalHTML;
         
-        // Process text nodes and wrap words while preserving span tags
         const processNode = (node) => {
             if (node.nodeType === Node.TEXT_NODE) {
                 const words = node.textContent.split(/(\s+)/);
@@ -297,7 +300,6 @@ class OverviewSection {
         textElement.innerHTML = '';
         textElement.appendChild(processed);
         
-        // Animate words
         const words = textElement.querySelectorAll('.story-word');
         
         gsap.fromTo(words,
@@ -306,11 +308,9 @@ class OverviewSection {
                 opacity: 1, 
                 y: 0, 
                 duration: 0.3, 
-                stagger: 0.03,
+                stagger: 0.025,
                 ease: 'power2.out',
-                onComplete: () => {
-                    words.forEach(w => w.classList.add('visible'));
-                }
+                onComplete: () => words.forEach(w => w.classList.add('visible'))
             }
         );
     }
@@ -319,9 +319,10 @@ class OverviewSection {
         const scroller = document.querySelector('.home-scroll-container');
         if (!scroller || !this.video) return;
         
-        // Create scroll trigger for video playback
-        ScrollTrigger.create({
-            trigger: this.container,
+        const videoPart = this.container.querySelector('.overview-video-part');
+        
+        const trigger = ScrollTrigger.create({
+            trigger: videoPart,
             scroller: scroller,
             start: 'top 60%',
             end: 'bottom 40%',
@@ -330,15 +331,7 @@ class OverviewSection {
             onEnterBack: () => this.playVideo(),
             onLeaveBack: () => this.pauseVideo()
         });
-        
-        // Handle video loading
-        this.video.addEventListener('loadeddata', () => {
-            this.video.style.opacity = '0';
-        });
-        
-        this.video.addEventListener('canplay', () => {
-            // Video is ready to play
-        });
+        this.scrollTriggers.push(trigger);
     }
 
     playVideo() {
@@ -347,15 +340,8 @@ class OverviewSection {
         this.video.play().then(() => {
             this.isVideoPlaying = true;
             this.video.classList.add('playing');
-            
-            gsap.to(this.video, {
-                opacity: 0.25,
-                duration: 1.5,
-                ease: 'power2.out'
-            });
-        }).catch(err => {
-            console.warn('Video autoplay failed:', err);
-        });
+            gsap.to(this.video, { opacity: 0.25, duration: 1.5, ease: 'power2.out' });
+        }).catch(() => {});
     }
 
     pauseVideo() {
@@ -375,12 +361,14 @@ class OverviewSection {
 
     destroy() {
         this.scrollTriggers.forEach(st => st.kill());
-        this.wordAnimations.forEach(tl => tl.kill());
+        this.timelines.forEach(tl => tl && tl.kill && tl.kill());
         
         if (this.video) {
             this.video.pause();
             this.video.src = '';
         }
+        
+        gameFeatures.destroy();
         
         if (this.container && this.container.parentNode) {
             this.container.parentNode.removeChild(this.container);
