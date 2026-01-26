@@ -48,9 +48,6 @@ Copyright 2026 The Heart Of Gold Team. All rights reserved.
 
 This repository contains the official site for The Heart Of Gold. The game design, characters, artwork, sound effects, and all related content are the exclusive property of The Heart Of Gold Team.
 
-Official Website: The Heart Of Gold
-Developer: The Heart Of Gold Team
-
 For inquiries or licensing, please contact the official Heart Of Gold Team by their social media.
 
 ---
