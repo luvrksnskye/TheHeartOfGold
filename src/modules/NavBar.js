@@ -1,9 +1,12 @@
 /**
  * NavBar - Main Navigation Bar with Dropdown Menus
  * The Heart of Gold
+ * Updated: Settings menu integration
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
+import sfxManager from '../utils/SFXManager.js';
+import settingsMenu from './SettingsMenu.js';
 
 class NavBar {
     constructor() {
@@ -21,7 +24,7 @@ class NavBar {
                 { name: 'Soundtrack', href: '#soundtrack' },
                 { name: 'Voice Cast', href: '#voice-cast' }
             ]},
-            { name: 'Settings', icon: 'fa-solid fa-gear', submenu: null, href: '#settings' }
+            { name: 'Settings', icon: 'fa-solid fa-gear', submenu: null, href: '#settings', isSettings: true }
         ];
         this.activeDropdown = null;
     }
@@ -33,6 +36,7 @@ class NavBar {
         
         const linksHtml = this.links.map(link => {
             const hasSubmenu = link.submenu !== null;
+            const isSettings = link.isSettings === true;
             const submenuHtml = hasSubmenu ? `
                 <div class="nav-submenu">
                     ${link.submenu.map(item => `
@@ -47,8 +51,8 @@ class NavBar {
             ` : '';
             
             return `
-                <div class="nav-item ${hasSubmenu ? 'has-submenu' : ''}" data-section="${link.name.toLowerCase()}">
-                    <a href="${link.href || '#'}" class="nav-link clickable">
+                <div class="nav-item ${hasSubmenu ? 'has-submenu' : ''} ${isSettings ? 'is-settings' : ''}" data-section="${link.name.toLowerCase()}">
+                    <a href="${link.href || '#'}" class="nav-link clickable" ${isSettings ? 'data-action="settings"' : ''}>
                         <span class="nav-link-text">${link.name}</span>
                         <i class="${link.icon} nav-icon"></i>
                     </a>
@@ -64,6 +68,10 @@ class NavBar {
         `;
         
         document.body.appendChild(this.container);
+        
+        // Create settings menu
+        settingsMenu.create();
+        
         this.bindEvents();
         this.initAnimations();
         
@@ -90,11 +98,13 @@ class NavBar {
         
         items.forEach(item => {
             const hasSubmenu = item.classList.contains('has-submenu');
+            const isSettings = item.classList.contains('is-settings');
             
             if (hasSubmenu) {
                 const submenu = item.querySelector('.nav-submenu');
                 
                 item.addEventListener('mouseenter', () => {
+                    sfxManager.playGhost();
                     this.showSubmenu(submenu);
                 });
                 
@@ -106,24 +116,45 @@ class NavBar {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                 });
+            } else if (isSettings) {
+                const link = item.querySelector('.nav-link');
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sfxManager.playConfirm();
+                    settingsMenu.open();
+                });
             } else {
                 const link = item.querySelector('.nav-link');
                 link.addEventListener('click', (e) => {
                     const href = link.getAttribute('href');
                     if (href && href.startsWith('#')) {
                         e.preventDefault();
+                        sfxManager.playCheck1();
                         const section = item.dataset.section;
                         this.navigateToSection(section);
                     }
                 });
             }
+            
+            // Hover sound for all items
+            item.addEventListener('mouseenter', () => {
+                if (!hasSubmenu) {
+                    // Light sound on hover
+                }
+            });
         });
         
         const submenuItems = this.container.querySelectorAll('.nav-submenu-item');
         submenuItems.forEach(subitem => {
+            subitem.addEventListener('mouseenter', () => {
+                sfxManager.playCheck2();
+            });
+            
             subitem.addEventListener('click', (e) => {
                 const href = subitem.getAttribute('href');
                 const isExternal = subitem.hasAttribute('target');
+                
+                sfxManager.playConfirm();
                 
                 if (!isExternal && href && href.startsWith('#')) {
                     e.preventDefault();
@@ -218,6 +249,7 @@ class NavBar {
     }
 
     destroy() {
+        settingsMenu.destroy();
         if (this.container && this.container.parentNode) {
             this.container.parentNode.removeChild(this.container);
         }

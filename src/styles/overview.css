@@ -1,6 +1,7 @@
 /**
  * Overview Section Styles
  * The Heart of Gold
+ * Updated: Lighter video overlay for better visibility
  */
 
 /* ==================== */
@@ -34,9 +35,9 @@
     position: absolute;
     inset: 0;
     background: 
-        radial-gradient(ellipse at 30% 20%, rgba(129, 60, 232, 0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 80%, rgba(196, 30, 92, 0.1) 0%, transparent 50%),
-        linear-gradient(180deg, var(--color-purple-dark) 0%, #0a0118 50%, #050010 100%);
+        radial-gradient(ellipse at 30% 20%, rgba(129, 60, 232, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(196, 30, 92, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, var(--color-purple-dark) 0%, rgba(10, 1, 24, 0.85) 50%, rgba(5, 0, 16, 0.9) 100%);
     z-index: 0;
 }
 
@@ -52,7 +53,7 @@
 }
 
 /* ==================== */
-/* Video Background */
+/* Video Background - LIGHTER OVERLAY */
 /* ==================== */
 
 .overview-video-container {
@@ -78,6 +79,7 @@
     opacity: 1;
 }
 
+/* Video Overlay - Made MUCH lighter for better visibility */
 .video-overlay {
     position: absolute;
     inset: 0;
@@ -89,16 +91,35 @@
     content: '';
     position: absolute;
     inset: 0;
+    /* Reduced opacity significantly - video more visible now */
     background: 
-        linear-gradient(180deg, var(--color-purple-dark) 0%, transparent 15%, transparent 85%, #050010 100%),
-        linear-gradient(90deg, rgba(20, 2, 59, 0.3) 0%, transparent 30%, transparent 70%, rgba(20, 2, 59, 0.3) 100%);
+        linear-gradient(180deg, 
+            rgba(23, 4, 38, 0.7) 0%, 
+            rgba(10, 1, 24, 0.3) 15%, 
+            rgba(5, 0, 16, 0.15) 40%,
+            rgba(5, 0, 16, 0.15) 60%,
+            rgba(10, 1, 24, 0.3) 85%, 
+            rgba(5, 0, 16, 0.8) 100%
+        ),
+        linear-gradient(90deg, 
+            rgba(20, 2, 59, 0.2) 0%, 
+            transparent 20%, 
+            transparent 80%, 
+            rgba(20, 2, 59, 0.2) 100%
+        );
 }
 
 .video-overlay::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 0%, rgba(5, 0, 16, 0.03) 70%, rgba(5, 0, 16, 0.3) 100%);
+    /* Lighter vignette effect */
+    background: radial-gradient(
+        ellipse at center, 
+        transparent 0%, 
+        rgba(5, 0, 16, 0.02) 50%, 
+        rgba(5, 0, 16, 0.15) 100%
+    );
 }
 
 /* ==================== */
@@ -255,7 +276,71 @@
 }
 
 /* ==================== */
-/* Divider Section - Dark Natural Gradient */
+/* Floating Particles */
+/* ==================== */
+
+.overview-particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(196, 30, 92, 0.4);
+    border-radius: 50%;
+    animation: floatParticle 15s infinite ease-in-out;
+}
+
+.particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 12s; }
+.particle:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; animation-duration: 18s; }
+.particle:nth-child(3) { left: 80%; top: 30%; animation-delay: 4s; animation-duration: 14s; }
+.particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 1s; animation-duration: 16s; }
+.particle:nth-child(5) { left: 40%; top: 40%; animation-delay: 3s; animation-duration: 20s; }
+.particle:nth-child(6) { left: 90%; top: 50%; animation-delay: 5s; animation-duration: 13s; }
+
+@keyframes floatParticle {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+    25% { transform: translate(20px, -30px) scale(1.2); opacity: 0.6; }
+    50% { transform: translate(-10px, -50px) scale(0.8); opacity: 0.4; }
+    75% { transform: translate(15px, -20px) scale(1.1); opacity: 0.5; }
+}
+
+/* ==================== */
+/* Floating Lines */
+/* ==================== */
+
+.overview-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(196, 30, 92, 0.3), transparent);
+    animation: floatLine 20s infinite ease-in-out;
+}
+
+.floating-line:nth-child(1) { top: 15%; width: 30%; left: 5%; animation-delay: 0s; }
+.floating-line:nth-child(2) { top: 35%; width: 25%; right: 10%; animation-delay: 5s; }
+.floating-line:nth-child(3) { top: 65%; width: 35%; left: 15%; animation-delay: 10s; }
+.floating-line:nth-child(4) { top: 85%; width: 20%; right: 5%; animation-delay: 15s; }
+
+@keyframes floatLine {
+    0%, 100% { transform: translateX(0) scaleX(1); opacity: 0.2; }
+    50% { transform: translateX(30px) scaleX(1.2); opacity: 0.5; }
+}
+
+/* ==================== */
+/* Divider Section */
 /* ==================== */
 
 .overview-divider {
@@ -372,7 +457,7 @@
     }
     
     .overview-video.playing {
-        opacity: 0.15;
+        opacity: 0.4;
     }
     
     .overview-divider {
@@ -413,7 +498,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     .overview-video {
-        opacity: 0.15;
+        opacity: 0.3;
     }
     
     .overview-video.playing {

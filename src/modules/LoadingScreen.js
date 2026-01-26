@@ -13,9 +13,39 @@ class LoadingScreen {
         this.tipInterval = null;
         this.currentTipIndex = 0;
         this.tips = [
-            "Ayuda",
-            "XD",
-            "Testing stuff over here",
+            "Random splash!",
+            "日本ハロー",
+            "Woah. Such loading. Much wow.",
+            "Did you know? The Heart of Gold features a unique Gachapon system!",
+            "Tip: You can toggle music and sound effects from the loading screen!",
+            "Loading... but did you know we have dynamic day/night cycles?",
+            "I'm glad you're here!",
+            "It's finally here!",
+            "Preparing awesomeness...",
+            "Almost there...",
+            "Good things come to those who wait.",
+            "Loading the fun...",
+            "Stay safe!",
+            "People really read this?",
+            "Something funny!",
+            "More addictive than lemonade!",
+            "Hello world!",
+            "Loading... grab a snack!",
+            "Did you know? Our combat system features unique stat scaling!",
+            "¡Hola Latinoamerica!",
+            "Bonjour tout le monde!",
+            "Hallo Welt!",
+            "Ciao mondo!",
+            "Olá mundo!",
+            "umop-apisdn!",
+            "1% sugar free!",
+            "sqrt(-1) love you!",
+            "Indie!",
+            "Pixels!!",
+            "It's here!",
+            "It's a game!"
+
+
         ];
     }
 

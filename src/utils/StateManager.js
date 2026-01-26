@@ -1,3 +1,8 @@
+/**
+ * StateManager - Application State Management
+ * The Heart of Gold
+ */
+
 export const AppStates = {
     INIT: 'init',
     SPLASH: 'splash',

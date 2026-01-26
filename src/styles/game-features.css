@@ -1,7 +1,7 @@
 /**
  * Game Features Section Styles
  * The Heart of Gold
- * Diagonal cut design matching reference
+ * Diagonal cut design - Updated positioning
  */
 
 /* ==================== */
@@ -68,7 +68,7 @@
 .gf-stripes-bottom .gf-stripe:nth-child(3) { bottom: 40px; transform: rotate(2.5deg); opacity: 0.4; }
 
 /* ==================== */
-/* Main Wrapper */
+/* Main Wrapper - Moved more to the right */
 /* ==================== */
 
 .gf-main-wrapper {
@@ -77,7 +77,10 @@
     width: 100%;
     max-width: var(--container-2xl);
     margin: 0 auto;
+    margin-left: auto;
+    margin-right: 0;
     padding: 0 var(--space-xl);
+    padding-left: calc(var(--space-xl) + 5%);
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 0;
@@ -90,7 +93,7 @@
 
 .gf-left-panel {
     position: relative;
-background-color: var(--color-pink-dark); 
+    background-color: var(--color-pink-dark); 
     background-image: repeating-linear-gradient(
         45deg,
         transparent,
@@ -111,7 +114,8 @@ background-color: var(--color-pink-dark);
         10px 0 30px rgba(0, 0, 0, 0.5),
         0 0 40px rgba(196, 30, 92, 0.3);
     z-index: 10;
-    left: -200px;
+    /* Moved further left for more separation */
+    left: -300px;
 }
 
 .gf-panel-inner {
@@ -197,7 +201,8 @@ background-color: var(--color-pink-dark);
 .gf-content-area {
     display: flex;
     flex-direction: column;
-    margin-left: -60px;
+    /* Increased negative margin to maintain overlap with left panel moved further left */
+    margin-left: -160px;
     position: relative;
     z-index: 5;
 }
@@ -328,7 +333,7 @@ background-color: var(--color-pink-dark);
 
 .gf-info-content {
     display: flex;
-    flex-direction: column; /* Cambiado de 'baseline' a 'column' */
+    flex-direction: column;
     align-items: flex-start;
     gap: 4px;
 }
@@ -372,13 +377,46 @@ background-color: var(--color-pink-dark);
 /* Responsive */
 /* ==================== */
 
+@media (max-width: 1400px) {
+    .gf-main-wrapper {
+        padding-left: var(--space-xl);
+    }
+    
+    .gf-left-panel {
+        left: -240px;
+        min-width: 450px;
+    }
+    
+    .gf-content-area {
+        margin-left: -120px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .gf-main-wrapper {
+        padding-left: var(--space-lg);
+    }
+    
+    .gf-left-panel {
+        left: -200px;
+        min-width: 400px;
+    }
+    
+    .gf-content-area {
+        margin-left: -100px;
+    }
+}
+
 @media (max-width: 1024px) {
     .gf-main-wrapper {
         grid-template-columns: 220px 1fr;
+        padding-left: var(--space-md);
     }
     
     .gf-left-panel {
         min-height: 360px;
+        min-width: 350px;
+        left: -150px;
         padding: var(--space-xl);
         padding-right: var(--space-2xl);
     }
@@ -392,7 +430,7 @@ background-color: var(--color-pink-dark);
     }
     
     .gf-content-area {
-        margin-left: -50px;
+        margin-left: -70px;
     }
 }
 
@@ -404,16 +442,21 @@ background-color: var(--color-pink-dark);
     .gf-main-wrapper {
         grid-template-columns: 1fr;
         gap: 0;
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
     }
     
     .gf-left-panel {
         min-height: auto;
+        min-width: auto;
+        left: 0;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         padding: var(--space-lg) var(--space-xl);
         clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
         margin-bottom: var(--space-md);
+        border-radius: var(--radius-lg);
     }
     
     .gf-panel-inner {

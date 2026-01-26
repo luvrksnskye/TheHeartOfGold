@@ -1,6 +1,5 @@
 /**
  * OverviewSection - Game Overview with Video Background
- * Separate from Game Features with gradient divider
  * The Heart of Gold
  */
 
@@ -19,30 +18,12 @@ class OverviewSection {
         this.timelines = [];
         
         this.storyContent = [
-            {
-                text: 'A <span class="highlight">Bullet Heaven</span> RPG with deep mechanics and high replayability.',
-                position: 'center',
-            },
-            {
-                text: 'Each character features a <span class="emphasis">unique combat style</span> with custom stat scaling, two active skills, one passive, and an ultimate ability.',
-                position: 'left',
-            },
-            {
-                text: 'Face <span class="highlight">thousands of enemies</span> across maps infested with creatures. Collect weapons, upgrade your equipment, and survive to face the final boss.',
-                position: 'right',
-            },
-            {
-                text: 'Between runs, explore <span class="emphasis">turn-based dungeons</span> using up to 14 characters divided into two teams of seven.',
-                position: 'left',
-            },
-            {
-                text: 'With <span class="highlight">18 unique characters</span> from different worlds, each with their own stories and voice acting in Spanish, English, and Japanese.',
-                position: 'right',
-            },
-            {
-                text: 'Run. Dodge. Fight. <span class="highlight">Survive.</span>',
-                position: 'center',
-            }
+            { text: 'A <span class="highlight">Bullet Heaven</span> RPG with deep mechanics and high replayability.', position: 'center' },
+            { text: 'Each character features a <span class="emphasis">unique combat style</span> with custom stat scaling, two active skills, one passive, and an ultimate ability.', position: 'left' },
+            { text: 'Face <span class="highlight">thousands of enemies</span> across maps infested with creatures. Collect weapons, upgrade your equipment, and survive to face the final boss.', position: 'right' },
+            { text: 'Between runs, explore <span class="emphasis">turn-based dungeons</span> using up to 14 characters divided into two teams of seven.', position: 'left' },
+            { text: 'With <span class="highlight">18 unique characters</span> from different worlds, each with their own stories and voice acting in Spanish, English, and Japanese.', position: 'right' },
+            { text: 'Run. Dodge. Fight. <span class="highlight">Survive.</span>', position: 'center' }
         ];
     }
 
@@ -52,38 +33,20 @@ class OverviewSection {
         this.container.className = 'overview-section';
         
         this.container.innerHTML = `
-            <!-- Part 1: Video Overview -->
             <div class="overview-video-part">
                 <div class="overview-gradient-top"></div>
-                
                 <div class="overview-video-container">
-                    <video 
-                        class="overview-video" 
-                        src="./src/video/first-trailer.mp4" 
-                        muted 
-                        loop 
-                        playsinline
-                        preload="metadata"
-                    ></video>
+                    <video class="overview-video" src="./src/video/first-trailer.mp4" muted loop playsinline preload="metadata"></video>
                     <div class="video-overlay"></div>
                 </div>
-                
                 <div class="overview-particles">
-                    <div class="particle"></div>
-                    <div class="particle"></div>
-                    <div class="particle"></div>
-                    <div class="particle"></div>
-                    <div class="particle"></div>
-                    <div class="particle"></div>
+                    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+                    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
                 </div>
-                
                 <div class="overview-lines">
-                    <div class="floating-line"></div>
-                    <div class="floating-line"></div>
-                    <div class="floating-line"></div>
-                    <div class="floating-line"></div>
+                    <div class="floating-line"></div><div class="floating-line"></div>
+                    <div class="floating-line"></div><div class="floating-line"></div>
                 </div>
-                
                 <div class="overview-content">
                     <header class="overview-header">
                         <div class="overview-title-wrapper">
@@ -92,7 +55,6 @@ class OverviewSection {
                         </div>
                         <p class="overview-subtitle">A Bullet Heaven Experience</p>
                     </header>
-                    
                     <div class="overview-story">
                         ${this.storyContent.map((block, i) => `
                             <div class="story-block ${block.position}" data-index="${i}">
@@ -102,38 +64,23 @@ class OverviewSection {
                     </div>
                 </div>
             </div>
-            
-            <!-- Divider with gradient -->
             <div class="overview-divider">
                 <div class="divider-gradient"></div>
-                <div class="divider-line">
-                    <div class="divider-glow"></div>
-                </div>
+                <div class="divider-line"><div class="divider-glow"></div></div>
                 <div class="divider-particles">
-                    <span class="divider-dot"></span>
-                    <span class="divider-dot"></span>
-                    <span class="divider-dot"></span>
+                    <span class="divider-dot"></span><span class="divider-dot"></span><span class="divider-dot"></span>
                 </div>
             </div>
-            
-            <!-- Part 2: Game Features (separate container) -->
             <div class="features-wrapper"></div>
-            
             <div class="overview-gradient-bottom"></div>
         `;
         
         parent.appendChild(this.container);
-        
         this.video = this.container.querySelector('.overview-video');
-        
-        // Create Game Features in its own container
-        const featuresWrapper = this.container.querySelector('.features-wrapper');
-        gameFeatures.create(featuresWrapper);
-        
+        gameFeatures.create(this.container.querySelector('.features-wrapper'));
         this.setInitialStates();
         this.initScrollAnimations();
         this.initVideoControl();
-        
         return this;
     }
 
@@ -141,7 +88,6 @@ class OverviewSection {
         const header = this.container.querySelector('.overview-header');
         const storyBlocks = this.container.querySelectorAll('.story-block');
         const divider = this.container.querySelector('.overview-divider');
-        
         gsap.set(header, { opacity: 0, y: 50 });
         gsap.set(storyBlocks, { opacity: 0, y: 40 });
         gsap.set(divider, { opacity: 0 });
@@ -155,101 +101,53 @@ class OverviewSection {
         const storyBlocks = this.container.querySelectorAll('.story-block');
         const divider = this.container.querySelector('.overview-divider');
         
-        // Header animation
         const headerTrigger = ScrollTrigger.create({
-            trigger: header,
-            scroller: scroller,
-            start: 'top 85%',
-            once: true,
+            trigger: header, scroller: scroller, start: 'top 85%', once: true,
             onEnter: () => {
-                const tl = gsap.timeline();
-                this.timelines.push(tl);
-                
-                tl.to(header, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: 'power2.out'
-                });
-                
+                gsap.to(header, { opacity: 1, y: 0, duration: 1, ease: 'power2.out' });
                 const title = header.querySelector('.overview-title');
                 if (title) this.animateTitle(title);
             }
         });
         this.scrollTriggers.push(headerTrigger);
         
-        // Story blocks animation
         storyBlocks.forEach((block, index) => {
             const trigger = ScrollTrigger.create({
-                trigger: block,
-                scroller: scroller,
-                start: 'top 80%',
-                once: true,
+                trigger: block, scroller: scroller, start: 'top 80%', once: true,
                 onEnter: () => {
-                    const tl = gsap.timeline();
-                    this.timelines.push(tl);
-                    
-                    tl.to(block, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        delay: index * 0.08,
-                        ease: 'power2.out',
-                        onComplete: () => {
-                            block.classList.add('visible');
-                            this.animateStoryText(block);
-                        }
+                    gsap.to(block, {
+                        opacity: 1, y: 0, duration: 0.8, delay: index * 0.08, ease: 'power2.out',
+                        onComplete: () => { block.classList.add('visible'); this.animateStoryText(block); }
                     });
                 }
             });
             this.scrollTriggers.push(trigger);
         });
         
-        // Divider animation
         const dividerTrigger = ScrollTrigger.create({
-            trigger: divider,
-            scroller: scroller,
-            start: 'top 85%',
-            once: true,
+            trigger: divider, scroller: scroller, start: 'top 85%', once: true,
             onEnter: () => {
-                const tl = gsap.timeline();
-                this.timelines.push(tl);
-                
                 const line = divider.querySelector('.divider-line');
                 const glow = divider.querySelector('.divider-glow');
                 const dots = divider.querySelectorAll('.divider-dot');
-                
                 gsap.set(line, { scaleX: 0 });
                 gsap.set(dots, { scale: 0, opacity: 0 });
-                
-                tl.to(divider, { opacity: 1, duration: 0.3 })
-                  .to(line, { scaleX: 1, duration: 0.8, ease: 'power2.inOut' })
-                  .to(glow, { opacity: 1, duration: 0.5 }, '-=0.3')
-                  .to(dots, { 
-                      scale: 1, 
-                      opacity: 1, 
-                      duration: 0.4, 
-                      stagger: 0.1,
-                      ease: 'back.out(2)'
-                  }, '-=0.3');
+                gsap.timeline()
+                    .to(divider, { opacity: 1, duration: 0.3 })
+                    .to(line, { scaleX: 1, duration: 0.8, ease: 'power2.inOut' })
+                    .to(glow, { opacity: 1, duration: 0.5 }, '-=0.3')
+                    .to(dots, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(2)' }, '-=0.3');
             }
         });
         this.scrollTriggers.push(dividerTrigger);
         
-        // Initialize Game Features scroll animations
         gameFeatures.initScrollAnimations(scroller);
     }
 
     animateTitle(titleElement) {
         const text = titleElement.textContent;
-        titleElement.innerHTML = text.split('').map((char, i) => {
-            if (char === ' ') return '<span class="title-char space">&nbsp;</span>';
-            return `<span class="title-char">${char}</span>`;
-        }).join('');
-        
-        const chars = titleElement.querySelectorAll('.title-char:not(.space)');
-        
-        gsap.fromTo(chars, 
+        titleElement.innerHTML = text.split('').map((char) => char === ' ' ? '<span class="title-char space">&nbsp;</span>' : `<span class="title-char">${char}</span>`).join('');
+        gsap.fromTo(titleElement.querySelectorAll('.title-char:not(.space)'), 
             { opacity: 0, y: 30, rotateX: -90, transformOrigin: 'center bottom' },
             { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: 0.04, ease: 'back.out(1.7)' }
         );
@@ -258,7 +156,6 @@ class OverviewSection {
     animateStoryText(block) {
         const textElement = block.querySelector('.story-text');
         if (!textElement) return;
-        
         const originalHTML = textElement.innerHTML;
         const temp = document.createElement('div');
         temp.innerHTML = originalHTML;
@@ -267,7 +164,6 @@ class OverviewSection {
             if (node.nodeType === Node.TEXT_NODE) {
                 const words = node.textContent.split(/(\s+)/);
                 const fragment = document.createDocumentFragment();
-                
                 words.forEach(word => {
                     if (word.trim()) {
                         const span = document.createElement('span');
@@ -278,7 +174,6 @@ class OverviewSection {
                         fragment.appendChild(document.createTextNode(word));
                     }
                 });
-                
                 return fragment;
             } else if (node.nodeType === Node.ELEMENT_NODE) {
                 const clone = node.cloneNode(false);
@@ -300,32 +195,18 @@ class OverviewSection {
         textElement.innerHTML = '';
         textElement.appendChild(processed);
         
-        const words = textElement.querySelectorAll('.story-word');
-        
-        gsap.fromTo(words,
+        gsap.fromTo(textElement.querySelectorAll('.story-word'),
             { opacity: 0, y: 15 },
-            { 
-                opacity: 1, 
-                y: 0, 
-                duration: 0.3, 
-                stagger: 0.025,
-                ease: 'power2.out',
-                onComplete: () => words.forEach(w => w.classList.add('visible'))
-            }
+            { opacity: 1, y: 0, duration: 0.3, stagger: 0.025, ease: 'power2.out', onComplete: () => textElement.querySelectorAll('.story-word').forEach(w => w.classList.add('visible')) }
         );
     }
 
     initVideoControl() {
         const scroller = document.querySelector('.home-scroll-container');
         if (!scroller || !this.video) return;
-        
         const videoPart = this.container.querySelector('.overview-video-part');
-        
         const trigger = ScrollTrigger.create({
-            trigger: videoPart,
-            scroller: scroller,
-            start: 'top 60%',
-            end: 'bottom 40%',
+            trigger: videoPart, scroller: scroller, start: 'top 60%', end: 'bottom 40%',
             onEnter: () => this.playVideo(),
             onLeave: () => this.pauseVideo(),
             onEnterBack: () => this.playVideo(),
@@ -336,43 +217,27 @@ class OverviewSection {
 
     playVideo() {
         if (!this.video || this.isVideoPlaying) return;
-        
         this.video.play().then(() => {
             this.isVideoPlaying = true;
             this.video.classList.add('playing');
-            gsap.to(this.video, { opacity: 0.25, duration: 1.5, ease: 'power2.out' });
+            gsap.to(this.video, { opacity: 0.4, duration: 1.5, ease: 'power2.out' });
         }).catch(() => {});
     }
 
     pauseVideo() {
         if (!this.video || !this.isVideoPlaying) return;
-        
         gsap.to(this.video, {
-            opacity: 0,
-            duration: 1,
-            ease: 'power2.in',
-            onComplete: () => {
-                this.video.pause();
-                this.isVideoPlaying = false;
-                this.video.classList.remove('playing');
-            }
+            opacity: 0, duration: 1, ease: 'power2.in',
+            onComplete: () => { this.video.pause(); this.isVideoPlaying = false; this.video.classList.remove('playing'); }
         });
     }
 
     destroy() {
         this.scrollTriggers.forEach(st => st.kill());
         this.timelines.forEach(tl => tl && tl.kill && tl.kill());
-        
-        if (this.video) {
-            this.video.pause();
-            this.video.src = '';
-        }
-        
+        if (this.video) { this.video.pause(); this.video.src = ''; }
         gameFeatures.destroy();
-        
-        if (this.container && this.container.parentNode) {
-            this.container.parentNode.removeChild(this.container);
-        }
+        if (this.container && this.container.parentNode) this.container.parentNode.removeChild(this.container);
     }
 }
 

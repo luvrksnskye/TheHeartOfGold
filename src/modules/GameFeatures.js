@@ -1,11 +1,12 @@
 /**
  * GameFeatures - Interactive Game Features Carousel
  * The Heart of Gold
- * Diagonal cut design matching reference image
+ * Updated: Reordered features, improved positioning
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
+import sfxManager from '../utils/SFXManager.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,28 +19,36 @@ class GameFeatures {
         this.scrollTriggers = [];
         this.timelines = [];
         
+        // Reordered: Bullet Heaven first, then Team, then Shop
         this.features = [
-    {
-        id: 'team', 
-        number: '01',
-        title: 'Strategic Party System',
-        subtitle: 'Build Your Dream Team',
-        description: 'Command a roster of 18 visually unique characters, each with distinct combat styles and voice acting. Venture into RPG-style dungeons using up to 14 heroes divided into two specialized squads to gather rare materials and experience.'
-    },
-    {
-        id: 'combat', 
-        number: '02', 
-        title: 'Intense Bullet Heaven',
-        subtitle: 'Survival of the Fittest',
-        description: 'Face thousands of creatures in maps with dynamic day/night cycles. Master a deep combat system featuring unique stat scaling, two active skills, and powerful Ultimates to survive the waves before time runs out.'
-    },
-    {
-        id: 'shop', 
-        number: '03',
-        title: 'Deep Evolution System',
-        subtitle: 'Upgrade And Gachapon',
-        description: 'Enhance your power through a unique Gachapon system using in-game coins to collect stat-boosting cards. Evolve your weaponry at the blacksmith, unlocking devastating forms through specific item synergies and level mastery.'
-    }
+            {
+                id: 'bullet-heaven', 
+                number: '01', 
+                title: 'Intense Bullet Heaven',
+                subtitle: 'Survival of the Fittest',
+                description: 'Face thousands of creatures in maps with dynamic day/night cycles. Master a deep combat system featuring unique stat scaling, two active skills, and powerful Ultimates to survive the waves before time runs out.'
+            },
+            {
+                id: 'team', 
+                number: '02',
+                title: 'Strategic Party System',
+                subtitle: 'Build Your Dream Team',
+                description: 'Command a roster of 18 visually unique characters, each with distinct combat styles and voice acting. Venture into RPG-style dungeons using up to 14 heroes divided into two specialized squads to gather rare materials and experience.'
+            },
+            {
+                id: 'shop', 
+                number: '03',
+                title: 'Deep Evolution System',
+                subtitle: 'Upgrade And Gachapon',
+                description: 'Enhance your power through a unique Gachapon system using in-game coins to collect stat-boosting cards. Evolve your weaponry at the blacksmith, unlocking devastating forms through specific item synergies and level mastery.'
+            },
+            {
+                id: 'combat',
+                number: '04',
+                title: 'Dynamic Combat Mechanics',
+                subtitle: 'Fast-Paced And Tactical',
+                description: 'In each run, venture into the dungeons, which change the gameplay to a turn-based RPG while maintaining the fast-paced essence and waves of enemies. Use up to 14 characters in combat, divided into two teams of seven, to obtain equipment, materials, coins, and extra experience.'
+            }
         ];
     }
 
@@ -65,10 +74,10 @@ class GameFeatures {
                         <div class="gf-label">
                             <span class="gf-label-text">// Game Features //</span>
                         </div>
-                        <div class="gf-number">03</div>
+                        <div class="gf-number">01</div>
                         <div class="gf-indicators">
                             ${this.features.map((f, i) => `
-                                <button class="gf-indicator ${i === 0 ? 'active' : ''}" data-index="${i}">
+                                <button class="gf-indicator clickable ${i === 0 ? 'active' : ''}" data-index="${i}">
                                     <span class="gf-indicator-fill"></span>
                                 </button>
                             `).join('')}
@@ -103,10 +112,10 @@ class GameFeatures {
                     <!-- Info bar at bottom right -->
                     <div class="gf-info-bar">
                         <div class="gf-info-content">
-    <h3 class="gf-title">${this.features[0].title},</h3>
-    <p class="gf-subtitle">${this.features[0].subtitle}</p>
-    <p class="gf-description">${this.features[0].description}</p> 
-    </div>
+                            <h3 class="gf-title">${this.features[0].title},</h3>
+                            <p class="gf-subtitle">${this.features[0].subtitle}</p>
+                            <p class="gf-description">${this.features[0].description}</p> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,6 +145,7 @@ class GameFeatures {
         this.infoTitle = this.container.querySelector('.gf-title');
         this.infoSubtitle = this.container.querySelector('.gf-subtitle');
         this.infoDescription = this.container.querySelector('.gf-description');
+        this.numberDisplay = this.container.querySelector('.gf-number');
     }
 
     initVideos() {
@@ -158,12 +168,23 @@ class GameFeatures {
     }
 
     bindEvents() {
-        this.prevBtn.addEventListener('click', () => this.navigate(-1));
-        this.nextBtn.addEventListener('click', () => this.navigate(1));
+        this.prevBtn.addEventListener('click', () => {
+            sfxManager.playCheck1();
+            this.navigate(-1);
+        });
+        this.nextBtn.addEventListener('click', () => {
+            sfxManager.playCheck1();
+            this.navigate(1);
+        });
         
-        this.indicators.forEach((ind, i) => ind.addEventListener('click', () => this.goTo(i)));
+        this.indicators.forEach((ind, i) => {
+            ind.addEventListener('click', () => {
+                sfxManager.playCheck2();
+                this.goTo(i);
+            });
+        });
         
-        // Video hover - play on hover, no play icon
+        // Video hover - play on hover
         this.slides.forEach((slide, i) => {
             const video = this.videos.get(i);
             
@@ -182,7 +203,10 @@ class GameFeatures {
         carousel.addEventListener('touchstart', e => touchX = e.changedTouches[0].screenX, { passive: true });
         carousel.addEventListener('touchend', e => {
             const diff = touchX - e.changedTouches[0].screenX;
-            if (Math.abs(diff) > 50) this.navigate(diff > 0 ? 1 : -1);
+            if (Math.abs(diff) > 50) {
+                sfxManager.playCheck1();
+                this.navigate(diff > 0 ? 1 : -1);
+            }
         }, { passive: true });
     }
 
@@ -203,17 +227,39 @@ class GameFeatures {
         const tl = gsap.timeline({ onComplete: () => { this.isAnimating = false; this.currentIndex = index; } });
         this.timelines.push(tl);
         
+        // Update number display with animation
+        tl.to(this.numberDisplay, {
+            scale: 0.8,
+            opacity: 0,
+            duration: 0.15,
+            ease: 'power2.in',
+            onComplete: () => {
+                this.numberDisplay.textContent = feature.number;
+            }
+        })
+        .to(this.numberDisplay, {
+            scale: 1.1,
+            opacity: 1,
+            duration: 0.2,
+            ease: 'back.out(2)'
+        })
+        .to(this.numberDisplay, {
+            scale: 1,
+            duration: 0.25,
+            ease: 'elastic.out(1, 0.5)'
+        });
+        
         // Squishy exit
-        tl.to(oldSlide, { scaleX: 1.1, scaleY: 0.9, duration: 0.1, ease: 'power2.in' })
+        tl.to(oldSlide, { scaleX: 1.1, scaleY: 0.9, duration: 0.1, ease: 'power2.in' }, 0)
           .to(oldSlide, { x: dir * -100 + '%', scaleX: 0.8, scaleY: 1.2, opacity: 0, duration: 0.25, ease: 'power3.in',
               onComplete: () => { oldSlide.classList.remove('active'); gsap.set(oldSlide, { x: 0, scaleX: 1, scaleY: 1, opacity: 0 }); }
-          });
+          }, 0.1);
         
         // Squishy enter
         newSlide.classList.add('active');
         gsap.set(newSlide, { x: dir * 100 + '%', scaleX: 0.8, scaleY: 1.2, opacity: 0 });
         
-        tl.to(newSlide, { x: '0%', scaleX: 1.05, scaleY: 0.95, opacity: 1, duration: 0.2, ease: 'power2.out' }, '-=0.1')
+        tl.to(newSlide, { x: '0%', scaleX: 1.05, scaleY: 0.95, opacity: 1, duration: 0.2, ease: 'power2.out' }, 0.15)
           .to(newSlide, { scaleX: 0.97, scaleY: 1.03, duration: 0.1, ease: 'power2.inOut' })
           .to(newSlide, { scaleX: 1, scaleY: 1, duration: 0.3, ease: 'elastic.out(1, 0.5)' });
         
@@ -235,22 +281,22 @@ class GameFeatures {
         const tl = gsap.timeline();
         this.timelines.push(tl);
         
-       tl.to([this.infoTitle, this.infoSubtitle, this.infoDescription], { 
-        y: dir * -20, 
-        opacity: 0, 
-        duration: 0.15, 
-        stagger: 0.03, 
-        ease: 'power2.in' 
-    })
-    .call(() => {
-        this.infoTitle.textContent = feature.title + ',';
-        this.infoSubtitle.textContent = feature.subtitle;
-        this.infoDescription.textContent = feature.description; 
-    })
-    .fromTo([this.infoTitle, this.infoSubtitle, this.infoDescription], 
-        { y: dir * 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: 'back.out(1.5)' });
-}
+        tl.to([this.infoTitle, this.infoSubtitle, this.infoDescription], { 
+            y: dir * -20, 
+            opacity: 0, 
+            duration: 0.15, 
+            stagger: 0.03, 
+            ease: 'power2.in' 
+        })
+        .call(() => {
+            this.infoTitle.textContent = feature.title + ',';
+            this.infoSubtitle.textContent = feature.subtitle;
+            this.infoDescription.textContent = feature.description; 
+        })
+        .fromTo([this.infoTitle, this.infoSubtitle, this.infoDescription], 
+            { y: dir * 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: 'back.out(1.5)' });
+    }
 
     initScrollAnimations(scroller) {
         const trigger = ScrollTrigger.create({
