@@ -1,6 +1,7 @@
 /**
  * Section Navigation Styles
  * The Heart of Gold
+ * Updated: Hidden on mobile/tablet devices
  */
 
 .section-nav {
@@ -100,48 +101,60 @@
     text-shadow: 0 0 8px rgba(196, 30, 92, 0.6);
 }
 
+/* ==================== */
+/* Desktop - Smaller screens */
+/* ==================== */
+
 @media (max-width: 1024px) {
     .section-nav {
         right: var(--space-lg);
-    }
-}
-
-@media (max-width: 768px) {
-    .section-nav {
-        right: var(--space-md);
-        top: auto;
-        bottom: var(--space-2xl);
-        transform: none;
-    }
-    
-    .section-nav-dots {
-        flex-direction: row;
-        gap: var(--space-md);
     }
     
     .section-dot {
         width: 12px;
         height: 12px;
     }
-    
-    .dot-number {
-        display: none;
+}
+
+/* ==================== */
+/* HIDE on Tablets and Mobile */
+/* This is critical - section nav should not exist on touch devices */
+/* ==================== */
+
+@media (max-width: 768px) {
+    .section-nav {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
 }
 
+/* Additional check for touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .section-nav {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+}
+
+/* Also hide on small phones explicitly */
 @media (max-width: 479px) {
     .section-nav {
-        right: var(--space-sm);
-        bottom: var(--space-xl);
+        display: none !important;
     }
-    
-    .section-nav-dots {
-        gap: var(--space-sm);
-    }
-    
-    .section-dot {
-        width: 10px;
-        height: 10px;
-        border-width: 1.5px;
+}
+
+/* ==================== */
+/* Reduced Motion */
+/* ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .section-dot,
+    .section-dot::before,
+    .dot-number {
+        transition: none;
     }
 }

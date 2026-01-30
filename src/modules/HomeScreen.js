@@ -1,11 +1,12 @@
 /**
  * HomeScreen - Main Home Screen Module
  * The Heart of Gold
- * Optimized for performance
+ * Updated: Core Animation integration
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
+import coreAnimation from '../utils/CoreAnimation.js';
 import audioManager from '../utils/AudioManager.js';
 import sakuraPetals from '../utils/SakuraPetals.js';
 import newsCarousel from './NewsCarousel.js';
@@ -88,7 +89,7 @@ class HomeScreen {
         // Create News Carousel
         newsCarousel.create(this.container.querySelector('.news-content'));
         
-        // Create Overview Section (includes Game Features)
+        // Create Overview Section (includes Game Features and Characters)
         const scrollContainer = this.container.querySelector('.home-scroll-container');
         overviewSection.create(scrollContainer);
         
@@ -96,7 +97,8 @@ class HomeScreen {
         sectionNav.sections = [
             { id: 'home-hero', number: '01', label: 'Home' },
             { id: 'home-news-section', number: '02', label: 'News' },
-            { id: 'overview-section', number: '03', label: 'Overview' }
+            { id: 'overview-section', number: '03', label: 'Overview' },
+            { id: 'characters-section', number: '04', label: 'Characters' }
         ];
         sectionNav.create(scrollContainer);
         
@@ -179,12 +181,7 @@ class HomeScreen {
         }
         
         t.classList.toggle('active', newState);
-        
-        const tl = gsap.timeline();
-        tl.to(t, { scale: 0.85, duration: 0.15, ease: 'power2.in' })
-          .to(t, { scale: 1.1, duration: 0.2, ease: 'power2.out' })
-          .to(t, { scale: 1, duration: 0.3, ease: 'elastic.out(1, 0.5)' });
-        this.timelines.push(tl);
+        coreAnimation.squish(t, { intensity: 0.6, duration: 0.4 });
     }
 
     async show() { 
@@ -210,23 +207,20 @@ class HomeScreen {
         requestAnimationFrame(() => this.initPetals());
         
         const toggles = this.container.querySelectorAll('.audio-toggle');
-        const tl = gsap.timeline({ 
-            onComplete: () => this.initScrollAnimations() 
-        });
-        this.timelines.push(tl);
         
-        tl.to(toggles, { 
-            opacity: 1, 
-            scale: 1, 
-            y: 0, 
-            duration: 0.5, 
-            stagger: 0.1, 
-            ease: 'back.out(1.7)' 
+        coreAnimation.stagger(toggles, {
+            from: { opacity: 0, scale: 0.5, y: -20 },
+            to: { opacity: 1, scale: 1, y: 0 },
+            duration: 0.5,
+            stagger: 0.1,
+            onComplete: () => this.initScrollAnimations()
         });
-        tl.add(() => this.animateLogo(), '-=0.2');
-        tl.add(() => this.animateSubtitle(), '-=0.3');
-        tl.add(() => this.animatePlatformBadges(), '-=0.5');
-        tl.add(() => sectionNav.show(), '-=0.3');
+        
+        // Sequence animations
+        setTimeout(() => this.animateLogo(), 200);
+        setTimeout(() => this.animateSubtitle(), 500);
+        setTimeout(() => this.animatePlatformBadges(), 800);
+        setTimeout(() => sectionNav.show(), 1000);
     }
 
     animateLogo() {
@@ -241,8 +235,13 @@ class HomeScreen {
         logoContainer.style.webkitMaskImage = `url('${logo.src}')`;
         logoContainer.style.maskImage = `url('${logo.src}')`;
         
-        const tl = gsap.timeline({ 
-            onComplete: () => { this.logoAnimating = false; } 
+        coreAnimation.prepareElement(logoContainer, ['transform', 'opacity']);
+        
+        const tl = coreAnimation.createTimeline({ 
+            onComplete: () => { 
+                this.logoAnimating = false;
+                coreAnimation.cleanupElement(logoContainer, 300);
+            }
         });
         this.timelines.push(tl);
         
@@ -251,11 +250,10 @@ class HomeScreen {
           .to(logoContainer, { scale: 1.05, rotate: 1, duration: 0.25, ease: 'power2.out' })
           .to(logoContainer, { scale: 1, rotate: 0, duration: 0.4, ease: 'elastic.out(1, 0.3)' });
         
-        tl.set(shimmer, { x: '-120%', opacity: 0 }, '-=0.6')
-          .to(shimmer, { opacity: 1, duration: 0.05 })
-          .to(shimmer, { x: '250%', duration: 0.7, ease: 'power1.in' })
-          .to(shimmer, { opacity: 0, duration: 0.1 });
+        // Shimmer effect
+        coreAnimation.shimmer(shimmer, { duration: 0.7, delay: 0.4 });
         
+        // Star animation
         tl.to(star, { opacity: 1, scale: 1, duration: 0.15, ease: 'back.out(2)' }, '-=0.8')
           .to(star, { rotation: 180, scale: 1.5, duration: 0.4, ease: 'power2.out' })
           .to(star, { rotation: 360, scale: 0.8, duration: 0.3, ease: 'power2.in' })
@@ -280,15 +278,20 @@ class HomeScreen {
             transformOrigin: 'center bottom' 
         });
         
+        letters.forEach(l => coreAnimation.prepareElement(l, ['transform', 'opacity']));
+        
         let completed = 0;
         const total = letters.length;
         
         letters.forEach((l, i) => {
-            const tl = gsap.timeline({ 
+            const tl = coreAnimation.createTimeline({ 
                 delay: i * 0.04, 
                 onComplete: () => { 
                     completed++; 
-                    if (completed === total) this.subtitleAnimating = false; 
+                    if (completed === total) {
+                        this.subtitleAnimating = false;
+                        letters.forEach(letter => coreAnimation.cleanupElement(letter, 300));
+                    }
                 } 
             });
             this.timelines.push(tl);
@@ -307,24 +310,30 @@ class HomeScreen {
             const icon = badge.querySelector('.platform-icon');
             const letters = badge.querySelectorAll('.platform-letter');
             
-            const tl = gsap.timeline({ delay: index * 0.15 });
-            this.timelines.push(tl);
-            
-            tl.to(badge, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.7)' });
+            coreAnimation.bounceIn(badge, { 
+                from: { y: 20, opacity: 0, scale: 0.8 },
+                delay: index * 0.15,
+                duration: 0.6
+            });
             
             if (icon) {
-                tl.fromTo(icon, 
+                gsap.fromTo(icon, 
                     { scale: 0, rotate: -45 }, 
-                    { scale: 1, rotate: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' }, 
-                    '-=0.3'
+                    { scale: 1, rotate: 0, duration: 0.5, delay: (index * 0.15) + 0.3, ease: 'elastic.out(1, 0.5)' }
                 );
             }
             
             gsap.set(letters, { opacity: 0, y: '100%', rotateX: -90 });
             
             letters.forEach((letter, i) => {
-                gsap.timeline({ delay: (index * 0.15) + 0.3 + (i * 0.06) })
-                    .to(letter, { opacity: 1, y: '0%', rotateX: 0, duration: 0.4, ease: 'back.out(1.5)' });
+                gsap.to(letter, { 
+                    opacity: 1, 
+                    y: '0%', 
+                    rotateX: 0, 
+                    duration: 0.4, 
+                    delay: (index * 0.15) + 0.3 + (i * 0.06),
+                    ease: 'back.out(1.5)' 
+                });
             });
         });
     }
@@ -363,12 +372,7 @@ class HomeScreen {
             once: true,
             onEnter: () => {
                 if (newsWrapper) {
-                    gsap.to(newsWrapper, { 
-                        opacity: 1, 
-                        y: 0, 
-                        duration: 0.8, 
-                        ease: 'power2.out' 
-                    });
+                    coreAnimation.bounceIn(newsWrapper, { duration: 0.8 });
                 }
             }
         });
@@ -376,20 +380,15 @@ class HomeScreen {
     }
 
     destroy() { 
-        // Kill all scroll triggers
         this.scrollTriggers.forEach(st => st.kill());
         ScrollTrigger.getAll().forEach(st => st.kill());
+        this.timelines.forEach(tl => tl && tl.kill && tl.kill());
         
-        // Kill all timelines
-        this.timelines.forEach(tl => tl.kill());
-        
-        // Destroy modules
         if (sakuraPetals) sakuraPetals.destroy();
         newsCarousel.destroy();
         overviewSection.destroy();
         sectionNav.destroy();
         
-        // Remove container
         if (this.container && this.container.parentNode) {
             this.container.parentNode.removeChild(this.container);
         }

@@ -1,11 +1,14 @@
 /**
  * OverviewSection - Game Overview with Video Background
  * The Heart of Gold
+ * Updated: Includes Characters Section
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
+import coreAnimation from '../utils/CoreAnimation.js';
 import gameFeatures from './GameFeatures.js';
+import charactersSection from './CharactersSection.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,15 +75,23 @@ class OverviewSection {
                 </div>
             </div>
             <div class="features-wrapper"></div>
+            <div class="characters-wrapper"></div>
             <div class="overview-gradient-bottom"></div>
         `;
         
         parent.appendChild(this.container);
         this.video = this.container.querySelector('.overview-video');
+        
+        // Create Game Features
         gameFeatures.create(this.container.querySelector('.features-wrapper'));
+        
+        // Create Characters Section
+        charactersSection.create(this.container.querySelector('.characters-wrapper'));
+        
         this.setInitialStates();
         this.initScrollAnimations();
         this.initVideoControl();
+        
         return this;
     }
 
@@ -88,6 +99,7 @@ class OverviewSection {
         const header = this.container.querySelector('.overview-header');
         const storyBlocks = this.container.querySelectorAll('.story-block');
         const divider = this.container.querySelector('.overview-divider');
+        
         gsap.set(header, { opacity: 0, y: 50 });
         gsap.set(storyBlocks, { opacity: 0, y: 40 });
         gsap.set(divider, { opacity: 0 });
@@ -101,61 +113,82 @@ class OverviewSection {
         const storyBlocks = this.container.querySelectorAll('.story-block');
         const divider = this.container.querySelector('.overview-divider');
         
+        // Header animation
         const headerTrigger = ScrollTrigger.create({
-            trigger: header, scroller: scroller, start: 'top 85%', once: true,
+            trigger: header, 
+            scroller: scroller, 
+            start: 'top 85%', 
+            once: true,
             onEnter: () => {
-                gsap.to(header, { opacity: 1, y: 0, duration: 1, ease: 'power2.out' });
+                coreAnimation.bounceIn(header, { duration: 0.8 });
                 const title = header.querySelector('.overview-title');
-                if (title) this.animateTitle(title);
+                if (title) {
+                    coreAnimation.animateText(title, { delay: 0.3 });
+                }
             }
         });
         this.scrollTriggers.push(headerTrigger);
         
+        // Story blocks animation
         storyBlocks.forEach((block, index) => {
             const trigger = ScrollTrigger.create({
-                trigger: block, scroller: scroller, start: 'top 80%', once: true,
+                trigger: block, 
+                scroller: scroller, 
+                start: 'top 80%', 
+                once: true,
                 onEnter: () => {
                     gsap.to(block, {
-                        opacity: 1, y: 0, duration: 0.8, delay: index * 0.08, ease: 'power2.out',
-                        onComplete: () => { block.classList.add('visible'); this.animateStoryText(block); }
+                        opacity: 1, 
+                        y: 0, 
+                        duration: 0.8, 
+                        delay: index * 0.08, 
+                        ease: 'power2.out',
+                        onComplete: () => { 
+                            block.classList.add('visible'); 
+                            this.animateStoryText(block); 
+                        }
                     });
                 }
             });
             this.scrollTriggers.push(trigger);
         });
         
+        // Divider animation
         const dividerTrigger = ScrollTrigger.create({
-            trigger: divider, scroller: scroller, start: 'top 85%', once: true,
-            onEnter: () => {
-                const line = divider.querySelector('.divider-line');
-                const glow = divider.querySelector('.divider-glow');
-                const dots = divider.querySelectorAll('.divider-dot');
-                gsap.set(line, { scaleX: 0 });
-                gsap.set(dots, { scale: 0, opacity: 0 });
-                gsap.timeline()
-                    .to(divider, { opacity: 1, duration: 0.3 })
-                    .to(line, { scaleX: 1, duration: 0.8, ease: 'power2.inOut' })
-                    .to(glow, { opacity: 1, duration: 0.5 }, '-=0.3')
-                    .to(dots, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(2)' }, '-=0.3');
-            }
+            trigger: divider, 
+            scroller: scroller, 
+            start: 'top 85%', 
+            once: true,
+            onEnter: () => this.animateDivider(divider)
         });
         this.scrollTriggers.push(dividerTrigger);
         
+        // Initialize child component animations
         gameFeatures.initScrollAnimations(scroller);
+        charactersSection.initScrollAnimations(scroller);
     }
 
-    animateTitle(titleElement) {
-        const text = titleElement.textContent;
-        titleElement.innerHTML = text.split('').map((char) => char === ' ' ? '<span class="title-char space">&nbsp;</span>' : `<span class="title-char">${char}</span>`).join('');
-        gsap.fromTo(titleElement.querySelectorAll('.title-char:not(.space)'), 
-            { opacity: 0, y: 30, rotateX: -90, transformOrigin: 'center bottom' },
-            { opacity: 1, y: 0, rotateX: 0, duration: 0.6, stagger: 0.04, ease: 'back.out(1.7)' }
-        );
+    animateDivider(divider) {
+        const line = divider.querySelector('.divider-line');
+        const glow = divider.querySelector('.divider-glow');
+        const dots = divider.querySelectorAll('.divider-dot');
+        
+        gsap.set(line, { scaleX: 0 });
+        gsap.set(dots, { scale: 0, opacity: 0 });
+        
+        const tl = gsap.timeline();
+        this.timelines.push(tl);
+        
+        tl.to(divider, { opacity: 1, duration: 0.3 })
+          .to(line, { scaleX: 1, duration: 0.8, ease: 'power2.inOut' })
+          .to(glow, { opacity: 1, duration: 0.5 }, '-=0.3')
+          .to(dots, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(2)' }, '-=0.3');
     }
 
     animateStoryText(block) {
         const textElement = block.querySelector('.story-text');
         if (!textElement) return;
+        
         const originalHTML = textElement.innerHTML;
         const temp = document.createElement('div');
         temp.innerHTML = originalHTML;
@@ -195,18 +228,27 @@ class OverviewSection {
         textElement.innerHTML = '';
         textElement.appendChild(processed);
         
-        gsap.fromTo(textElement.querySelectorAll('.story-word'),
-            { opacity: 0, y: 15 },
-            { opacity: 1, y: 0, duration: 0.3, stagger: 0.025, ease: 'power2.out', onComplete: () => textElement.querySelectorAll('.story-word').forEach(w => w.classList.add('visible')) }
-        );
+        coreAnimation.stagger(textElement.querySelectorAll('.story-word'), {
+            from: { opacity: 0, y: 15 },
+            to: { opacity: 1, y: 0 },
+            duration: 0.3,
+            stagger: 0.025,
+            onComplete: () => {
+                textElement.querySelectorAll('.story-word').forEach(w => w.classList.add('visible'));
+            }
+        });
     }
 
     initVideoControl() {
         const scroller = document.querySelector('.home-scroll-container');
         if (!scroller || !this.video) return;
+        
         const videoPart = this.container.querySelector('.overview-video-part');
         const trigger = ScrollTrigger.create({
-            trigger: videoPart, scroller: scroller, start: 'top 60%', end: 'bottom 40%',
+            trigger: videoPart, 
+            scroller: scroller, 
+            start: 'top 60%', 
+            end: 'bottom 40%',
             onEnter: () => this.playVideo(),
             onLeave: () => this.pauseVideo(),
             onEnterBack: () => this.playVideo(),
@@ -217,27 +259,43 @@ class OverviewSection {
 
     playVideo() {
         if (!this.video || this.isVideoPlaying) return;
+        
         this.video.play().then(() => {
             this.isVideoPlaying = true;
             this.video.classList.add('playing');
-            gsap.to(this.video, { opacity: 0.4, duration: 1.5, ease: 'power2.out' });
+            coreAnimation.fade(this.video, { to: 0.4, duration: 1.5 });
         }).catch(() => {});
     }
 
     pauseVideo() {
         if (!this.video || !this.isVideoPlaying) return;
-        gsap.to(this.video, {
-            opacity: 0, duration: 1, ease: 'power2.in',
-            onComplete: () => { this.video.pause(); this.isVideoPlaying = false; this.video.classList.remove('playing'); }
+        
+        coreAnimation.fade(this.video, { 
+            to: 0, 
+            duration: 1,
+            onComplete: () => { 
+                this.video.pause(); 
+                this.isVideoPlaying = false; 
+                this.video.classList.remove('playing'); 
+            }
         });
     }
 
     destroy() {
         this.scrollTriggers.forEach(st => st.kill());
         this.timelines.forEach(tl => tl && tl.kill && tl.kill());
-        if (this.video) { this.video.pause(); this.video.src = ''; }
+        
+        if (this.video) { 
+            this.video.pause(); 
+            this.video.src = ''; 
+        }
+        
         gameFeatures.destroy();
-        if (this.container && this.container.parentNode) this.container.parentNode.removeChild(this.container);
+        charactersSection.destroy();
+        
+        if (this.container && this.container.parentNode) {
+            this.container.parentNode.removeChild(this.container);
+        }
     }
 }
 

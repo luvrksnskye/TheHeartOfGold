@@ -1,13 +1,14 @@
 /**
  * Main Application Entry Point
  * The Heart of Gold
- * Updated: SFX Manager integration
+ * Updated: Core Animation integration
  */
 
 import stateManager, { AppStates } from './utils/StateManager.js';
 import assetLoader from './utils/AssetLoader.js';
 import audioManager from './utils/AudioManager.js';
 import sfxManager from './utils/SFXManager.js';
+import coreAnimation from './utils/CoreAnimation.js';
 import cursorManager from './utils/CursorManager.js';
 import sakuraPetals from './utils/SakuraPetals.js';
 import splashScreen from './modules/SplashScreen.js';
@@ -37,7 +38,16 @@ class App {
             { type: 'image', src: './src/assets/barrax3.png' },
             { type: 'image', src: './src/assets/Hud_Cat_marco.png' },
             { type: 'image', src: './src/assets/indicador.png' },
-            { type: 'image', src: './src/assets/Opts.png' }
+            { type: 'image', src: './src/assets/Opts.png' },
+            { type: 'image', src: './src/assets/info-panel.png' },
+            { type: 'image', src: './src/assets/character-icons_behind-select.png' },
+            { type: 'image', src: './src/assets/icon-selection-hover.png' },
+            { type: 'image', src: './src/assets/shiori-icon.png' },
+            { type: 'image', src: './src/assets/zoe-icon.png' },
+            { type: 'image', src: './src/assets/maya-icon.png' },
+            { type: 'image', src: './src/assets/irene-icon.png' },
+            { type: 'image', src: './src/assets/irene-card.png' },
+            { type: 'image', src: './src/assets/irene/newhit.gif' }
         ];
         
         this.isFirstVisit = this.checkFirstVisit();
@@ -61,6 +71,9 @@ class App {
         stateManager.on('stateChange', this.handleStateChange.bind(this));
         cursorManager.init();
         transition.init();
+        
+        // Initialize Core Animation system
+        coreAnimation.init();
         
         // Preload SFX
         sfxManager.preload();

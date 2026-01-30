@@ -1,11 +1,12 @@
 /**
  * GameFeatures - Interactive Game Features Carousel
  * The Heart of Gold
- * Updated: Reordered features, improved positioning
+ * Updated: Core Animation integration, better scaling
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
+import coreAnimation from '../utils/CoreAnimation.js';
 import sfxManager from '../utils/SFXManager.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +20,6 @@ class GameFeatures {
         this.scrollTriggers = [];
         this.timelines = [];
         
-        // Reordered: Bullet Heaven first, then Team, then Shop
         this.features = [
             {
                 id: 'bullet-heaven', 
@@ -47,7 +47,7 @@ class GameFeatures {
                 number: '04',
                 title: 'Dynamic Combat Mechanics',
                 subtitle: 'Fast-Paced And Tactical',
-                description: 'In each run, venture into the dungeons, which change the gameplay to a turn-based RPG while maintaining the fast-paced essence and waves of enemies. Use up to 14 characters in combat, divided into two teams of seven, to obtain equipment, materials, coins, and extra experience.'
+                description: 'In each run, venture into the dungeons, which change the gameplay to a turn-based RPG while maintaining the fast-paced essence and waves of enemies. Use up to 14 characters in combat, divided into two teams of seven.'
             }
         ];
     }
@@ -58,7 +58,6 @@ class GameFeatures {
         this.container.id = 'game-features';
         
         this.container.innerHTML = `
-            <!-- Diagonal stripes top -->
             <div class="gf-stripes gf-stripes-top">
                 <div class="gf-stripe"></div>
                 <div class="gf-stripe"></div>
@@ -68,7 +67,6 @@ class GameFeatures {
             <div class="gf-background"></div>
             
             <div class="gf-main-wrapper">
-                <!-- Left Panel with diagonal cut -->
                 <div class="gf-left-panel">
                     <div class="gf-panel-inner">
                         <div class="gf-label">
@@ -85,10 +83,8 @@ class GameFeatures {
                     </div>
                 </div>
                 
-                <!-- Content Area with diagonal frame -->
                 <div class="gf-content-area">
                     <div class="gf-carousel-wrapper">
-                        <!-- Diagonal clipped frame -->
                         <div class="gf-diagonal-frame">
                             <div class="gf-slides">
                                 ${this.features.map((f, i) => `
@@ -100,7 +96,6 @@ class GameFeatures {
                             </div>
                         </div>
                         
-                        <!-- Arrow navigation using custom images -->
                         <button class="gf-nav gf-prev clickable" aria-label="Previous">
                             <img src="./src/assets/arrowLx1.png" alt="" class="gf-arrow-img">
                         </button>
@@ -109,7 +104,6 @@ class GameFeatures {
                         </button>
                     </div>
                     
-                    <!-- Info bar at bottom right -->
                     <div class="gf-info-bar">
                         <div class="gf-info-content">
                             <h3 class="gf-title">${this.features[0].title},</h3>
@@ -120,7 +114,6 @@ class GameFeatures {
                 </div>
             </div>
             
-            <!-- Diagonal stripes bottom -->
             <div class="gf-stripes gf-stripes-bottom">
                 <div class="gf-stripe"></div>
                 <div class="gf-stripe"></div>
@@ -156,15 +149,20 @@ class GameFeatures {
     }
 
     setInitialStates() {
+        const leftPanel = this.container.querySelector('.gf-left-panel');
+        const carousel = this.container.querySelector('.gf-carousel-wrapper');
+        const infoBar = this.container.querySelector('.gf-info-bar');
+        const stripes = this.container.querySelectorAll('.gf-stripe');
+        
         gsap.set(this.container, { opacity: 0 });
-        gsap.set(this.container.querySelector('.gf-left-panel'), { 
+        gsap.set(leftPanel, { 
             x: -100, 
             opacity: 0,
             clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)'
         });
-        gsap.set(this.container.querySelector('.gf-carousel-wrapper'), { opacity: 0, scale: 0.95, y: 20 });
-        gsap.set(this.container.querySelector('.gf-info-bar'), { opacity: 0, y: 30 });
-        gsap.set(this.container.querySelectorAll('.gf-stripe'), { scaleX: 0, transformOrigin: 'left center' });
+        gsap.set(carousel, { opacity: 0, scale: 0.95, y: 20 });
+        gsap.set(infoBar, { opacity: 0, y: 30 });
+        gsap.set(stripes, { scaleX: 0, transformOrigin: 'left center' });
     }
 
     bindEvents() {
@@ -172,6 +170,7 @@ class GameFeatures {
             sfxManager.playCheck1();
             this.navigate(-1);
         });
+        
         this.nextBtn.addEventListener('click', () => {
             sfxManager.playCheck1();
             this.navigate(1);
@@ -184,7 +183,7 @@ class GameFeatures {
             });
         });
         
-        // Video hover - play on hover
+        // Video hover
         this.slides.forEach((slide, i) => {
             const video = this.videos.get(i);
             
@@ -224,10 +223,16 @@ class GameFeatures {
         const dir = index > this.currentIndex ? 1 : -1;
         const feature = this.features[index];
         
-        const tl = gsap.timeline({ onComplete: () => { this.isAnimating = false; this.currentIndex = index; } });
+        const tl = coreAnimation.createTimeline({
+            onComplete: () => { 
+                this.isAnimating = false; 
+                this.currentIndex = index; 
+            }
+        });
         this.timelines.push(tl);
         
-        // Update number display with animation
+        // Animate number with squish
+        coreAnimation.prepareElement(this.numberDisplay, ['transform', 'opacity']);
         tl.to(this.numberDisplay, {
             scale: 0.8,
             opacity: 0,
@@ -250,13 +255,24 @@ class GameFeatures {
         });
         
         // Squishy exit
+        coreAnimation.prepareElement(oldSlide, ['transform', 'opacity']);
         tl.to(oldSlide, { scaleX: 1.1, scaleY: 0.9, duration: 0.1, ease: 'power2.in' }, 0)
-          .to(oldSlide, { x: dir * -100 + '%', scaleX: 0.8, scaleY: 1.2, opacity: 0, duration: 0.25, ease: 'power3.in',
-              onComplete: () => { oldSlide.classList.remove('active'); gsap.set(oldSlide, { x: 0, scaleX: 1, scaleY: 1, opacity: 0 }); }
+          .to(oldSlide, { 
+              x: dir * -100 + '%', 
+              scaleX: 0.8, 
+              scaleY: 1.2, 
+              opacity: 0, 
+              duration: 0.25, 
+              ease: 'power3.in',
+              onComplete: () => { 
+                  oldSlide.classList.remove('active'); 
+                  gsap.set(oldSlide, { x: 0, scaleX: 1, scaleY: 1, opacity: 0 }); 
+              }
           }, 0.1);
         
         // Squishy enter
         newSlide.classList.add('active');
+        coreAnimation.prepareElement(newSlide, ['transform', 'opacity']);
         gsap.set(newSlide, { x: dir * 100 + '%', scaleX: 0.8, scaleY: 1.2, opacity: 0 });
         
         tl.to(newSlide, { x: '0%', scaleX: 1.05, scaleY: 0.95, opacity: 1, duration: 0.2, ease: 'power2.out' }, 0.15)
@@ -269,16 +285,13 @@ class GameFeatures {
         this.indicators.forEach((ind, i) => {
             ind.classList.toggle('active', i === index);
             if (i === index) {
-                gsap.timeline()
-                    .to(ind, { scale: 0.85, duration: 0.1 })
-                    .to(ind, { scale: 1.15, duration: 0.2, ease: 'back.out(3)' })
-                    .to(ind, { scale: 1, duration: 0.25, ease: 'elastic.out(1, 0.4)' });
+                coreAnimation.squish(ind, { intensity: 0.8, duration: 0.4 });
             }
         });
     }
 
     updateInfo(feature, dir) {
-        const tl = gsap.timeline();
+        const tl = coreAnimation.createTimeline();
         this.timelines.push(tl);
         
         tl.to([this.infoTitle, this.infoSubtitle, this.infoDescription], { 
@@ -317,13 +330,22 @@ class GameFeatures {
         const stripesBot = this.container.querySelectorAll('.gf-stripes-bottom .gf-stripe');
         const number = panel.querySelector('.gf-number');
         
-        const tl = gsap.timeline();
+        const tl = coreAnimation.createTimeline();
         this.timelines.push(tl);
         
         tl.to(this.container, { opacity: 1, duration: 0.3 })
           .to(stripesTop, { scaleX: 1, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, '-=0.1')
-          .to(panel, { x: 0, opacity: 1, clipPath: 'polygon(0 0, 100% 0, 75% 100%, 0 100%)', duration: 0.7, ease: 'power3.out' }, '-=0.3')
-          .fromTo(number, { scale: 0.5, opacity: 0 }, { scale: 1.1, opacity: 1, duration: 0.25, ease: 'back.out(2)' }, '-=0.3')
+          .to(panel, { 
+              x: 0, 
+              opacity: 1, 
+              clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0 100%)', 
+              duration: 0.7, 
+              ease: 'power3.out' 
+          }, '-=0.3')
+          .fromTo(number, 
+              { scale: 0.5, opacity: 0 }, 
+              { scale: 1.1, opacity: 1, duration: 0.25, ease: 'back.out(2)' }, 
+              '-=0.3')
           .to(number, { scale: 1, duration: 0.35, ease: 'elastic.out(1, 0.4)' })
           .to(carousel, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.4')
           .to(info, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.5)' }, '-=0.2')
@@ -335,7 +357,9 @@ class GameFeatures {
         this.timelines.forEach(tl => tl && tl.kill && tl.kill());
         this.videos.forEach(v => { v.pause(); v.src = ''; });
         this.videos.clear();
-        if (this.container && this.container.parentNode) this.container.parentNode.removeChild(this.container);
+        if (this.container && this.container.parentNode) {
+            this.container.parentNode.removeChild(this.container);
+        }
     }
 }
 

@@ -1,0 +1,246 @@
+/**
+ * Responsive Styles Part 1 - Mobile First
+ * The Heart of Gold
+ * Covers: xs (0-479px) and sm (480-639px)
+ */
+
+/* ==================== */
+/* Critical Mobile Fixes */
+/* ==================== */
+
+/* Hide section nav on ALL mobile and tablet devices */
+@media (max-width: 1023px) {
+    .section-nav {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
+
+/* Touch device detection */
+@media (hover: none) and (pointer: coarse) {
+    .section-nav {
+        display: none !important;
+    }
+    
+    .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .news-panel:hover,
+    .logo-wrapper:hover,
+    .platform-badge:hover {
+        transform: none;
+    }
+}
+
+/* ==================== */
+/* Extra Small (xs) - 0 to 479px */
+/* ==================== */
+
+@media (max-width: 479px) {
+    :root {
+        --fs-xs: 0.6rem;
+        --fs-sm: 0.7rem;
+        --fs-base: 0.8rem;
+        --fs-md: 0.9rem;
+    }
+    
+    /* Navigation */
+    .main-nav {
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .nav-links {
+        gap: var(--space-xs);
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        font-size: 0.55rem;
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .nav-link-text {
+        display: none;
+    }
+    
+    .nav-icon {
+        font-size: 0.9rem;
+    }
+    
+    .nav-submenu {
+        min-width: 110px;
+    }
+    
+    .nav-submenu-item {
+        font-size: 0.6rem;
+    }
+    
+    /* Loading Screen */
+    .loading-audio-toggles {
+        top: var(--space-md);
+        left: var(--space-md);
+    }
+    
+    .audio-toggle {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .toggle-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .loading-tip-container {
+        width: 92%;
+        top: 45%;
+    }
+    
+    .loading-tip {
+        padding: var(--space-md);
+    }
+    
+    .tip-text {
+        font-size: 0.75rem;
+    }
+    
+    .loading-corner {
+        bottom: var(--space-md);
+        right: var(--space-md);
+        flex-direction: column-reverse;
+        gap: var(--space-sm);
+    }
+    
+    .loading-text {
+        font-size: 1.4rem;
+    }
+    
+    .loading-gif {
+        width: 100px;
+    }
+    
+    /* Home Screen */
+    .home-audio-toggles {
+        top: var(--space-md);
+        left: var(--space-md);
+        padding-top: calc(var(--safe-top) + 50px);
+    }
+    
+    .home-audio-toggles .audio-toggle {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .logo-wrapper {
+        width: 95vw;
+    }
+    
+    .home-subtitle {
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+    }
+    
+    .platform-badges {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+    
+    .platform-icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .platform-letter {
+        font-size: 0.65rem;
+    }
+    
+    /* News Section */
+    .home-news-section {
+        padding: var(--space-2xl) var(--space-md);
+    }
+    
+    .carousel-gallery {
+        height: 340px;
+    }
+    
+    .carousel-cards {
+        left: 5%;
+        width: 250px;
+        height: 320px;
+    }
+    
+    .news-panel {
+        width: 250px;
+        height: 320px;
+    }
+    
+    .carousel-nav {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* ==================== */
+/* Small (sm) - 480px to 639px */
+/* ==================== */
+
+@media (min-width: 480px) and (max-width: 639px) {
+    .main-nav {
+        padding: var(--space-sm) var(--space-md);
+    }
+    
+    .nav-links {
+        gap: var(--space-sm);
+    }
+    
+    .nav-link {
+        font-size: 0.6rem;
+    }
+    
+    .loading-corner {
+        bottom: var(--space-lg);
+        right: var(--space-md);
+        flex-direction: column-reverse;
+        gap: var(--space-md);
+    }
+    
+    .loading-text {
+        font-size: 1.6rem;
+    }
+    
+    .loading-gif {
+        width: 120px;
+    }
+    
+    .logo-wrapper {
+        width: 90vw;
+    }
+    
+    .home-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .platform-badges {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .carousel-gallery {
+        height: 370px;
+    }
+    
+    .carousel-cards {
+        left: 8%;
+        width: 280px;
+        height: 350px;
+    }
+    
+    .news-panel {
+        width: 280px;
+        height: 350px;
+    }
+}
