@@ -1,7 +1,7 @@
 /**
  * Game Features Section Styles
  * The Heart of Gold
- * Diagonal cut design - Updated positioning
+ * Compact width, taller panels design
  */
 
 /* ==================== */
@@ -11,8 +11,9 @@
 .game-features-section {
     position: relative;
     width: 100%;
-    min-height: 550px;
-    padding: var(--space-4xl) 0;
+    min-height: auto;
+    height: fit-content;
+    padding: var(--space-xl) 0;
     overflow: hidden;
 }
 
@@ -34,7 +35,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 35px;
     overflow: hidden;
     z-index: 1;
     pointer-events: none;
@@ -46,7 +47,7 @@
 .gf-stripe {
     position: absolute;
     width: 120%;
-    height: 3px;
+    height: 2px;
     left: -10%;
     background: linear-gradient(
         90deg,
@@ -59,36 +60,33 @@
     transform: rotate(-2.5deg);
 }
 
-.gf-stripes-top .gf-stripe:nth-child(1) { top: 10px; }
-.gf-stripes-top .gf-stripe:nth-child(2) { top: 25px; opacity: 0.7; }
-.gf-stripes-top .gf-stripe:nth-child(3) { top: 40px; opacity: 0.4; }
+.gf-stripes-top .gf-stripe:nth-child(1) { top: 6px; }
+.gf-stripes-top .gf-stripe:nth-child(2) { top: 14px; opacity: 0.7; }
+.gf-stripes-top .gf-stripe:nth-child(3) { top: 22px; opacity: 0.4; }
 
-.gf-stripes-bottom .gf-stripe:nth-child(1) { bottom: 10px; transform: rotate(2.5deg); }
-.gf-stripes-bottom .gf-stripe:nth-child(2) { bottom: 25px; transform: rotate(2.5deg); opacity: 0.7; }
-.gf-stripes-bottom .gf-stripe:nth-child(3) { bottom: 40px; transform: rotate(2.5deg); opacity: 0.4; }
+.gf-stripes-bottom .gf-stripe:nth-child(1) { bottom: 6px; transform: rotate(2.5deg); }
+.gf-stripes-bottom .gf-stripe:nth-child(2) { bottom: 14px; transform: rotate(2.5deg); opacity: 0.7; }
+.gf-stripes-bottom .gf-stripe:nth-child(3) { bottom: 22px; transform: rotate(2.5deg); opacity: 0.4; }
 
 /* ==================== */
-/* Main Wrapper - Moved more to the right */
+/* Main Wrapper - Narrower */
 /* ==================== */
 
 .gf-main-wrapper {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: var(--container-2xl);
+    max-width: 1100px;
     margin: 0 auto;
-    margin-left: auto;
-    margin-right: 0;
-    padding: 0 var(--space-xl);
-    padding-left: calc(var(--space-xl) + 5%);
+    padding: 0 var(--space-md);
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 180px 1fr;
     gap: 0;
     align-items: stretch;
 }
 
 /* ==================== */
-/* Left Panel - Diagonal Cut */
+/* Left Panel - Narrower but Taller */
 /* ==================== */
 
 .gf-left-panel {
@@ -97,25 +95,23 @@
     background-image: repeating-linear-gradient(
         45deg,
         transparent,
-        transparent 15px,
-        rgba(255, 107, 157, 0.15) 15px,
-        rgba(255, 107, 157, 0.15) 30px
+        transparent 10px,
+        rgba(255, 107, 157, 0.15) 10px,
+        rgba(255, 107, 157, 0.15) 20px
     );
-    
-    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); 
-    border-radius: 40px 0 0 40px;
-    padding: var(--space-2xl);
-    padding-right: var(--space-3xl);
-    min-height: 520px;
-    min-width: 500px;
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%); 
+    border-radius: 24px 0 0 24px;
+    padding: var(--space-lg);
+    padding-right: var(--space-xl);
+    min-height: 420px;
+    width: 280px;
     display: flex;
     flex-direction: column;
     box-shadow: 
-        10px 0 30px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(196, 30, 92, 0.3);
+        8px 0 25px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(196, 30, 92, 0.3);
     z-index: 10;
-    /* Moved further left for more separation */
-    left: -300px;
+    left: -160px;
 }
 
 .gf-panel-inner {
@@ -133,7 +129,7 @@
 
 .gf-label-text {
     font-family: var(--font-pixel);
-    font-size: clamp(0.7rem, 1.8vw, 0.95rem);
+    font-size: clamp(0.55rem, 1.2vw, 0.7rem);
     color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -141,16 +137,16 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Big Number */
+/* Big Number - Taller */
 .gf-number {
     font-family: var(--font-pixel);
-    font-size: clamp(6rem, 16vw, 11rem);
+    font-size: clamp(5rem, 12vw, 8rem);
     color: #fff;
-    line-height: 0.75;
+    line-height: 0.8;
     font-weight: 700;
     text-shadow: 
-        4px 4px 0 rgba(0, 0, 0, 0.25),
-        0 0 40px rgba(255, 255, 255, 0.2);
+        3px 3px 0 rgba(0, 0, 0, 0.25),
+        0 0 30px rgba(255, 255, 255, 0.2);
     margin: var(--space-md) 0;
 }
 
@@ -158,24 +154,24 @@
 .gf-indicators {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     margin-top: auto;
 }
 
 .gf-indicator {
     position: relative;
-    width: 45px;
-    height: 10px;
+    width: 30px;
+    height: 7px;
     background: rgba(255, 255, 255, 0.25);
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
     transition: transform 0.3s ease;
 }
 
 .gf-indicator:hover {
-    transform: scaleX(1.1);
+    transform: scaleX(1.15);
 }
 
 .gf-indicator-fill {
@@ -185,7 +181,7 @@
     height: 100%;
     width: 0;
     background: #fff;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: width 0.4s ease;
     box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
@@ -201,8 +197,7 @@
 .gf-content-area {
     display: flex;
     flex-direction: column;
-    /* Increased negative margin to maintain overlap with left panel moved further left */
-    margin-left: -160px;
+    margin-left: -80px;
     position: relative;
     z-index: 5;
 }
@@ -216,17 +211,17 @@
     flex: 1;
 }
 
-/* Diagonal Frame - Main video container */
+/* Diagonal Frame - Taller */
 .gf-diagonal-frame {
     position: relative;
     width: 100%;
-    height: 580px;
-    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
-    border-radius: 0 var(--radius-xl) var(--radius-xl) var(--radius-lg);
+    height: clamp(320px, 50vh, 480px);
+    clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-md);
     overflow: hidden;
     background: #18010c;
     box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.5),
+        0 8px 35px rgba(0, 0, 0, 0.5),
         inset 0 0 0 2px rgba(255, 179, 217, 0.15);
 }
 
@@ -274,8 +269,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
+    width: 36px;
+    height: 36px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -292,7 +287,7 @@
     height: 100%;
     object-fit: contain;
     image-rendering: pixelated;
-    filter: drop-shadow(0 0 10px rgba(196, 30, 92, 0.6));
+    filter: drop-shadow(0 0 8px rgba(196, 30, 92, 0.6));
     transition: filter 0.3s ease;
 }
 
@@ -301,11 +296,11 @@
 }
 
 .gf-nav:hover {
-    transform: translateY(-50%) scale(1.15);
+    transform: translateY(-50%) scale(1.2);
 }
 
 .gf-nav:hover .gf-arrow-img {
-    filter: drop-shadow(0 0 20px rgba(196, 30, 92, 1));
+    filter: drop-shadow(0 0 16px rgba(196, 30, 92, 1));
 }
 
 .gf-nav:active {
@@ -313,11 +308,11 @@
 }
 
 .gf-prev {
-    left: 30px;
+    left: 15px;
 }
 
 .gf-next {
-    right: var(--space-lg);
+    right: var(--space-sm);
 }
 
 /* ==================== */
@@ -326,143 +321,166 @@
 
 .gf-info-bar {
     position: relative;
-    padding: var(--space-lg) 0;
-    padding-left: 12%;
-    margin-top: var(--space-md);
+    padding: var(--space-sm) 0;
+    padding-left: 7%;
+    margin-top: var(--space-xs);
 }
 
 .gf-info-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 2px;
 }
 
 .gf-title {
     font-family: var(--font-pixel);
-    font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+    font-size: clamp(0.9rem, 2vw, 1.4rem);
     color: var(--color-white);
     text-transform: uppercase;
     margin: 0;
     line-height: 1.1;
     text-shadow: 
-        0 0 20px rgba(186, 0, 93, 0.4),
+        0 0 15px rgba(186, 0, 93, 0.4),
         2px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 .gf-subtitle {
     font-family: var(--font-pixel);
-    font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+    font-size: clamp(0.9rem, 2vw, 1.4rem);
     color: var(--color-pink-light);
     text-transform: uppercase;
     margin: 0;
     line-height: 1.1;
     text-shadow: 
-        0 0 20px rgba(156, 0, 68, 0.4),
+        0 0 15px rgba(156, 0, 68, 0.4),
         2px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 .gf-description {
     font-family: var(--font-pixel-alt);
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    font-size: clamp(0.65rem, 0.9vw, 0.8rem);
     color: rgba(255, 255, 255, 0.8);
-    line-height: 1.6;
+    line-height: 1.5;
     margin-top: var(--space-xs);
-    max-width: 990px; 
+    max-width: 700px; 
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 
 /* ==================== */
-/* Responsive */
+/* Responsive - Large Desktops */
 /* ==================== */
 
-@media (max-width: 1400px) {
+@media (min-width: 1400px) {
     .gf-main-wrapper {
-        padding-left: var(--space-xl);
+        max-width: 1200px;
     }
     
     .gf-left-panel {
-        left: -240px;
-        min-width: 450px;
-    }
-    
-    .gf-content-area {
-        margin-left: -120px;
-    }
-}
-
-@media (max-width: 1200px) {
-    .gf-main-wrapper {
-        padding-left: var(--space-lg);
-    }
-    
-    .gf-left-panel {
-        left: -200px;
-        min-width: 400px;
-    }
-    
-    .gf-content-area {
-        margin-left: -100px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .gf-main-wrapper {
-        grid-template-columns: 220px 1fr;
-        padding-left: var(--space-md);
-    }
-    
-    .gf-left-panel {
-        min-height: 360px;
-        min-width: 350px;
-        left: -150px;
-        padding: var(--space-xl);
-        padding-right: var(--space-2xl);
-    }
-    
-    .gf-number {
-        font-size: 7rem;
+        width: 300px;
+        left: -180px;
     }
     
     .gf-diagonal-frame {
-        height: 320px;
+        height: clamp(360px, 52vh, 520px);
+    }
+}
+
+/* ==================== */
+/* Responsive - Standard Desktop */
+/* ==================== */
+
+@media (max-width: 1200px) {
+    .gf-main-wrapper {
+        max-width: 1000px;
+        grid-template-columns: 160px 1fr;
+    }
+    
+    .gf-left-panel {
+        width: 260px;
+        left: -140px;
+        min-height: 380px;
     }
     
     .gf-content-area {
         margin-left: -70px;
     }
+    
+    .gf-diagonal-frame {
+        height: clamp(300px, 45vh, 420px);
+    }
 }
+
+@media (max-width: 1024px) {
+    .game-features-section {
+        padding: var(--space-lg) 0;
+    }
+    
+    .gf-main-wrapper {
+        max-width: 900px;
+        grid-template-columns: 140px 1fr;
+        padding-left: var(--space-sm);
+    }
+    
+    .gf-left-panel {
+        min-height: 340px;
+        width: 240px;
+        left: -120px;
+        padding: var(--space-md);
+        padding-right: var(--space-lg);
+    }
+    
+    .gf-number {
+        font-size: 5.5rem;
+    }
+    
+    .gf-diagonal-frame {
+        height: clamp(280px, 42vh, 380px);
+    }
+    
+    .gf-content-area {
+        margin-left: -55px;
+    }
+}
+
+/* ==================== */
+/* Responsive - Tablet & Mobile */
+/* ==================== */
 
 @media (max-width: 768px) {
     .game-features-section {
-        padding: var(--space-3xl) 0;
+        padding: var(--space-md) 0;
+    }
+    
+    .gf-stripes {
+        height: 25px;
     }
     
     .gf-main-wrapper {
         grid-template-columns: 1fr;
         gap: 0;
-        padding-left: var(--space-md);
-        padding-right: var(--space-md);
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
     }
     
     .gf-left-panel {
         min-height: auto;
-        min-width: auto;
+        width: 100%;
         left: 0;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: var(--space-lg) var(--space-xl);
-        clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
-        margin-bottom: var(--space-md);
-        border-radius: var(--radius-lg);
+        padding: var(--space-sm) var(--space-md);
+        clip-path: polygon(0 0, 100% 0, 96% 100%, 0 100%);
+        margin-bottom: var(--space-xs);
+        border-radius: var(--radius-md);
     }
     
     .gf-panel-inner {
         flex-direction: row;
         align-items: center;
-        gap: var(--space-lg);
+        gap: var(--space-sm);
         width: 100%;
     }
     
@@ -471,7 +489,7 @@
     }
     
     .gf-number {
-        font-size: 4rem;
+        font-size: 2.8rem;
         margin: 0;
     }
     
@@ -482,8 +500,8 @@
     }
     
     .gf-indicator {
-        width: 30px;
-        height: 8px;
+        width: 22px;
+        height: 5px;
     }
     
     .gf-content-area {
@@ -491,62 +509,76 @@
     }
     
     .gf-diagonal-frame {
-        height: 260px;
-        clip-path: polygon(3% 0, 100% 0, 100% 100%, 0 100%);
+        height: clamp(220px, 38vh, 300px);
+        clip-path: polygon(2% 0, 100% 0, 100% 100%, 0 100%);
         border-radius: var(--radius-md);
     }
     
     .gf-nav {
-        width: 40px;
-        height: 40px;
+        width: 32px;
+        height: 32px;
     }
     
-    .gf-prev { left: var(--space-sm); }
-    .gf-next { right: var(--space-sm); }
+    .gf-prev { left: var(--space-xs); }
+    .gf-next { right: var(--space-xs); }
     
     .gf-info-bar {
-        padding-left: 5%;
+        padding-left: 3%;
         text-align: left;
-    }
-    
-    .gf-info-content {
-        flex-direction: column;
-        gap: var(--space-xs);
-    }
-}
-
-@media (max-width: 480px) {
-    .gf-main-wrapper {
-        padding: 0 var(--space-md);
-    }
-    
-    .gf-left-panel {
-        padding: var(--space-md);
-    }
-    
-    .gf-label-text {
-        font-size: 0.6rem;
-    }
-    
-    .gf-number {
-        font-size: 3rem;
-    }
-    
-    .gf-diagonal-frame {
-        height: 200px;
     }
     
     .gf-title,
     .gf-subtitle {
-        font-size: 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .gf-description {
+        font-size: 0.65rem;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-features-section {
+        padding: var(--space-sm) 0;
+    }
+    
+    .gf-main-wrapper {
+        padding: 0 var(--space-xs);
+    }
+    
+    .gf-left-panel {
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .gf-label-text {
+        font-size: 0.45rem;
+    }
+    
+    .gf-number {
+        font-size: 2.2rem;
+    }
+    
+    .gf-diagonal-frame {
+        height: clamp(180px, 35vh, 260px);
+    }
+    
+    .gf-title,
+    .gf-subtitle {
+        font-size: 0.75rem;
     }
     
     .gf-stripes {
-        height: 40px;
+        height: 20px;
     }
     
     .gf-stripe {
-        height: 2px;
+        height: 1.5px;
+    }
+    
+    .gf-nav {
+        width: 28px;
+        height: 28px;
     }
 }
 
