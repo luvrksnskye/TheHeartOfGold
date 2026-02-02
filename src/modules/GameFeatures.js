@@ -1,7 +1,6 @@
 /**
  * GameFeatures - Interactive Game Features Carousel
  * The Heart of Gold
- * Updated: Core Animation integration, better scaling
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';

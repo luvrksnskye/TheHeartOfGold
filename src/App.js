@@ -46,8 +46,7 @@ class App {
             { type: 'image', src: './src/assets/zoe-icon.png' },
             { type: 'image', src: './src/assets/maya-icon.png' },
             { type: 'image', src: './src/assets/irene-icon.png' },
-            { type: 'image', src: './src/assets/irene-card.png' },
-            { type: 'image', src: './src/assets/irene/newhit.gif' }
+            { type: 'image', src: './src/assets/irene-card.png' }
         ];
         
         this.isFirstVisit = this.checkFirstVisit();

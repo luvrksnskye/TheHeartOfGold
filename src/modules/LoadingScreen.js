@@ -32,7 +32,7 @@ class LoadingScreen {
             "Hello world!",
             "Loading... grab a snack!",
             "Did you know? Our combat system features unique stat scaling!",
-            "¡Hola Latinoamerica!",
+            "Hola Latinoamerica!!",
             "Bonjour tout le monde!",
             "Hallo Welt!",
             "Ciao mondo!",
