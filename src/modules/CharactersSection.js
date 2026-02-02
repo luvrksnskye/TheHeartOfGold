@@ -55,7 +55,7 @@ class CharactersSection {
         this.voiceCast = {
             irene: {
                 portrait: './src/characters/irene.png',
-                video: './src/characters/Irene.mp4',
+                video: './src/characters/irene.mp4',
                 hasVideo: true,
                 voiceActors: { english: 'Abby Espiritu', spanish: 'Por anunciar', japanese: 'Por anunciar' },
                 voicelines: { english: './src/voicelines/irene_en.mp3', spanish: './src/voicelines/irene_es.mp3', japanese: './src/voicelines/irene_jp.mp3' },
