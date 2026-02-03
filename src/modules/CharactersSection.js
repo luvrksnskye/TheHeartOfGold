@@ -75,7 +75,7 @@ class CharactersSection {
         this.voiceCast = {
             irene: {
                 portrait: './src/characters/irene.png',
-                video: './src/characters/irene.mp4',
+                video: 'https://dl.dropbox.com/scl/fi/etvilb0flao13r4czswe3/irene.mp4?rlkey=4b0zi05fgdfs4oajuet53yzhj&st=ztu8essa&dl=0',
                 hasVideo: true,
                 voiceActors: {
                     english: 'Abby Espiritu',
