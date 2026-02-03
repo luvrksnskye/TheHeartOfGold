@@ -1,14 +1,7 @@
 /**
  * CoreAnimation - Centralized GPU-Optimized Animation System
  * The Heart of Gold
- * 
- * Features:
- * - GPU-accelerated transforms and opacity
- * - Automatic will-change management
- * - RequestAnimationFrame optimization
- * - GSAP integration
- * - Memory-efficient animation pooling
- * - Accessibility considerations (reduced motion). Perdi 6 neuronas cerebrales escribiendo esto.
+ * Optimized: Better memory management, animation pooling, cleanup
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
@@ -16,7 +9,8 @@ import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 class CoreAnimation {
     constructor() {
         this.activeAnimations = new Map();
-        this.willChangeElements = new Set();
+        this.willChangeElements = new WeakSet();
+        this.willChangeCleanupTimers = new WeakMap();
         this.rafCallbacks = new Map();
         this.rafId = null;
         this.isRunning = false;
@@ -24,20 +18,23 @@ class CoreAnimation {
         this.lastTime = 0;
         this.deltaTime = 0;
         
-        // Performance settings
         this.config = {
             willChangeTimeout: 300,
-            maxWillChangeElements: 50,
+            maxConcurrentAnimations: 100,
             enableGPU: true,
             reducedMotion: false
         };
-        
-        this.init();
     }
 
     init() {
         // Check for reduced motion preference
-        this.config.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        this.config.reducedMotion = mediaQuery.matches;
+        
+        // Listen for changes
+        mediaQuery.addEventListener('change', (e) => {
+            this.config.reducedMotion = e.matches;
+        });
         
         // Configure GSAP defaults for GPU optimization
         gsap.config({
@@ -45,7 +42,6 @@ class CoreAnimation {
             nullTargetWarn: false
         });
         
-        // Set default GSAP properties for GPU acceleration
         gsap.defaults({
             ease: 'power2.out',
             overwrite: 'auto'
@@ -55,13 +51,16 @@ class CoreAnimation {
         this.startLoop();
         
         // Handle visibility changes
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.pauseAll();
-            } else {
-                this.resumeAll();
-            }
-        });
+        this.handleVisibility = this.handleVisibility.bind(this);
+        document.addEventListener('visibilitychange', this.handleVisibility);
+    }
+
+    handleVisibility() {
+        if (document.hidden) {
+            this.pauseAll();
+        } else {
+            this.resumeAll();
+        }
     }
 
     /**
@@ -70,15 +69,9 @@ class CoreAnimation {
     prepareElement(element, properties = ['transform', 'opacity']) {
         if (!element || this.willChangeElements.has(element)) return;
         
-        // Limit will-change elements for memory
-        if (this.willChangeElements.size >= this.config.maxWillChangeElements) {
-            const oldest = this.willChangeElements.values().next().value;
-            this.cleanupElement(oldest);
-        }
-        
+        // Set will-change
         element.style.willChange = properties.join(', ');
         element.style.backfaceVisibility = 'hidden';
-        element.style.perspective = '1000px';
         
         this.willChangeElements.add(element);
     }
@@ -89,13 +82,20 @@ class CoreAnimation {
     cleanupElement(element, delay = 0) {
         if (!element) return;
         
+        // Clear any existing cleanup timer
+        const existingTimer = this.willChangeCleanupTimers.get(element);
+        if (existingTimer) {
+            clearTimeout(existingTimer);
+        }
+        
         const cleanup = () => {
             element.style.willChange = 'auto';
-            this.willChangeElements.delete(element);
+            this.willChangeCleanupTimers.delete(element);
         };
         
         if (delay > 0) {
-            setTimeout(cleanup, delay);
+            const timer = setTimeout(cleanup, delay);
+            this.willChangeCleanupTimers.set(element, timer);
         } else {
             cleanup();
         }
@@ -115,16 +115,18 @@ class CoreAnimation {
         
         this.prepareElement(element, ['opacity']);
         
-        return gsap.to(element, {
+        const tween = gsap.to(element, {
             opacity: to,
             duration: this.config.reducedMotion ? 0.01 : duration,
             ease,
             delay,
             onComplete: () => {
                 this.cleanupElement(element, this.config.willChangeTimeout);
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
+        
+        return tween;
     }
 
     /**
@@ -155,13 +157,13 @@ class CoreAnimation {
             force3D: true,
             onComplete: () => {
                 this.cleanupElement(element, this.config.willChangeTimeout);
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
     }
 
     /**
-     * Squishy bounce animation (characteristic of the game)
+     * Squishy bounce animation
      */
     squish(element, options = {}) {
         const {
@@ -172,7 +174,7 @@ class CoreAnimation {
         } = options;
         
         if (this.config.reducedMotion) {
-            if (onComplete) onComplete();
+            onComplete?.();
             return gsap.timeline();
         }
         
@@ -182,7 +184,7 @@ class CoreAnimation {
             delay,
             onComplete: () => {
                 this.cleanupElement(element, this.config.willChangeTimeout);
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
         
@@ -244,7 +246,7 @@ class CoreAnimation {
             force3D: true,
             onComplete: () => {
                 this.cleanupElement(element, this.config.willChangeTimeout);
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
     }
@@ -271,7 +273,7 @@ class CoreAnimation {
             force3D: true,
             onComplete: () => {
                 this.cleanupElement(element, this.config.willChangeTimeout);
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
     }
@@ -304,53 +306,7 @@ class CoreAnimation {
             force3D: true,
             onComplete: () => {
                 els.forEach(el => this.cleanupElement(el, this.config.willChangeTimeout));
-                if (onComplete) onComplete();
-            }
-        });
-    }
-
-    /**
-     * Letter-by-letter text animation
-     */
-    animateText(element, options = {}) {
-        const {
-            duration = 0.4,
-            stagger = 0.04,
-            delay = 0,
-            from = { y: 20, opacity: 0, rotateX: -90 },
-            ease = 'back.out(1.5)',
-            onComplete = null
-        } = options;
-        
-        if (this.config.reducedMotion) {
-            if (onComplete) onComplete();
-            return gsap.timeline();
-        }
-        
-        const text = element.textContent;
-        element.innerHTML = text.split('').map(char => 
-            char === ' ' 
-                ? '<span class="anim-char space">&nbsp;</span>'
-                : `<span class="anim-char">${char}</span>`
-        ).join('');
-        
-        const chars = element.querySelectorAll('.anim-char:not(.space)');
-        chars.forEach(char => this.prepareElement(char, ['transform', 'opacity']));
-        
-        gsap.set(chars, { ...from, force3D: true });
-        
-        return gsap.to(chars, {
-            y: 0,
-            opacity: 1,
-            rotateX: 0,
-            duration,
-            stagger,
-            delay,
-            ease,
-            force3D: true,
-            onComplete: () => {
-                chars.forEach(char => this.cleanupElement(char, this.config.willChangeTimeout));
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
     }
@@ -366,7 +322,7 @@ class CoreAnimation {
         } = options;
         
         if (this.config.reducedMotion) {
-            if (onComplete) onComplete();
+            onComplete?.();
             return gsap.timeline();
         }
         
@@ -376,7 +332,7 @@ class CoreAnimation {
             delay,
             onComplete: () => {
                 this.cleanupElement(element, this.config.willChangeTimeout);
-                if (onComplete) onComplete();
+                onComplete?.();
             }
         });
         
@@ -386,32 +342,6 @@ class CoreAnimation {
           .to(element, { opacity: 0, duration: 0.1 });
         
         return tl;
-    }
-
-    /**
-     * Pulse glow effect
-     */
-    pulseGlow(element, options = {}) {
-        const {
-            scale = 1.1,
-            duration = 2,
-            repeat = -1,
-            yoyo = true
-        } = options;
-        
-        if (this.config.reducedMotion) return null;
-        
-        this.prepareElement(element, ['transform', 'filter']);
-        
-        return gsap.to(element, {
-            scale,
-            filter: 'brightness(1.2)',
-            duration,
-            repeat,
-            yoyo,
-            ease: 'sine.inOut',
-            force3D: true
-        });
     }
 
     /**
@@ -449,7 +379,6 @@ class CoreAnimation {
         this.lastTime = now;
         this.frameCount++;
         
-        // Execute RAF callbacks
         this.rafCallbacks.forEach((callback, id) => {
             try {
                 callback(this.deltaTime, this.frameCount);
@@ -499,10 +428,7 @@ class CoreAnimation {
      */
     killAll() {
         gsap.killTweensOf('*');
-        this.willChangeElements.forEach(el => {
-            el.style.willChange = 'auto';
-        });
-        this.willChangeElements.clear();
+        this.activeAnimations.clear();
     }
 
     /**
@@ -521,7 +447,7 @@ class CoreAnimation {
     }
 
     /**
-     * Get GSAP instance for advanced usage
+     * Get GSAP instance
      */
     getGSAP() {
         return gsap;
@@ -535,6 +461,7 @@ class CoreAnimation {
         this.killAll();
         this.rafCallbacks.clear();
         this.activeAnimations.clear();
+        document.removeEventListener('visibilitychange', this.handleVisibility);
     }
 }
 

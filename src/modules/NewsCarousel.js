@@ -1,9 +1,11 @@
 /**
- * NewsCarousel - Optimized News Carousel
+ * NewsCarousel - Optimized News Carousel with Blog Integration
  * The Heart of Gold
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
+import blogNavigator from './BlogNavigator.js';
+import blogManager from './BlogManager.js';
 
 class NewsCarousel {
     constructor() {
@@ -25,14 +27,7 @@ class NewsCarousel {
             { id: 'events', label: 'Events' }
         ];
         
-        this.newsData = [
-            { id: '01', date: 'February, 2025', title: 'Demo Launch Announcement Event', description: 'Experience the first playable demo of The Heart of Gold.', category: 'events', featured: true },
-            { id: '02', date: 'January 21, 2025', title: 'Meet the Characters', description: 'Discover the unique heroes of The Heart of Gold, each with their own combat style and abilities.', category: 'news', featured: false },
-            { id: '03', date: 'January, 2025', title: 'Development Update', description: 'Behind the scenes look at the development progress and upcoming features.', category: 'notices', featured: false },
-            { id: '04', date: 'January, 2025', title: 'Combat System Preview', description: 'Deep dive into the unique stat scaling system and character abilities.', category: 'news', featured: true },
-            { id: '05', date: 'February, 2025', title: 'Community Event: Beta Testers', description: 'Join our beta testing program and help shape the game.', category: 'events', featured: false },
-            { id: '06', date: 'February, 2025', title: 'Official Site Launch', description: 'Welcome to the official site of The Heart of Gold!', category: 'notices', featured: false }
-        ];
+        this.newsData = blogManager.getAllBlogs();
     }
 
     create(parent) {
@@ -92,6 +87,8 @@ class NewsCarousel {
     }
 
     createPanel(n, i) {
+        const previewImage = n.previewImage || n.image || './src/assets/blog-placeholder.png';
+        
         return `
             <article class="news-panel ${n.featured ? 'featured' : ''}" data-index="${i}" data-blog-id="${n.id}" data-category="${n.category}">
                 <div class="panel-bg">
@@ -99,7 +96,10 @@ class NewsCarousel {
                     <div class="panel-shimmer"></div>
                 </div>
                 <div class="panel-content clickable">
-                    <div class="panel-image"><div class="panel-image-placeholder"><span class="placeholder-icon"></span></div></div>
+                    <div class="panel-image">
+                        <img src="${previewImage}" alt="${n.title}" class="panel-preview-img" loading="lazy">
+                        <div class="panel-image-overlay"></div>
+                    </div>
                     <div class="panel-info">
                         <div class="panel-meta">
                             <span class="panel-category-tag">${n.category}</span>
@@ -233,17 +233,30 @@ class NewsCarousel {
         
         this.panels.forEach(panel => {
             const cat = panel.querySelector('.panel-cat-marco');
+            const previewImg = panel.querySelector('.panel-preview-img');
+            
             panel.addEventListener('mouseenter', () => {
-                if (this.isFiltering) return;
+                if (this.isFiltering || this.isNavigating) return;
                 gsap.to(panel, { y: -20, scale: 1.08, zIndex: 150, duration: 0.4, ease: 'back.out(1.7)' });
                 gsap.to(cat, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'back.out(2)' });
+                if (previewImg) {
+                    gsap.to(previewImg, { scale: 1.1, duration: 0.4, ease: 'power2.out' });
+                }
             });
+            
             panel.addEventListener('mouseleave', () => {
-                if (this.isFiltering) return;
+                if (this.isFiltering || this.isNavigating) return;
                 gsap.to(panel, { y: 0, scale: 1, zIndex: 100, duration: 0.3, ease: 'power2.out' });
                 gsap.to(cat, { opacity: 0, scale: 0.5, y: 30, duration: 0.3, ease: 'power2.in' });
+                if (previewImg) {
+                    gsap.to(previewImg, { scale: 1, duration: 0.3, ease: 'power2.out' });
+                }
             });
-            panel.querySelector('.panel-content').addEventListener('click', () => this.navigateToBlog(panel.dataset.blogId, panel));
+            
+            panel.querySelector('.panel-content').addEventListener('click', () => {
+                if (this.isNavigating || this.isFiltering) return;
+                this.navigateToBlog(panel.dataset.blogId, panel);
+            });
         });
         
         this.bindDotEvents();
@@ -270,18 +283,19 @@ class NewsCarousel {
           .to(tabs, { opacity: 1, x: 0, duration: 0.4, stagger: 0.08, ease: 'back.out(1.5)' }, '-=0.2')
           .to(carouselArea, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.2');
         
-        gsap.to(this.container.querySelector('.speed-icon'), { y: -10, duration: 2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+        const speedIcon = this.container.querySelector('.speed-icon');
+        if (speedIcon) {
+            gsap.to(speedIcon, { y: -10, duration: 2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+        }
     }
 
     async navigateToBlog(id, panel) {
         if (this.isNavigating) return;
         this.isNavigating = true;
-        const shim = panel.querySelector('.panel-shimmer');
-        await gsap.timeline()
-            .to(panel, { y: -40, scale: 1.15, zIndex: 200, duration: 0.3 })
-            .to(shim, { opacity: 1, x: '300%', duration: 0.5 })
-            .to(panel, { filter: 'brightness(2)', duration: 0.2 });
-        window.location.href = `./src/blogs/${id}/index.html`;
+        
+        await blogNavigator.navigateToBlog(id, panel);
+        
+        this.isNavigating = false;
     }
 
     destroy() {

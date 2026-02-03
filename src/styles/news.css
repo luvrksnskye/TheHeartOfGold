@@ -382,6 +382,7 @@
 }
 
 .panel-image {
+    position: relative;
     flex: 0 0 55%;
     background: linear-gradient(
         135deg, 
@@ -392,6 +393,25 @@
     margin-bottom: var(--space-md);
     clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 5% 100%);
     border-radius: var(--radius-md);
+}
+
+.panel-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    will-change: transform;
+}
+
+.panel-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        transparent 50%,
+        rgba(20, 2, 59, 0.6) 100%
+    );
+    pointer-events: none;
 }
 
 .panel-image-placeholder {

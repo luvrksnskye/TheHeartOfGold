@@ -236,5 +236,260 @@
 }
 
 /* ==================== */
-/* Responsive Adjustments PENDIENTE */
+/* Responsive - Tablets */
 /* ==================== */
+@media (max-width: 900px) {
+    .settings-panel {
+        width: 90vw;
+        max-width: 700px;
+    }
+    
+    .settings-content {
+        padding: 60px;
+        gap: 30px;
+    }
+    
+    .settings-title {
+        font-size: 1.9rem;
+    }
+    
+    .settings-close {
+        width: 70px;
+        height: 70px;
+        top: 0;
+        right: 0;
+    }
+    
+    .settings-deco-lines {
+        margin-top: 70px;
+    }
+    
+    .line-1 {
+        width: 220px;
+    }
+    
+    .line-2 {
+        width: 120px;
+    }
+}
+
+/* ==================== */
+/* Responsive - Mobile  */
+/* ==================== */
+@media (max-width: 600px) {
+    .settings-panel-wrapper {
+        gap: 16px;
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+    
+    .settings-panel {
+        width: 90vw;
+        max-width: none;
+    }
+    
+    .panel-bg-img {
+        position: absolute;
+        inset: auto;
+        width: 200px;
+        height: auto;
+        height: auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 110%;
+        min-height: auto;
+    }
+    
+    .settings-content {
+        width: 100%;
+        max-width: none;
+        padding: 45px 90px;
+        gap: 24px;
+        box-sizing: border-box;
+    }
+    
+    .settings-title {
+        font-size: 1.4rem;
+        letter-spacing: 0.1em;
+        margin-bottom: -20px;
+    }
+    
+ .settings-close {
+    width: 50px;
+    height: 50px;
+    top: -15px;
+    right: -15px;
+}
+
+.close-img {
+    width: 100%;
+    height: auto;
+    min-width: 120%;
+}
+    
+    .settings-slider-group {
+        width: 100%;
+    }
+    
+    .slider-label {
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        margin-bottom: 2px;
+    }
+    
+    .slider-row {
+        gap: 6px;
+        width: 100%;
+    }
+    
+    .vol-btn {
+        width: 28px;
+        height: 28px;
+        padding: 2px;
+        flex-shrink: 0;
+    }
+    
+    .slider-container {
+        height: 22px;
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .slider-track-img {
+        height: 22px;
+    }
+    
+    .slider-fill {
+        height: 10px;
+        margin-left: 4px;
+        max-width: calc(100% - 8px);
+    }
+    
+    .slider-handle {
+        height: 32px;
+    }
+    
+    .settings-deco-lines {
+        margin-top: 50px;
+        gap: 8px;
+    }
+    
+    .line-1 {
+        width: 160px;
+    }
+    
+    .line-2 {
+        width: 90px;
+    }
+}
+
+/* ==================== */
+/* Responsive - Small Mobile */
+/* ==================== */
+@media (max-width: 400px) {
+    .settings-panel {
+        max-width: 340px;
+    }
+    
+    .settings-content {
+        padding: 45px 22px;
+        gap: 28px;
+    }
+    
+    .settings-title {
+        font-size: 1.3rem;
+    }
+    
+    .settings-close {
+        width: 48px;
+        height: 48px;
+        top: -6px;
+        right: -6px;
+    }
+    
+    .slider-label {
+        font-size: 0.8rem;
+    }
+    
+    .vol-btn {
+        width: 34px;
+        height: 34px;
+        padding: 3px;
+    }
+    
+    .slider-handle {
+        height: 36px;
+    }
+    
+    .settings-deco-lines {
+        margin-top: 45px;
+    }
+    
+    .line-1 {
+        width: 150px;
+    }
+    
+    .line-2 {
+        width: 85px;
+    }
+}
+
+/* ==================== */
+/* Landscape Mobile     */
+/* ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .settings-panel-wrapper {
+        gap: 10px;
+    }
+    
+    .settings-panel {
+        max-width: 450px;
+    }
+    
+    .settings-content {
+        padding: 30px 25px;
+        gap: 15px;
+    }
+    
+    .settings-title {
+        font-size: 1.3rem;
+        margin-bottom: 0;
+    }
+    
+    .settings-slider-group {
+        gap: 2px;
+    }
+    
+    .slider-label {
+        font-size: 0.75rem;
+    }
+    
+    .vol-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .slider-handle {
+        height: 34px;
+    }
+    
+    .settings-deco-lines {
+        margin-top: 30px;
+        gap: 6px;
+    }
+    
+    .line-1 {
+        width: 140px;
+    }
+    
+    .line-2 {
+        width: 80px;
+    }
+    
+    .settings-close {
+        width: 45px;
+        height: 45px;
+    }
+}
