@@ -1,7 +1,6 @@
 /**
  * Main Application Entry Point
  * The Heart of Gold
- * Updated: Core Animation integration
  */
 
 import stateManager, { AppStates } from './utils/StateManager.js';

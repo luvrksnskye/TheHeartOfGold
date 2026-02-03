@@ -19,35 +19,55 @@ class CharactersSection {
         
         this.characters = [
             {
-                id: 'shiori', name: 'Shiori', archetype: 'Glass Cannon',
+                id: 'shiori',
+                name: 'Shiori',
+                archetype: 'Glass Cannon',
                 description: 'A little girl brought from another universe, who possesses unique powers unknown even to those skilled in magic or technology. With a noble character and friendly attitude, she is one of the playable characters intended for players specializing in "glass cannon" archetype characters.',
-                icon: './src/assets/shiori-icon.png', splash: './src/assets/shio.png', nameImg: './src/assets/shiori_name.png',
+                icon: './src/assets/shiori-icon.png',
+                splash: './src/assets/shio.png',
+                nameImg: './src/assets/shiori_name.png',
                 sprites: ['./src/assets/shio/shiodefecne-Sheet.gif', './src/assets/shio/attack.gif'],
-                card: './src/assets/shiori-card.png', color: '#9b59b6',
+                card: './src/assets/shiori-card.png',
+                color: '#9b59b6',
                 stats: { hp: 'Low', atk: 'High', def: 'Low', spd: 'Medium' }
             },
             {
-                id: 'irene', name: 'Irene', archetype: 'ayuda',
+                id: 'irene',
+                name: 'Irene',
+                archetype: 'ayuda',
                 description: 'idk',
-                icon: './src/assets/irene-icon.png', splash: './src/assets/irene.png', nameImg: './src/assets/irene_name.png',
+                icon: './src/assets/irene-icon.png',
+                splash: './src/assets/irene.png',
+                nameImg: './src/assets/irene_name.png',
                 sprites: ['./src/assets/irene/block.gif', './src/assets/irene/idle.gif'],
-                card: './src/assets/irene-card.png', color: '#e74c3c',
+                card: './src/assets/irene-card.png',
+                color: '#e74c3c',
                 stats: { hp: 'Medium', atk: 'Medium', def: 'Medium', spd: 'Medium' }
             },
             {
-                id: 'zoe', name: 'Zoe', archetype: '??',
+                id: 'zoe',
+                name: 'Zoe',
+                archetype: '??',
                 description: 'An aspiring knight, she is very positive, with a cheerful and somewhat noisy attitude. She is a little silly and very confident in herself. Thanks to her high health and defense, she is the perfect character for players new to the genre.',
-                icon: './src/assets/zoe-icon.png', splash: './src/assets/zoe.png', nameImg: './src/assets/zoe_name.png',
+                icon: './src/assets/zoe-icon.png',
+                splash: './src/assets/zoe.png',
+                nameImg: './src/assets/zoe_name.png',
                 sprites: ['./src/assets/zoe/zoewin.gif', './src/assets/zoe/attack1-front.gif'],
-                card: './src/assets/zoe-card.png', color: '#ff69b4',
+                card: './src/assets/zoe-card.png',
+                color: '#ff69b4',
                 stats: { hp: 'High', atk: 'Medium', def: 'High', spd: 'Low' }
             },
             {
-                id: 'maya', name: 'Maya', archetype: 'DPS Mage',
+                id: 'maya',
+                name: 'Maya',
+                archetype: 'DPS Mage',
                 description: 'A Slime girl who wields magic, with a shy and very introverted personality, she specializes in ghost magic. She has high movement speed and area attack, making her perfect as a damage-specialized (DPS) character.',
-                icon: './src/assets/maya-icon.png', splash: './src/assets/maya.png', nameImg: './src/assets/maya_name.png',
+                icon: './src/assets/maya-icon.png',
+                splash: './src/assets/maya.png',
+                nameImg: './src/assets/maya_name.png',
                 sprites: ['./src/assets/maya/maya_idle.gif', './src/assets/maya/attack1-diagonaltwox1.gif'],
-                card: './src/assets/maya-card.png', color: '#2ecc71',
+                card: './src/assets/maya-card.png',
+                color: '#2ecc71',
                 stats: { hp: 'Low', atk: 'High', def: 'Low', spd: 'High' }
             }
         ];
@@ -57,35 +77,64 @@ class CharactersSection {
                 portrait: './src/characters/irene.png',
                 video: './src/characters/irene.mp4',
                 hasVideo: true,
-                voiceActors: { english: 'Abby Espiritu', spanish: 'Por anunciar', japanese: 'Por anunciar' },
-                voicelines: { english: './src/voicelines/irene_en.mp3', spanish: './src/voicelines/irene_es.mp3', japanese: './src/voicelines/irene_jp.mp3' },
+                voiceActors: {
+                    english: 'Abby Espiritu',
+                    spanish: 'Por anunciar',
+                    japanese: 'Por anunciar'
+                },
+                voicelines: {
+                    english: './src/voicelines/irene_en.mp3',
+                    spanish: './src/voicelines/irene_es.mp3',
+                    japanese: './src/voicelines/irene_jp.mp3'
+                },
                 colors: ['#E63946', '#FF6B6B', '#FF8E8E', '#D62828'],
                 nameColor: '#E63946'
             },
             shiori: {
                 portrait: './src/characters/shiori.png',
-                video: './src/characters/shiori_color.png',
                 hasVideo: false,
-                voiceActors: { english: 'Phoebe Chan', spanish: 'Por anunciar', japanese: 'Por anunciar' },
-                voicelines: { english: './src/voicelines/shiori_eng.wav', spanish: './src/voicelines/shiori_es.mp3', japanese: './src/voicelines/shiori_jp.wav' },
+                voiceActors: {
+                    english: 'Phoebe Chan',
+                    spanish: 'Por anunciar',
+                    japanese: 'Por anunciar'
+                },
+                voicelines: {
+                    english: './src/voicelines/shiori_eng.wav',
+                    spanish: './src/voicelines/shiori_es.mp3',
+                    japanese: './src/voicelines/shiori_jp.wav'
+                },
                 colors: ['#8B5CF6', '#A78BFA', '#C4B5FD', '#7C3AED'],
                 nameColor: '#A78BFA'
             },
             zoe: {
                 portrait: './src/characters/zoe.png',
-                video: './src/characters/zoe.mp4',
                 hasVideo: false,
-                voiceActors: { english: 'Su Ling Chan', spanish: 'Por anunciar', japanese: 'Por anunciar' },
-                voicelines: { english: './src/voicelines/zoe_en.mp3', spanish: './src/voicelines/zoe_es.mp3', japanese: './src/voicelines/zoe_jp.mp3' },
+                voiceActors: {
+                    english: 'Su Ling Chan',
+                    spanish: 'Por anunciar',
+                    japanese: 'Por anunciar'
+                },
+                voicelines: {
+                    english: './src/voicelines/zoe_en.mp3',
+                    spanish: './src/voicelines/zoe_es.mp3',
+                    japanese: './src/voicelines/zoe_jp.mp3'
+                },
                 colors: ['#EC4899', '#F472B6', '#FBCFE8', '#DB2777'],
                 nameColor: '#F472B6'
             },
             maya: {
                 portrait: './src/characters/maya.png',
-                video: './src/characters/maya.mp4',
                 hasVideo: false,
-                voiceActors: { english: 'Ciara Payne', spanish: 'Por anunciar', japanese: 'Por anunciar' },
-                voicelines: { english: './src/voicelines/maya_en.mp3', spanish: './src/voicelines/maya_es.mp3', japanese: './src/voicelines/maya_jp.mp3' },
+                voiceActors: {
+                    english: 'Ciara Payne',
+                    spanish: 'Por anunciar',
+                    japanese: 'Por anunciar'
+                },
+                voicelines: {
+                    english: './src/voicelines/maya_en.mp3',
+                    spanish: './src/voicelines/maya_es.mp3',
+                    japanese: './src/voicelines/maya_jp.mp3'
+                },
                 colors: ['#10B981', '#34D399', '#6EE7B7', '#059669'],
                 nameColor: '#34D399'
             }
@@ -221,22 +270,24 @@ class CharactersSection {
             const vcData = this.voiceCast[id];
             const inkSplash = this.generateInkSplashSVG(vcData.colors);
             const nameSplash = this.generateNameSplashSVG(vcData.nameColor);
+            const charName = char?.name || id;
+            
+            const mediaHTML = vcData.hasVideo 
+                ? `<img src="${vcData.portrait}" alt="${charName}" class="vc-accordion-img" loading="lazy">
+                   <video class="vc-accordion-video" loop muted playsinline preload="metadata">
+                       <source src="${vcData.video}" type="video/mp4">
+                   </video>`
+                : `<img src="${vcData.portrait}" alt="${charName}" class="vc-accordion-img" loading="lazy">`;
+            
             return `
                 <div class="vc-accordion-item clickable" data-vc-character="${id}" data-index="${index}" data-has-video="${vcData.hasVideo}" style="--item-color: ${vcData.colors[0]}; --item-light: ${vcData.colors[1]}; --item-lighter: ${vcData.colors[2]};">
-                    <div class="vc-accordion-ink-layer">
-                        ${inkSplash}
-                    </div>
+                    <div class="vc-accordion-ink-layer">${inkSplash}</div>
                     <div class="vc-accordion-halftone"></div>
-                    <div class="vc-accordion-media">
-                        <img src="${vcData.portrait}" alt="${char?.name || id}" class="vc-accordion-img" loading="lazy">
-                        ${vcData.hasVideo ? `<video src="${vcData.video}" class="vc-accordion-video" loop muted playsinline preload="metadata"></video>` : ''}
-                    </div>
+                    <div class="vc-accordion-media">${mediaHTML}</div>
                     <div class="vc-accordion-shine"></div>
                     <div class="vc-accordion-name-tag">
-                        <div class="vc-name-splash-bg">
-                            ${nameSplash}
-                        </div>
-                        <span class="vc-accordion-name">${char?.name || id}</span>
+                        <div class="vc-name-splash-bg">${nameSplash}</div>
+                        <span class="vc-accordion-name">${charName}</span>
                     </div>
                     <div class="vc-accordion-drops">
                         <span class="vc-drop" style="--delay: 0s; --x: 15%; --size: 14px;"></span>
@@ -250,6 +301,7 @@ class CharactersSection {
 
         const waveformHTML = Array(20).fill('<span class="vc-wave-bar"></span>').join('');
         const titleSplash = this.generateTitleSplashSVG();
+        const firstChar = this.characters[0];
 
         return `
             <div class="characters-background">
@@ -287,14 +339,14 @@ class CharactersSection {
                                 <div class="char-panel-content">
                                     <div class="char-panel-card">${cardHTML}</div>
                                     <div class="char-profile-info">
-                                        <div class="char-profile-row"><span class="char-profile-label">Archetype</span><span class="char-profile-value" id="char-archetype">${this.characters[0].archetype}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">HP</span><span class="char-profile-value" id="char-hp">${this.characters[0].stats.hp}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">ATK</span><span class="char-profile-value" id="char-atk">${this.characters[0].stats.atk}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">DEF</span><span class="char-profile-value" id="char-def">${this.characters[0].stats.def}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">SPD</span><span class="char-profile-value" id="char-spd">${this.characters[0].stats.spd}</span></div>
+                                        <div class="char-profile-row"><span class="char-profile-label">Archetype</span><span class="char-profile-value" id="char-archetype">${firstChar.archetype}</span></div>
+                                        <div class="char-profile-row"><span class="char-profile-label">HP</span><span class="char-profile-value" id="char-hp">${firstChar.stats.hp}</span></div>
+                                        <div class="char-profile-row"><span class="char-profile-label">ATK</span><span class="char-profile-value" id="char-atk">${firstChar.stats.atk}</span></div>
+                                        <div class="char-profile-row"><span class="char-profile-label">DEF</span><span class="char-profile-value" id="char-def">${firstChar.stats.def}</span></div>
+                                        <div class="char-profile-row"><span class="char-profile-label">SPD</span><span class="char-profile-value" id="char-spd">${firstChar.stats.spd}</span></div>
                                     </div>
                                     <div class="char-panel-description">
-                                        <p class="char-info-description" id="char-description">${this.characters[0].description}</p>
+                                        <p class="char-info-description" id="char-description">${firstChar.description}</p>
                                     </div>
                                 </div>
                             </div>
@@ -308,24 +360,18 @@ class CharactersSection {
             </div>
             
             <div class="voice-cast-subsection">
-                
-    
                 <div class="voice-cast-header">
                     <div class="vc-title-wrapper">
                         <span class="vc-section-label">//SECTION 04//</span>
                         <div class="vc-title-container">
-                            <div class="vc-title-splash-bg">
-                                ${titleSplash}
-                            </div>
+                            <div class="vc-title-splash-bg">${titleSplash}</div>
                             <h2 class="vc-section-title">MEET OUR VOICE CAST</h2>
                         </div>
                     </div>
                 </div>
                 
                 <div class="voice-cast-interface">
-                    <div class="vc-accordion-container">
-                        ${vcAccordionHTML}
-                    </div>
+                    <div class="vc-accordion-container">${vcAccordionHTML}</div>
                     
                     <div class="vc-control-panel" id="vc-control-panel">
                         <div class="vc-panel-splash-bg">
@@ -372,7 +418,7 @@ class CharactersSection {
                                 </button>
                                 <button class="vc-lang-btn clickable" data-lang="spanish">
                                     <div class="vc-lang-ink-fill"></div>
-                                    <span class="vc-lang-text">ESPAÑOL</span>
+                                    <span class="vc-lang-text">ESPANOL</span>
                                 </button>
                                 <button class="vc-lang-btn clickable" data-lang="japanese">
                                     <div class="vc-lang-ink-fill"></div>
@@ -449,10 +495,8 @@ class CharactersSection {
         
         vcSection.addEventListener('mousemove', (e) => {
             const rect = vcSection.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            vcSection.style.setProperty('--mouse-x', `${x}px`);
-            vcSection.style.setProperty('--mouse-y', `${y}px`);
+            vcSection.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            vcSection.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
         });
     }
 
@@ -485,72 +529,96 @@ class CharactersSection {
         const vcHeader = this.container.querySelector('.voice-cast-header');
         const vcInterface = this.container.querySelector('.voice-cast-interface');
         const divider = this.container.querySelector('.section-divider');
+        
         gsap.set([meetHeader, vcHeader], { opacity: 0, y: 30 });
         gsap.set([meetContent, vcInterface], { opacity: 0 });
         gsap.set(divider, { opacity: 0, scale: 0.8 });
+        
         this.iconWrappers.forEach(icon => {
-            const hover = icon.querySelector('.char-icon-hover');
-            gsap.set(hover, { opacity: 0, scale: 0.8 });
+            gsap.set(icon.querySelector('.char-icon-hover'), { opacity: 0, scale: 0.8 });
         });
     }
 
     bindEvents() {
         this.iconWrappers.forEach(icon => {
+            const hover = icon.querySelector('.char-icon-hover');
+            
             icon.addEventListener('click', () => this.selectCharacter(icon.dataset.character));
+            
             icon.addEventListener('mouseenter', () => {
-                const hover = icon.querySelector('.char-icon-hover');
                 coreAnimation.squish(icon, { intensity: 0.5, duration: 0.4 });
                 gsap.to(hover, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' });
                 sfxManager.playGhost();
             });
+            
             icon.addEventListener('mouseleave', () => {
-                const hover = icon.querySelector('.char-icon-hover');
-                if (!icon.classList.contains('active')) gsap.to(hover, { opacity: 0, scale: 0.8, duration: 0.3 });
+                if (!icon.classList.contains('active')) {
+                    gsap.to(hover, { opacity: 0, scale: 0.8, duration: 0.3 });
+                }
             });
         });
         
         this.vcAccordionItems.forEach(item => {
-            item.addEventListener('click', () => { 
-                this.selectVCCharacter(item.dataset.vcCharacter); 
-                sfxManager.playCheck1(); 
+            const shine = item.querySelector('.vc-accordion-shine');
+            
+            item.addEventListener('click', () => {
+                this.selectVCCharacter(item.dataset.vcCharacter);
+                sfxManager.playCheck1();
             });
-            item.addEventListener('mouseenter', () => { 
+            
+            item.addEventListener('mouseenter', () => {
                 if (!item.classList.contains('active')) {
                     gsap.to(item, { scale: 1.03, duration: 0.4, ease: 'elastic.out(1, 0.5)' });
-                    gsap.to(item.querySelector('.vc-accordion-shine'), { opacity: 1, duration: 0.3 });
+                    gsap.to(shine, { opacity: 1, duration: 0.3 });
                 }
-                sfxManager.playGhost(); 
+                sfxManager.playGhost();
             });
+            
             item.addEventListener('mouseleave', () => {
                 if (!item.classList.contains('active')) {
                     gsap.to(item, { scale: 1, duration: 0.4, ease: 'power2.out' });
-                    gsap.to(item.querySelector('.vc-accordion-shine'), { opacity: 0, duration: 0.3 });
+                    gsap.to(shine, { opacity: 0, duration: 0.3 });
                 }
             });
         });
         
-        this.vcLangBtns.forEach(btn => btn.addEventListener('click', () => { 
-            this.selectLanguage(btn.dataset.lang); 
-            sfxManager.playCheck2(); 
-        }));
+        this.vcLangBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.selectLanguage(btn.dataset.lang);
+                sfxManager.playCheck2();
+            });
+        });
         
         this.vcPlayBtn?.addEventListener('click', () => this.toggleVoiceline());
         
-        let touchStartX = 0;
+        this.initTouchSwipe();
+    }
+
+    initTouchSwipe() {
         const splashContainer = this.container.querySelector('.char-splash-container');
-        splashContainer?.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
-        splashContainer?.addEventListener('touchend', (e) => {
+        if (!splashContainer) return;
+        
+        let touchStartX = 0;
+        
+        splashContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        splashContainer.addEventListener('touchend', (e) => {
             const diff = e.changedTouches[0].screenX - touchStartX;
-            if (Math.abs(diff) > 50) {
-                const idx = this.characters.findIndex(c => c.id === this.currentCharacter.id);
-                const nextIdx = diff > 0 ? (idx - 1 + this.characters.length) % this.characters.length : (idx + 1) % this.characters.length;
-                this.selectCharacter(this.characters[nextIdx].id);
-            }
+            if (Math.abs(diff) < 50) return;
+            
+            const idx = this.characters.findIndex(c => c.id === this.currentCharacter.id);
+            const nextIdx = diff > 0 
+                ? (idx - 1 + this.characters.length) % this.characters.length 
+                : (idx + 1) % this.characters.length;
+            this.selectCharacter(this.characters[nextIdx].id);
         }, { passive: true });
     }
 
     selectCharacter(characterId) {
         if (this.isAnimating) return;
+        
         const character = this.characters.find(c => c.id === characterId);
         if (!character || character.id === this.currentCharacter?.id) return;
         
@@ -558,13 +626,25 @@ class CharactersSection {
         this.currentCharacter = character;
         this.container.setAttribute('data-character', characterId);
         
+        this.updateIconStates(characterId);
+        this.animateCharacterTransition(characterId, character);
+        
+        sfxManager.playConfirm();
+    }
+
+    updateIconStates(characterId) {
         this.iconWrappers.forEach(icon => {
             const isActive = icon.dataset.character === characterId;
             icon.classList.toggle('active', isActive);
-            const hover = icon.querySelector('.char-icon-hover');
-            gsap.to(hover, { opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.8, duration: 0.3 });
+            gsap.to(icon.querySelector('.char-icon-hover'), {
+                opacity: isActive ? 1 : 0,
+                scale: isActive ? 1 : 0.8,
+                duration: 0.3
+            });
         });
-        
+    }
+
+    animateCharacterTransition(characterId, character) {
         const prevSplash = this.splashWrappers.find(s => s.classList.contains('active'));
         const newSplash = this.splashWrappers.find(s => s.dataset.character === characterId);
         const prevName = this.nameImgWrappers.find(n => n.classList.contains('active'));
@@ -576,36 +656,85 @@ class CharactersSection {
         
         const tl = gsap.timeline({ onComplete: () => { this.isAnimating = false; } });
         
-        if (prevSplash) tl.to(prevSplash, { opacity: 0, x: -60, scale: 0.9, duration: 0.3, ease: 'power2.in', onComplete: () => prevSplash.classList.remove('active') }, 0);
-        if (prevName) tl.to(prevName, { opacity: 0, y: 20, duration: 0.25, ease: 'power2.in', onComplete: () => prevName.classList.remove('active') }, 0);
-        if (prevSprite) tl.to(prevSprite, { opacity: 0, x: 30, duration: 0.25, ease: 'power2.in', onComplete: () => prevSprite.classList.remove('active') }, 0);
-        if (prevCard) tl.to(prevCard, { opacity: 0, y: -15, duration: 0.2, ease: 'power2.in', onComplete: () => prevCard.classList.remove('active') }, 0);
+        if (prevSplash) {
+            tl.to(prevSplash, {
+                opacity: 0, x: -60, scale: 0.9, duration: 0.3, ease: 'power2.in',
+                onComplete: () => prevSplash.classList.remove('active')
+            }, 0);
+        }
+        if (prevName) {
+            tl.to(prevName, {
+                opacity: 0, y: 20, duration: 0.25, ease: 'power2.in',
+                onComplete: () => prevName.classList.remove('active')
+            }, 0);
+        }
+        if (prevSprite) {
+            tl.to(prevSprite, {
+                opacity: 0, x: 30, duration: 0.25, ease: 'power2.in',
+                onComplete: () => prevSprite.classList.remove('active')
+            }, 0);
+        }
+        if (prevCard) {
+            tl.to(prevCard, {
+                opacity: 0, y: -15, duration: 0.2, ease: 'power2.in',
+                onComplete: () => prevCard.classList.remove('active')
+            }, 0);
+        }
         
         if (newSplash) {
             newSplash.classList.add('active');
-            tl.fromTo(newSplash, { opacity: 0, x: 60, scale: 0.9 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: 'power2.out' }, 0.2);
+            tl.fromTo(newSplash,
+                { opacity: 0, x: 60, scale: 0.9 },
+                { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: 'power2.out' },
+                0.2
+            );
             coreAnimation.squish(newSplash, { intensity: 0.4, duration: 0.5, delay: 0.25 });
         }
-        if (newName) { newName.classList.add('active'); tl.fromTo(newName, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.5)' }, 0.35); }
-        if (newSprite) { newSprite.classList.add('active'); tl.fromTo(newSprite, { opacity: 0, x: -30, scale: 0.8 }, { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, 0.25); }
-        if (newCard) { newCard.classList.add('active'); tl.fromTo(newCard, { opacity: 0, y: 15, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(2)' }, 0.3); }
+        if (newName) {
+            newName.classList.add('active');
+            tl.fromTo(newName,
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.5)' },
+                0.35
+            );
+        }
+        if (newSprite) {
+            newSprite.classList.add('active');
+            tl.fromTo(newSprite,
+                { opacity: 0, x: -30, scale: 0.8 },
+                { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: 'back.out(1.8)' },
+                0.25
+            );
+        }
+        if (newCard) {
+            newCard.classList.add('active');
+            tl.fromTo(newCard,
+                { opacity: 0, y: 15, scale: 0.9 },
+                { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(2)' },
+                0.3
+            );
+        }
         
-        tl.call(() => {
-            gsap.to([this.archetypeEl, this.hpEl, this.atkEl, this.defEl, this.spdEl, this.descriptionEl], {
-                opacity: 0, y: -10, duration: 0.15, stagger: 0.02, ease: 'power2.in',
-                onComplete: () => {
-                    if (this.archetypeEl) this.archetypeEl.textContent = character.archetype;
-                    if (this.hpEl) this.hpEl.textContent = character.stats.hp;
-                    if (this.atkEl) this.atkEl.textContent = character.stats.atk;
-                    if (this.defEl) this.defEl.textContent = character.stats.def;
-                    if (this.spdEl) this.spdEl.textContent = character.stats.spd;
-                    if (this.descriptionEl) this.descriptionEl.textContent = character.description;
-                    gsap.to([this.archetypeEl, this.hpEl, this.atkEl, this.defEl, this.spdEl, this.descriptionEl], { opacity: 1, y: 0, duration: 0.25, stagger: 0.03, ease: 'back.out(1.5)' });
-                }
-            });
-        }, null, 0.1);
+        tl.call(() => this.updateCharacterInfo(character), null, 0.1);
+    }
+
+    updateCharacterInfo(character) {
+        const elements = [this.archetypeEl, this.hpEl, this.atkEl, this.defEl, this.spdEl, this.descriptionEl];
         
-        sfxManager.playConfirm();
+        gsap.to(elements, {
+            opacity: 0, y: -10, duration: 0.15, stagger: 0.02, ease: 'power2.in',
+            onComplete: () => {
+                if (this.archetypeEl) this.archetypeEl.textContent = character.archetype;
+                if (this.hpEl) this.hpEl.textContent = character.stats.hp;
+                if (this.atkEl) this.atkEl.textContent = character.stats.atk;
+                if (this.defEl) this.defEl.textContent = character.stats.def;
+                if (this.spdEl) this.spdEl.textContent = character.stats.spd;
+                if (this.descriptionEl) this.descriptionEl.textContent = character.description;
+                gsap.to(elements, {
+                    opacity: 1, y: 0, duration: 0.25, stagger: 0.03, ease: 'back.out(1.5)'
+                });
+            }
+        });
     }
 
     selectVCCharacter(characterId) {
@@ -622,20 +751,38 @@ class CharactersSection {
             const img = item.querySelector('.vc-accordion-img');
             const inkLayer = item.querySelector('.vc-accordion-ink-layer');
             const shine = item.querySelector('.vc-accordion-shine');
+            const hasVideo = item.dataset.hasVideo === 'true';
             
             if (isActive) {
                 item.classList.add('active');
                 gsap.to(item, { flex: 3, duration: 0.7, ease: 'elastic.out(1, 0.6)' });
                 gsap.to(inkLayer, { scale: 1.1, opacity: 1, duration: 0.6, ease: 'power2.out' });
                 gsap.to(shine, { opacity: 0.5, duration: 0.4 });
-                if (video) { img?.classList.add('hidden'); video.currentTime = 0; video.play().catch(() => {}); }
-                if (!wasActive) { gsap.fromTo(item, { scaleY: 0.92, scaleX: 1.03 }, { scaleY: 1, scaleX: 1, duration: 0.6, ease: 'elastic.out(1.3, 0.4)' }); }
+                
+                if (hasVideo && video) {
+                    img?.classList.add('hidden');
+                    video.currentTime = 0;
+                    video.play().catch(() => {
+                        img?.classList.remove('hidden');
+                    });
+                }
+                
+                if (!wasActive) {
+                    gsap.fromTo(item,
+                        { scaleY: 0.92, scaleX: 1.03 },
+                        { scaleY: 1, scaleX: 1, duration: 0.6, ease: 'elastic.out(1.3, 0.4)' }
+                    );
+                }
             } else {
                 item.classList.remove('active');
                 gsap.to(item, { flex: 1, duration: 0.5, ease: 'power3.out' });
                 gsap.to(inkLayer, { scale: 1, opacity: 0.7, duration: 0.4 });
                 gsap.to(shine, { opacity: 0, duration: 0.3 });
-                if (video) { video.pause(); video.currentTime = 0; }
+                
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
                 img?.classList.remove('hidden');
             }
         });
@@ -644,7 +791,10 @@ class CharactersSection {
         this.vcControlPanel?.style.setProperty('--active-color', themeColor);
         this.vcControlPanel?.style.setProperty('--active-light', lightColor);
         
-        gsap.fromTo(this.vcControlPanel, { opacity: 0, y: 60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'elastic.out(1, 0.7)', clearProps: 'scale' });
+        gsap.fromTo(this.vcControlPanel,
+            { opacity: 0, y: 60, scale: 0.9 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'elastic.out(1, 0.7)', clearProps: 'scale' }
+        );
         
         this.updateVoiceActorDisplay();
         this.stopVoiceline();
@@ -652,29 +802,43 @@ class CharactersSection {
 
     selectLanguage(language) {
         this.currentLanguage = language;
+        
         this.vcLangBtns.forEach(btn => {
             const isActive = btn.dataset.lang === language;
             btn.classList.toggle('active', isActive);
+            
             const inkFill = btn.querySelector('.vc-lang-ink-fill');
-            gsap.to(inkFill, { scaleX: isActive ? 1 : 0, duration: 0.5, ease: isActive ? 'elastic.out(1, 0.5)' : 'power2.in' });
-            if (isActive) { gsap.fromTo(btn, { scale: 0.92 }, { scale: 1, duration: 0.5, ease: 'elastic.out(1.3, 0.4)' }); }
+            gsap.to(inkFill, {
+                scaleX: isActive ? 1 : 0,
+                duration: 0.5,
+                ease: isActive ? 'elastic.out(1, 0.5)' : 'power2.in'
+            });
+            
+            if (isActive) {
+                gsap.fromTo(btn, { scale: 0.92 }, { scale: 1, duration: 0.5, ease: 'elastic.out(1.3, 0.4)' });
+            }
         });
+        
         this.updateVoiceActorDisplay();
         this.stopVoiceline();
     }
 
     updateVoiceActorDisplay() {
         if (!this.currentVCCharacter) return;
+        
         const vcData = this.voiceCast[this.currentVCCharacter];
         const char = this.characters.find(c => c.id === this.currentVCCharacter);
         if (!vcData) return;
+        
         const actorName = vcData.voiceActors[this.currentLanguage] || '-';
         
         gsap.to(this.vcActorName, {
             opacity: 0, y: -25, scale: 0.85, duration: 0.25, ease: 'power2.in',
             onComplete: () => {
                 if (this.vcActorName) this.vcActorName.textContent = actorName;
-                gsap.to(this.vcActorName, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
+                gsap.to(this.vcActorName, {
+                    opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)'
+                });
             }
         });
         
@@ -683,7 +847,9 @@ class CharactersSection {
                 opacity: 0, x: -10, duration: 0.2,
                 onComplete: () => {
                     this.vcCharacterLabel.textContent = `as ${char?.name || this.currentVCCharacter}`;
-                    gsap.to(this.vcCharacterLabel, { opacity: 1, x: 0, duration: 0.3, ease: 'back.out(2)' });
+                    gsap.to(this.vcCharacterLabel, {
+                        opacity: 1, x: 0, duration: 0.3, ease: 'back.out(2)'
+                    });
                 }
             });
         }
@@ -691,7 +857,11 @@ class CharactersSection {
 
     toggleVoiceline() {
         if (!this.currentVCCharacter) return;
-        if (this.isPlayingVoiceline && this.currentAudio) { this.stopVoiceline(); return; }
+        
+        if (this.isPlayingVoiceline && this.currentAudio) {
+            this.stopVoiceline();
+            return;
+        }
         
         const vcData = this.voiceCast[this.currentVCCharacter];
         if (!vcData) return;
@@ -701,7 +871,7 @@ class CharactersSection {
         this.currentAudio.volume = 0.7;
         
         this.currentAudio.addEventListener('ended', () => this.stopVoiceline());
-        this.currentAudio.addEventListener('error', () => { this.stopVoiceline(); });
+        this.currentAudio.addEventListener('error', () => this.stopVoiceline());
         this.currentAudio.addEventListener('timeupdate', () => {
             if (this.currentAudio && this.vcProgressBar) {
                 const progress = (this.currentAudio.currentTime / this.currentAudio.duration) * 100;
@@ -713,13 +883,20 @@ class CharactersSection {
             this.isPlayingVoiceline = true;
             this.vcPlayBtn?.classList.add('playing');
             this.vcPlayerControls?.classList.add('playing');
-            gsap.fromTo(this.vcPlayBtn, { scale: 0.75, rotation: -10 }, { scale: 1, rotation: 0, duration: 0.5, ease: 'elastic.out(1.5, 0.4)' });
+            gsap.fromTo(this.vcPlayBtn,
+                { scale: 0.75, rotation: -10 },
+                { scale: 1, rotation: 0, duration: 0.5, ease: 'elastic.out(1.5, 0.4)' }
+            );
             sfxManager.playConfirm();
         }).catch(() => {});
     }
 
     stopVoiceline() {
-        if (this.currentAudio) { this.currentAudio.pause(); this.currentAudio.currentTime = 0; this.currentAudio = null; }
+        if (this.currentAudio) {
+            this.currentAudio.pause();
+            this.currentAudio.currentTime = 0;
+            this.currentAudio = null;
+        }
         this.isPlayingVoiceline = false;
         this.vcPlayBtn?.classList.remove('playing');
         this.vcPlayerControls?.classList.remove('playing');
@@ -729,14 +906,18 @@ class CharactersSection {
     initScrollAnimations(scroller) {
         const meetTrigger = ScrollTrigger.create({
             trigger: this.container.querySelector('.meet-characters-subsection'),
-            scroller: scroller, start: 'top 80%', once: true,
+            scroller,
+            start: 'top 80%',
+            once: true,
             onEnter: () => this.animateMeetEntrance()
         });
         this.scrollTriggers.push(meetTrigger);
         
         const vcTrigger = ScrollTrigger.create({
             trigger: this.container.querySelector('.voice-cast-subsection'),
-            scroller: scroller, start: 'top 80%', once: true,
+            scroller,
+            start: 'top 80%',
+            once: true,
             onEnter: () => this.animateVCEntrance()
         });
         this.scrollTriggers.push(vcTrigger);
@@ -746,45 +927,72 @@ class CharactersSection {
         const header = this.container.querySelector('.characters-header');
         const content = this.container.querySelector('.meet-characters-content');
         const divider = this.container.querySelector('.section-divider');
-        const icons = this.iconWrappers;
         
         const tl = gsap.timeline();
         this.timelines.push(tl);
         
         tl.to(header, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
+        
         const titleMain = header?.querySelector('.char-title-main');
         if (titleMain) coreAnimation.animateText(titleMain, { delay: 0.2 });
+        
         tl.to(content, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4');
-        tl.fromTo(icons, { opacity: 0, scale: 0.5, y: 25 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'back.out(1.8)' }, '-=0.4');
+        tl.fromTo(this.iconWrappers,
+            { opacity: 0, scale: 0.5, y: 25 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'back.out(1.8)' },
+            '-=0.4'
+        );
+        
         const activeSplash = this.splashWrappers.find(s => s.classList.contains('active'));
-        if (activeSplash) tl.fromTo(activeSplash, { opacity: 0, scale: 0.85, y: 50 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.6');
+        if (activeSplash) {
+            tl.fromTo(activeSplash,
+                { opacity: 0, scale: 0.85, y: 50 },
+                { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+                '-=0.6'
+            );
+        }
+        
         tl.to(divider, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, '-=0.3');
     }
 
     animateVCEntrance() {
         const header = this.container.querySelector('.voice-cast-header');
         const interface_ = this.container.querySelector('.voice-cast-interface');
-        const accordionItems = this.vcAccordionItems;
         const bgSplashes = this.container.querySelectorAll('.vc-bg-splash');
         
         const tl = gsap.timeline();
         this.timelines.push(tl);
         
-        tl.fromTo(bgSplashes, { scale: 0, opacity: 0, rotation: -30 }, { scale: 1, opacity: 1, rotation: 0, duration: 1.2, stagger: 0.1, ease: 'elastic.out(1, 0.5)' });
+        tl.fromTo(bgSplashes,
+            { scale: 0, opacity: 0, rotation: -30 },
+            { scale: 1, opacity: 1, rotation: 0, duration: 1.2, stagger: 0.1, ease: 'elastic.out(1, 0.5)' }
+        );
         tl.to(header, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.8');
         tl.to(interface_, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.5');
-        tl.fromTo(accordionItems, { opacity: 0, scaleX: 0.2, x: -80 }, { opacity: 1, scaleX: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'elastic.out(1, 0.6)' }, '-=0.5');
+        tl.fromTo(this.vcAccordionItems,
+            { opacity: 0, scaleX: 0.2, x: -80 },
+            { opacity: 1, scaleX: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'elastic.out(1, 0.6)' },
+            '-=0.5'
+        );
     }
 
     destroy() {
         this.scrollTriggers.forEach(st => st.kill());
         this.timelines.forEach(tl => tl?.kill?.());
         this.stopVoiceline();
+        
         this.vcAccordionItems?.forEach(item => {
             const video = item.querySelector('.vc-accordion-video');
-            if (video) { video.pause(); video.src = ''; }
+            if (video) {
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+            }
         });
-        if (this.container?.parentNode) this.container.parentNode.removeChild(this.container);
+        
+        if (this.container?.parentNode) {
+            this.container.parentNode.removeChild(this.container);
+        }
     }
 }
 
