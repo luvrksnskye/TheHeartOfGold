@@ -1,7 +1,6 @@
 /**
  * Game Features Section Styles
  * The Heart of Gold
- * Compact width, taller panels design
  */
 
 /* ==================== */
@@ -14,7 +13,45 @@
     min-height: auto;
     height: fit-content;
     padding: var(--space-xl) 0;
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
     overflow: hidden;
+}
+
+/* Top fade for smooth transition from overview - very subtle */
+.game-features-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(
+        to bottom,
+        #050010 0%,
+        rgba(5, 0, 16, 0.3) 60%,
+        transparent 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Bottom fade for smooth transition to characters - very subtle */
+.game-features-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(20, 2, 59, 0.3) 40%,
+        var(--color-purple-deep) 100%
+    );
+    z-index: 3;
+    pointer-events: none;
 }
 
 .gf-background {
@@ -536,11 +573,35 @@
         font-size: 0.65rem;
         line-height: 1.4;
     }
+    
+    /* Section height and fades - Mobile */
+    .game-features-section {
+        padding-top: var(--space-3xl);
+        padding-bottom: var(--space-4xl);
+    }
+    
+    .game-features-section::before {
+        height: 220px;
+    }
+    
+    .game-features-section::after {
+        height: 250px;
+    }
 }
 
 @media (max-width: 480px) {
     .game-features-section {
         padding: var(--space-sm) 0;
+        padding-top: var(--space-2xl);
+        padding-bottom: var(--space-3xl);
+    }
+    
+    .game-features-section::before {
+        height: 200px;
+    }
+    
+    .game-features-section::after {
+        height: 220px;
     }
     
     .gf-main-wrapper {

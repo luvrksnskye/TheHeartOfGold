@@ -78,8 +78,10 @@ class HomeScreen {
                     </div>
                 </section>
                 <section class="home-news-section" id="home-news-section">
-                    <div class="news-gradient-overlay"></div>
+                    <div class="news-bg-base"></div>
+                    <div class="news-pattern-overlay"></div>
                     <div class="news-content"></div>
+                    <div class="news-bottom-fade"></div>
                 </section>
             </div>
         `;

@@ -1,3 +1,9 @@
+/**
+ * Estoy intentando complementar algunas cosas, mejorarlo considerando que tenemos algo de tiempo. Ando en eso porque genuinamente me gusta este módulo y no quiero que quede a medias. Ademas, no puedo dormir sabiendo que este módulo no está perfecto. ajdajmsdj quiero pensar que esto es optimo para manejar mas personajes en el futuro.
+ * Characters Section - The Heart of Gold
+ * Meet the Characters & Voice Cast 
+ */
+
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm';
 import coreAnimation from '../utils/CoreAnimation.js';
@@ -20,55 +26,75 @@ class CharactersSection {
         this.characters = [
             {
                 id: 'shiori',
-                name: 'Shiori',
+                name: 'SHIORI',
+                level: 999,
                 archetype: 'Glass Cannon',
                 description: 'A little girl brought from another universe, who possesses unique powers unknown even to those skilled in magic or technology. With a noble character and friendly attitude, she is one of the playable characters intended for players specializing in "glass cannon" archetype characters.',
-                icon: './src/assets/shiori-icon.png',
                 splash: './src/assets/shio.png',
-                nameImg: './src/assets/shiori_name.png',
-                sprites: ['./src/assets/shio/shiodefecne-Sheet.gif', './src/assets/shio/attack.gif'],
-                card: './src/assets/shiori-card.png',
+                banner: './src/assets/shiori-card.png',
+                sprite: './src/assets/shio/shiodefecne-Sheet.gif',
                 color: '#9b59b6',
-                stats: { hp: 'Low', atk: 'High', def: 'Low', spd: 'Medium' }
+                icon: './src/assets/shiori-icon.png',
+                stats: {
+                    attack: { value: 99999, percent: 90 },
+                    defense: { value: 25000, percent: 20 },
+                    speed: { value: 75000, percent: 60 },
+                    special: { value: 85000, percent: 80 }
+                }
             },
             {
                 id: 'irene',
-                name: 'Irene',
-                archetype: 'ayuda',
-                description: 'idk',
-                icon: './src/assets/irene-icon.png',
+                name: 'IRENE',
+                level: 666,
+                archetype: 'Unknown',
+                description: 'Todavia no se que poner jqjsjaj',
                 splash: './src/assets/irene.png',
-                nameImg: './src/assets/irene_name.png',
-                sprites: ['./src/assets/irene/block.gif', './src/assets/irene/idle.gif'],
-                card: './src/assets/irene-card.png',
+                banner: './src/assets/irene-card.png',
+                sprite: './src/assets/irene/idle.gif',
                 color: '#e74c3c',
-                stats: { hp: 'Medium', atk: 'Medium', def: 'Medium', spd: 'Medium' }
+                icon: './src/assets/irene-icon.png',
+                stats: {
+                    attack: { value: 82000, percent: 78 },
+                    defense: { value: 68000, percent: 58 },
+                    speed: { value: 85000, percent: 82 },
+                    special: { value: 99999, percent: 99 }
+                }
             },
             {
                 id: 'zoe',
-                name: 'Zoe',
-                archetype: '??',
+                name: 'ZOE',
+                level: 777,
+                archetype: 'Unknown',
                 description: 'An aspiring knight, she is very positive, with a cheerful and somewhat noisy attitude. She is a little silly and very confident in herself. Thanks to her high health and defense, she is the perfect character for players new to the genre.',
-                icon: './src/assets/zoe-icon.png',
                 splash: './src/assets/zoe.png',
-                nameImg: './src/assets/zoe_name.png',
-                sprites: ['./src/assets/zoe/zoewin.gif', './src/assets/zoe/attack1-front.gif'],
-                card: './src/assets/zoe-card.png',
+                banner: './src/assets/zoe-card.png',
+                sprite: './src/assets/zoe/zoewin.gif',
                 color: '#ff69b4',
-                stats: { hp: 'High', atk: 'Medium', def: 'High', spd: 'Low' }
+                icon: './src/assets/zoe-icon.png',
+                stats: {
+                    attack: { value: 92000, percent: 92 },
+                    defense: { value: 55000, percent: 45 },
+                    speed: { value: 99000, percent: 98 },
+                    special: { value: 78000, percent: 72 }
+                }
             },
             {
                 id: 'maya',
-                name: 'Maya',
+                name: 'MAYA',
+                level: 850,
                 archetype: 'DPS Mage',
                 description: 'A Slime girl who wields magic, with a shy and very introverted personality, she specializes in ghost magic. She has high movement speed and area attack, making her perfect as a damage-specialized (DPS) character.',
-                icon: './src/assets/maya-icon.png',
                 splash: './src/assets/maya.png',
-                nameImg: './src/assets/maya_name.png',
-                sprites: ['./src/assets/maya/maya_idle.gif', './src/assets/maya/attack1-diagonaltwox1.gif'],
-                card: './src/assets/maya-card.png',
+                banner: './src/assets/maya-card.png',
+                sprite: './src/assets/maya/maya_idle.gif',
                 color: '#2ecc71',
-                stats: { hp: 'Low', atk: 'High', def: 'Low', spd: 'High' }
+                icon: './src/assets/maya-icon.png',
+                stats: {
+                    attack: { value: 75000, percent: 65 },
+                    defense: { value: 95000, percent: 90 },
+                    speed: { value: 70000, percent: 60 },
+                    special: { value: 88000, percent: 80 }
+                }
             }
         ];
         
@@ -233,35 +259,12 @@ class CharactersSection {
     }
 
     generateHTML() {
-        const charIconsHTML = this.characters.map((char, i) => `
-            <button class="char-icon-wrapper clickable ${i === 0 ? 'active' : ''}" data-character="${char.id}" data-index="${i}" aria-label="Select ${char.name}">
-                <img src="./src/assets/character-icons_behind-select.png" alt="" class="char-icon-bg" loading="lazy">
-                <img src="${char.icon}" alt="${char.name}" class="char-icon-img" loading="lazy">
-                <img src="./src/assets/icon-selection-hover.png" alt="" class="char-icon-hover" loading="lazy">
-            </button>
-        `).join('');
-
-        const splashHTML = this.characters.map((char, i) => `
-            <div class="char-splash-wrapper ${i === 0 ? 'active' : ''}" data-character="${char.id}">
-                <img src="${char.splash}" alt="${char.name}" class="char-splash-img" loading="lazy">
-            </div>
-        `).join('');
-
-        const nameHTML = this.characters.map((char, i) => `
-            <div class="char-name-img-wrapper ${i === 0 ? 'active' : ''}" data-character="${char.id}">
-                <img src="${char.nameImg}" alt="${char.name}" class="char-name-img" loading="lazy">
-            </div>
-        `).join('');
-
-        const spriteHTML = this.characters.map((char, i) => `
-            <div class="char-sprite-wrapper ${i === 0 ? 'active' : ''}" data-character="${char.id}">
-                <img src="${char.sprites[0]}" alt="${char.name} sprite" class="char-sprite-img" loading="lazy">
-            </div>
-        `).join('');
-
-        const cardHTML = this.characters.map((char, i) => `
-            <div class="char-card-wrapper ${i === 0 ? 'active' : ''}" data-character="${char.id}">
-                <img src="${char.card}" alt="${char.name} Card" class="char-card-img" loading="lazy">
+        const characterCardsHTML = this.characters.map((char, i) => `
+            <div class="character-card ${i === 0 ? 'active' : ''}" data-character="${char.id}">
+                <div class="card-frame">
+                    <img src="${char.icon}" alt="${char.name} Icon" class="card-image">
+                    <div class="card-overlay"></div>
+                </div>
             </div>
         `).join('');
 
@@ -309,56 +312,105 @@ class CharactersSection {
                 <div class="char-bg-stripes"></div>
             </div>
             
+         <!-- Meet Characters Subsection - Nuevo diseño -->
             <div class="meet-characters-subsection">
-                <div class="characters-header">
-                    <div class="char-title-wrapper">
-                        <span class="char-section-label">//SECTION 04//</span>
-                        <div class="char-title-stack">
-                            <h2 class="char-section-title char-title-echo char-title-echo-top" aria-hidden="true">MEET THE CHARACTERS</h2>
-                            <h2 class="char-section-title char-title-main">MEET THE CHARACTERS</h2>
-                            <h2 class="char-section-title char-title-echo char-title-echo-bottom" aria-hidden="true">MEET THE CHARACTERS</h2>
+        
+                <!-- Fondo con patrón de puntos -->
+                <div class="background-pattern"></div>
+                
+                <!-- Línea diagonal divisoria -->
+                <div class="diagonal-divider"></div>
+                
+                <!-- Panel izquierdo - Selector de personajes -->
+                <aside class="character-selector">
+                    <div class="character-list">
+                        ${characterCardsHTML}
+                    </div>
+                </aside>
+                
+                
+                <!-- Centro - Splash del personaje -->
+                <main class="character-display">
+                    <div class="character-name-container">
+                        <h1 class="character-name" id="characterName">${firstChar.name}</h1>
+                        <span class="character-level" id="characterLevel">LEVEL.${firstChar.level}</span>
+                    </div>
+                    
+                    <div class="character-splash">
+                        <img src="${firstChar.splash}" alt="${firstChar.name} Splash" id="characterSplash" class="splash-image">
+                        <div class="splash-effects">
+                            <div class="floating-particle"></div>
+                            <div class="floating-particle"></div>
+                            <div class="floating-particle"></div>
+                            <div class="floating-particle"></div>
+                            <div class="floating-particle"></div>
                         </div>
                     </div>
-                </div>
+                </main>
                 
-                <div class="meet-characters-content">
-                    <div class="char-display-area">
-                        <div class="char-icons-column">
-                            <div class="char-icons-grid">${charIconsHTML}</div>
+                <!-- Panel derecho - Información del personaje -->
+                <aside class="character-info">
+                    <div class="info-panel">
+                        <!-- Banner del personaje -->
+                        <div class="character-banner">
+                            <img src="${firstChar.banner}" alt="${firstChar.name} Banner" id="characterBanner" class="banner-image">
                         </div>
                         
-                        <div class="char-splash-column">
-                            <div class="char-splash-container">${splashHTML}</div>
-                            <div class="char-name-area">${nameHTML}</div>
-                        </div>
-                        
-                        <div class="char-info-panel-container">
-                            <div class="char-info-panel active" id="char-info-panel">
-                                <div class="char-panel-bg"></div>
-                                <div class="char-sprite-display">${spriteHTML}</div>
-                                <div class="char-panel-content">
-                                    <div class="char-panel-card">${cardHTML}</div>
-                                    <div class="char-profile-info">
-                                        <div class="char-profile-row"><span class="char-profile-label">Archetype</span><span class="char-profile-value" id="char-archetype">${firstChar.archetype}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">HP</span><span class="char-profile-value" id="char-hp">${firstChar.stats.hp}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">ATK</span><span class="char-profile-value" id="char-atk">${firstChar.stats.atk}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">DEF</span><span class="char-profile-value" id="char-def">${firstChar.stats.def}</span></div>
-                                        <div class="char-profile-row"><span class="char-profile-label">SPD</span><span class="char-profile-value" id="char-spd">${firstChar.stats.spd}</span></div>
-                                    </div>
-                                    <div class="char-panel-description">
-                                        <p class="char-info-description" id="char-description">${firstChar.description}</p>
-                                    </div>
+                        <!-- Estadísticas -->
+                        <div class="stats-container">
+                            <div class="stat-row">
+                                <img src="./src/assets/sword.png" alt="Attack" class="stat-icon-img">
+                                <span class="stat-name">Attack</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" data-stat="attack" id="stat-bar-attack" style="width: ${firstChar.stats.attack.percent}%;"></div>
                                 </div>
+                                <span class="stat-value" id="statAttack">${firstChar.stats.attack.value.toLocaleString()}</span>
+                            </div>
+                            
+                            <div class="stat-row">
+                                <img src="./src/assets/shield.png" alt="Defense" class="stat-icon-img">
+                                <span class="stat-name">Defense</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" data-stat="defense" id="stat-bar-defense" style="width: ${firstChar.stats.defense.percent}%;"></div>
+                                </div>
+                                <span class="stat-value" id="statDefense">${firstChar.stats.defense.value.toLocaleString()}</span>
+                            </div>
+                            
+                            <div class="stat-row">
+                                <img src="./src/assets/arrows.png" alt="Speed" class="stat-icon-img">
+                                <span class="stat-name">Speed</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" data-stat="speed" id="stat-bar-speed" style="width: ${firstChar.stats.speed.percent}%;"></div>
+                                </div>
+                                <span class="stat-value" id="statSpeed">${firstChar.stats.speed.value.toLocaleString()}</span>
+                            </div>
+                            
+                            <div class="stat-row">
+                                <img src="./src/assets/arrows.png" alt="Special" class="stat-icon-img">
+                                <span class="stat-name">Special</span>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" data-stat="special" id="stat-bar-special" style="width: ${firstChar.stats.special.percent}%;"></div>
+                                </div>
+                                <span class="stat-value" id="statSpecial">${firstChar.stats.special.value.toLocaleString()}</span>
                             </div>
                         </div>
+                        
+                        <!-- Descripción del personaje -->
+                        <div class="description-container">
+                            <h3 class="description-title">CHARACTER DESCRIPTION</h3>
+                            <p class="character-description" id="characterDescription">${firstChar.description}</p>
+                        </div>
+                        
+                        <!-- Sprite GIF -->
+                        <div class="sprite-container">
+                            <img src="${firstChar.sprite}" alt="${firstChar.name} Sprite" id="characterSprite" class="character-sprite">
+                        </div>
                     </div>
-                </div>
+                </aside>
             </div>
             
-            <div class="section-divider">
-                <div class="divider-line"></div>
-            </div>
             
+            <!-- Voice Cast Subsection (mantenido igual) -->
             <div class="voice-cast-subsection">
                 <div class="voice-cast-header">
                     <div class="vc-title-wrapper">
@@ -501,18 +553,28 @@ class CharactersSection {
     }
 
     cacheElements() {
-        this.iconWrappers = Array.from(this.container.querySelectorAll('.char-icon-wrapper'));
-        this.spriteWrappers = Array.from(this.container.querySelectorAll('.char-sprite-wrapper'));
-        this.splashWrappers = Array.from(this.container.querySelectorAll('.char-splash-wrapper'));
-        this.nameImgWrappers = Array.from(this.container.querySelectorAll('.char-name-img-wrapper'));
-        this.cardWrappers = Array.from(this.container.querySelectorAll('.char-card-wrapper'));
-        this.infoPanel = this.container.querySelector('#char-info-panel');
-        this.descriptionEl = this.container.querySelector('#char-description');
-        this.archetypeEl = this.container.querySelector('#char-archetype');
-        this.hpEl = this.container.querySelector('#char-hp');
-        this.atkEl = this.container.querySelector('#char-atk');
-        this.defEl = this.container.querySelector('#char-def');
-        this.spdEl = this.container.querySelector('#char-spd');
+        // Nuevos elementos del diseño actualizado
+        this.characterCards = Array.from(this.container.querySelectorAll('.character-card'));
+        this.characterName = this.container.querySelector('#characterName');
+        this.characterLevel = this.container.querySelector('#characterLevel');
+        this.characterSplash = this.container.querySelector('#characterSplash');
+        this.characterBanner = this.container.querySelector('#characterBanner');
+        this.characterSprite = this.container.querySelector('#characterSprite');
+        this.characterDescription = this.container.querySelector('#characterDescription');
+        
+        // Stats elements
+        this.statAttack = this.container.querySelector('#statAttack');
+        this.statDefense = this.container.querySelector('#statDefense');
+        this.statSpeed = this.container.querySelector('#statSpeed');
+        this.statSpecial = this.container.querySelector('#statSpecial');
+        this.statBars = {
+            attack: this.container.querySelector('#stat-bar-attack'),
+            defense: this.container.querySelector('#stat-bar-defense'),
+            speed: this.container.querySelector('#stat-bar-speed'),
+            special: this.container.querySelector('#stat-bar-special')
+        };
+        
+        // Voice cast elements (mantenidos)
         this.vcAccordionItems = Array.from(this.container.querySelectorAll('.vc-accordion-item'));
         this.vcControlPanel = this.container.querySelector('#vc-control-panel');
         this.vcLangBtns = Array.from(this.container.querySelectorAll('.vc-lang-btn'));
@@ -524,40 +586,47 @@ class CharactersSection {
     }
 
     setInitialStates() {
-        const meetHeader = this.container.querySelector('.characters-header');
-        const meetContent = this.container.querySelector('.meet-characters-content');
+        const meetSection = this.container.querySelector('.meet-characters-subsection');
         const vcHeader = this.container.querySelector('.voice-cast-header');
         const vcInterface = this.container.querySelector('.voice-cast-interface');
         const divider = this.container.querySelector('.section-divider');
         
-        gsap.set([meetHeader, vcHeader], { opacity: 0, y: 30 });
-        gsap.set([meetContent, vcInterface], { opacity: 0 });
+        gsap.set([meetSection, vcHeader], { opacity: 0, y: 30 });
+        gsap.set(vcInterface, { opacity: 0 });
         gsap.set(divider, { opacity: 0, scale: 0.8 });
-        
-        this.iconWrappers.forEach(icon => {
-            gsap.set(icon.querySelector('.char-icon-hover'), { opacity: 0, scale: 0.8 });
-        });
     }
 
     bindEvents() {
-        this.iconWrappers.forEach(icon => {
-            const hover = icon.querySelector('.char-icon-hover');
-            
-            icon.addEventListener('click', () => this.selectCharacter(icon.dataset.character));
-            
-            icon.addEventListener('mouseenter', () => {
-                coreAnimation.squish(icon, { intensity: 0.5, duration: 0.4 });
-                gsap.to(hover, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' });
-                sfxManager.playGhost();
+        // Eventos para las tarjetas de personajes
+        this.characterCards.forEach(card => {
+            card.addEventListener('click', () => {
+                this.selectCharacter(card.dataset.character);
+                sfxManager.playConfirm();
             });
             
-            icon.addEventListener('mouseleave', () => {
-                if (!icon.classList.contains('active')) {
-                    gsap.to(hover, { opacity: 0, scale: 0.8, duration: 0.3 });
+            card.addEventListener('mouseenter', () => {
+                if (!card.classList.contains('active')) {
+                    gsap.to(card, { 
+                        scale: 1.05, 
+                        duration: 0.3, 
+                        ease: 'back.out(1.7)' 
+                    });
+                    sfxManager.playGhost();
+                }
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                if (!card.classList.contains('active')) {
+                    gsap.to(card, { 
+                        scale: 1, 
+                        duration: 0.3, 
+                        ease: 'power2.out' 
+                    });
                 }
             });
         });
         
+        // Eventos para Voice Cast (mantenidos)
         this.vcAccordionItems.forEach(item => {
             const shine = item.querySelector('.vc-accordion-shine');
             
@@ -595,16 +664,16 @@ class CharactersSection {
     }
 
     initTouchSwipe() {
-        const splashContainer = this.container.querySelector('.char-splash-container');
-        if (!splashContainer) return;
+        const characterSplash = this.container.querySelector('.character-splash');
+        if (!characterSplash) return;
         
         let touchStartX = 0;
         
-        splashContainer.addEventListener('touchstart', (e) => {
+        characterSplash.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
         
-        splashContainer.addEventListener('touchend', (e) => {
+        characterSplash.addEventListener('touchend', (e) => {
             const diff = e.changedTouches[0].screenX - touchStartX;
             if (Math.abs(diff) < 50) return;
             
@@ -626,117 +695,143 @@ class CharactersSection {
         this.currentCharacter = character;
         this.container.setAttribute('data-character', characterId);
         
-        this.updateIconStates(characterId);
-        this.animateCharacterTransition(characterId, character);
+        this.updateCardStates(characterId);
+        this.animateCharacterTransition(character);
         
         sfxManager.playConfirm();
     }
 
-    updateIconStates(characterId) {
-        this.iconWrappers.forEach(icon => {
-            const isActive = icon.dataset.character === characterId;
-            icon.classList.toggle('active', isActive);
-            gsap.to(icon.querySelector('.char-icon-hover'), {
-                opacity: isActive ? 1 : 0,
-                scale: isActive ? 1 : 0.8,
-                duration: 0.3
-            });
-        });
-    }
-
-    animateCharacterTransition(characterId, character) {
-        const prevSplash = this.splashWrappers.find(s => s.classList.contains('active'));
-        const newSplash = this.splashWrappers.find(s => s.dataset.character === characterId);
-        const prevName = this.nameImgWrappers.find(n => n.classList.contains('active'));
-        const newName = this.nameImgWrappers.find(n => n.dataset.character === characterId);
-        const prevSprite = this.spriteWrappers.find(s => s.classList.contains('active'));
-        const newSprite = this.spriteWrappers.find(s => s.dataset.character === characterId);
-        const prevCard = this.cardWrappers.find(c => c.classList.contains('active'));
-        const newCard = this.cardWrappers.find(c => c.dataset.character === characterId);
-        
-        const tl = gsap.timeline({ onComplete: () => { this.isAnimating = false; } });
-        
-        if (prevSplash) {
-            tl.to(prevSplash, {
-                opacity: 0, x: -60, scale: 0.9, duration: 0.3, ease: 'power2.in',
-                onComplete: () => prevSplash.classList.remove('active')
-            }, 0);
-        }
-        if (prevName) {
-            tl.to(prevName, {
-                opacity: 0, y: 20, duration: 0.25, ease: 'power2.in',
-                onComplete: () => prevName.classList.remove('active')
-            }, 0);
-        }
-        if (prevSprite) {
-            tl.to(prevSprite, {
-                opacity: 0, x: 30, duration: 0.25, ease: 'power2.in',
-                onComplete: () => prevSprite.classList.remove('active')
-            }, 0);
-        }
-        if (prevCard) {
-            tl.to(prevCard, {
-                opacity: 0, y: -15, duration: 0.2, ease: 'power2.in',
-                onComplete: () => prevCard.classList.remove('active')
-            }, 0);
-        }
-        
-        if (newSplash) {
-            newSplash.classList.add('active');
-            tl.fromTo(newSplash,
-                { opacity: 0, x: 60, scale: 0.9 },
-                { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: 'power2.out' },
-                0.2
-            );
-            coreAnimation.squish(newSplash, { intensity: 0.4, duration: 0.5, delay: 0.25 });
-        }
-        if (newName) {
-            newName.classList.add('active');
-            tl.fromTo(newName,
-                { opacity: 0, y: -20 },
-                { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.5)' },
-                0.35
-            );
-        }
-        if (newSprite) {
-            newSprite.classList.add('active');
-            tl.fromTo(newSprite,
-                { opacity: 0, x: -30, scale: 0.8 },
-                { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: 'back.out(1.8)' },
-                0.25
-            );
-        }
-        if (newCard) {
-            newCard.classList.add('active');
-            tl.fromTo(newCard,
-                { opacity: 0, y: 15, scale: 0.9 },
-                { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(2)' },
-                0.3
-            );
-        }
-        
-        tl.call(() => this.updateCharacterInfo(character), null, 0.1);
-    }
-
-    updateCharacterInfo(character) {
-        const elements = [this.archetypeEl, this.hpEl, this.atkEl, this.defEl, this.spdEl, this.descriptionEl];
-        
-        gsap.to(elements, {
-            opacity: 0, y: -10, duration: 0.15, stagger: 0.02, ease: 'power2.in',
-            onComplete: () => {
-                if (this.archetypeEl) this.archetypeEl.textContent = character.archetype;
-                if (this.hpEl) this.hpEl.textContent = character.stats.hp;
-                if (this.atkEl) this.atkEl.textContent = character.stats.atk;
-                if (this.defEl) this.defEl.textContent = character.stats.def;
-                if (this.spdEl) this.spdEl.textContent = character.stats.spd;
-                if (this.descriptionEl) this.descriptionEl.textContent = character.description;
-                gsap.to(elements, {
-                    opacity: 1, y: 0, duration: 0.25, stagger: 0.03, ease: 'back.out(1.5)'
-                });
+    updateCardStates(characterId) {
+        this.characterCards.forEach(card => {
+            const isActive = card.dataset.character === characterId;
+            card.classList.toggle('active', isActive);
+            
+            // Animación para la tarjeta activa
+            if (isActive) {
+                gsap.fromTo(card,
+                    { scale: 0.95 },
+                    { scale: 1, duration: 0.5, ease: 'elastic.out(1.3, 0.4)' }
+                );
             }
         });
     }
 
+    animateCharacterTransition(character) {
+        const characterDisplay = this.container.querySelector('.character-display');
+        
+        // Agregar clase de transición
+        characterDisplay.classList.add('switching');
+        
+        const tl = gsap.timeline({
+            onComplete: () => {
+                this.isAnimating = false;
+                characterDisplay.classList.remove('switching');
+            }
+        });
+        
+        // Animación de salida
+        tl.to([
+            this.characterSplash,
+            this.characterBanner,
+            this.characterSprite,
+            this.characterName,
+            this.characterLevel,
+            this.characterDescription,
+            this.statAttack,
+            this.statDefense,
+            this.statSpeed,
+            this.statSpecial
+        ], {
+            opacity: 0,
+            y: -20,
+            duration: 0.2,
+            stagger: 0.02,
+            ease: 'power2.in'
+        }, 0);
+        
+        // Actualizar contenido
+        tl.call(() => {
+            this.updateCharacterDisplay(character);
+        }, null, 0.1);
+        
+        // Animación de entrada
+        tl.to([
+            this.characterSplash,
+            this.characterBanner,
+            this.characterSprite
+        ], {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: 'power2.out'
+        }, 0.3);
+        
+        tl.to([
+            this.characterName,
+            this.characterLevel
+        ], {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'back.out(1.7)'
+        }, 0.4);
+        
+        tl.to(this.characterDescription, {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out'
+        }, 0.45);
+        
+        // Animación de las barras de estadísticas
+        Object.keys(this.statBars).forEach((stat, index) => {
+            if (this.statBars[stat]) {
+                tl.to(this.statBars[stat], {
+                    width: `${character.stats[stat].percent}%`,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    delay: 0.1 * index
+                }, 0.3);
+            }
+        });
+        
+        // Animación de los valores de estadísticas
+        tl.to([
+            this.statAttack,
+            this.statDefense,
+            this.statSpeed,
+            this.statSpecial
+        ], {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.05,
+            ease: 'back.out(1.5)'
+        }, 0.5);
+    }
+
+    updateCharacterDisplay(character) {
+        // Actualizar elementos de texto
+        this.characterName.textContent = character.name;
+        this.characterLevel.textContent = `LEVEL.${character.level}`;
+        this.characterDescription.textContent = character.description;
+        
+        // Actualizar valores de estadísticas
+        this.statAttack.textContent = character.stats.attack.value.toLocaleString();
+        this.statDefense.textContent = character.stats.defense.value.toLocaleString();
+        this.statSpeed.textContent = character.stats.speed.value.toLocaleString();
+        this.statSpecial.textContent = character.stats.special.value.toLocaleString();
+        
+        // Actualizar imágenes
+        this.characterSplash.src = character.splash;
+        this.characterSplash.alt = `${character.name} Splash`;
+        this.characterBanner.src = character.banner;
+        this.characterBanner.alt = `${character.name} Banner`;
+        this.characterSprite.src = character.sprite;
+        this.characterSprite.alt = `${character.name} Sprite`;
+    }
+
+    // Métodos de Voice Cast (mantenidos sin cambios)
     selectVCCharacter(characterId) {
         const wasActive = this.currentVCCharacter === characterId;
         this.currentVCCharacter = characterId;
@@ -924,35 +1019,73 @@ class CharactersSection {
     }
 
     animateMeetEntrance() {
-        const header = this.container.querySelector('.characters-header');
-        const content = this.container.querySelector('.meet-characters-content');
+        const meetSection = this.container.querySelector('.meet-characters-subsection');
+        const characterCards = this.characterCards;
+        const characterSplash = this.characterSplash;
+        const characterName = this.characterName;
         const divider = this.container.querySelector('.section-divider');
         
         const tl = gsap.timeline();
         this.timelines.push(tl);
         
-        tl.to(header, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
+        tl.to(meetSection, { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8, 
+            ease: 'power2.out' 
+        });
         
-        const titleMain = header?.querySelector('.char-title-main');
-        if (titleMain) coreAnimation.animateText(titleMain, { delay: 0.2 });
-        
-        tl.to(content, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.4');
-        tl.fromTo(this.iconWrappers,
-            { opacity: 0, scale: 0.5, y: 25 },
-            { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'back.out(1.8)' },
-            '-=0.4'
+        // Animación de las tarjetas
+        tl.fromTo(characterCards,
+            { opacity: 0, scale: 0.8, x: -50 },
+            { 
+                opacity: 1, 
+                scale: 1, 
+                x: 0, 
+                duration: 0.6, 
+                stagger: 0.1, 
+                ease: 'back.out(1.8)' 
+            },
+            '-=0.5'
         );
         
-        const activeSplash = this.splashWrappers.find(s => s.classList.contains('active'));
-        if (activeSplash) {
-            tl.fromTo(activeSplash,
+        // Animación del splash
+        if (characterSplash) {
+            tl.fromTo(characterSplash,
                 { opacity: 0, scale: 0.85, y: 50 },
-                { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+                { 
+                    opacity: 1, 
+                    scale: 1, 
+                    y: 0, 
+                    duration: 0.9, 
+                    ease: 'elastic.out(1, 0.6)' 
+                },
+                '-=0.4'
+            );
+        }
+        
+        // Animación del nombre
+        if (characterName) {
+            tl.fromTo(characterName,
+                { opacity: 0, y: -30, scale: 0.9 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1, 
+                    duration: 0.7, 
+                    ease: 'back.out(1.7)' 
+                },
                 '-=0.6'
             );
         }
         
-        tl.to(divider, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, '-=0.3');
+        // Animación del divisor
+        tl.to(divider, { 
+            opacity: 1, 
+            scale: 1, 
+            duration: 0.5, 
+            ease: 'back.out(1.8)' 
+        }, '-=0.3');
     }
 
     animateVCEntrance() {
@@ -997,4 +1130,4 @@ class CharactersSection {
 }
 
 export const charactersSection = new CharactersSection();
-export default charactersSection;
+export default charactersSection; 

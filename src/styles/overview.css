@@ -1,7 +1,6 @@
 /**
  * Overview Section Styles
  * The Heart of Gold
- * Updated: Lighter video overlay for better visibility
  */
 
 /* ==================== */
@@ -13,6 +12,41 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+/* Top fade for smooth transition from news section - subtle */
+.overview-top-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(
+        to bottom,
+        var(--color-purple-dark) 0%,
+        rgba(20, 2, 59, 0.4) 50%,
+        transparent 100%
+    );
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Bottom fade for smooth transition to game features - smooth */
+.overview-bottom-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(5, 0, 16, 0.2) 40%,
+        rgba(5, 0, 16, 0.6) 75%,
+        #050010 100%
+    );
+    z-index: 5;
+    pointer-events: none;
 }
 
 /* ==================== */
@@ -47,7 +81,7 @@
     left: 0;
     right: 0;
     height: 200px;
-    background: linear-gradient(to bottom, var(--color-purple-dark), transparent);
+    background: linear-gradient(to bottom, var(--color-purple-dark) 0%, transparent 100%);
     z-index: 1;
     pointer-events: none;
 }
@@ -79,7 +113,7 @@
     opacity: 1;
 }
 
-/* Video Overlay - Made MUCH lighter for better visibility */
+/* Video Overlay - Nearly invisible for clear video */
 .video-overlay {
     position: absolute;
     inset: 0;
@@ -91,35 +125,18 @@
     content: '';
     position: absolute;
     inset: 0;
-    /* Reduced opacity significantly - video more visible now */
+    /* Nearly invisible */
     background: 
         linear-gradient(180deg, 
-            rgba(23, 4, 38, 0.7) 0%, 
-            rgba(10, 1, 24, 0.3) 15%, 
-            rgba(5, 0, 16, 0.15) 40%,
-            rgba(5, 0, 16, 0.15) 60%,
-            rgba(10, 1, 24, 0.3) 85%, 
-            rgba(5, 0, 16, 0.8) 100%
-        ),
-        linear-gradient(90deg, 
-            rgba(20, 2, 59, 0.2) 0%, 
-            transparent 20%, 
-            transparent 80%, 
-            rgba(20, 2, 59, 0.2) 100%
+            rgba(23, 4, 38, 0.041) 0%, 
+            transparent 5%, 
+            transparent 95%,
+            rgba(5, 0, 16, 0.048) 100%
         );
 }
 
 .video-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    /* Lighter vignette effect */
-    background: radial-gradient(
-        ellipse at center, 
-        transparent 0%, 
-        rgba(5, 0, 16, 0.02) 50%, 
-        rgba(5, 0, 16, 0.15) 100%
-    );
+    display: none;
 }
 
 /* ==================== */
@@ -340,74 +357,19 @@
 }
 
 /* ==================== */
-/* Divider Section */
+/* Divider - Hidden, transitions handled by section fades */
 /* ==================== */
 
 .overview-divider {
-    position: relative;
-    width: 100%;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
+    display: none;
 }
 
-.divider-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        180deg,
-        #050010 0%,
-        #0a0118 30%,
-        #0d0220 50%,
-        #0a0118 70%,
-        #050010 100%
-    );
-}
-
-.divider-line {
-    position: relative;
-    width: 70%;
-    max-width: 600px;
-    height: 1px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(40, 20, 60, 0.5) 15%,
-        rgba(60, 30, 80, 0.6) 50%,
-        rgba(40, 20, 60, 0.5) 85%,
-        transparent 100%
-    );
-}
-
-.divider-glow {
-    position: absolute;
-    inset: -8px;
-    background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(80, 40, 100, 0.15) 30%,
-        rgba(100, 50, 120, 0.2) 50%,
-        rgba(80, 40, 100, 0.15) 70%,
-        transparent 100%
-    );
-    filter: blur(10px);
-    opacity: 0;
-}
-
-.divider-particles {
-    position: absolute;
-    display: flex;
-    gap: var(--space-lg);
-}
-
+.divider-gradient,
+.divider-line,
+.divider-glow,
+.divider-particles,
 .divider-dot {
-    width: 6px;
-    height: 6px;
-    background: rgba(100, 60, 140, 0.6);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(100, 60, 140, 0.4);
+    display: none;
 }
 
 /* ==================== */
@@ -421,18 +383,13 @@
 }
 
 /* ==================== */
-/* Bottom Gradient */
+/* Characters Wrapper */
 /* ==================== */
 
-.overview-gradient-bottom {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 150px;
-    background: linear-gradient(to bottom, transparent, #050010);
-    z-index: 5;
-    pointer-events: none;
+.characters-wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 10;
 }
 
 /* ==================== */
@@ -442,6 +399,11 @@
 @media (max-width: 768px) {
     .overview-video-part {
         padding: var(--space-3xl) var(--space-md);
+    }
+    
+    .overview-top-fade,
+    .overview-bottom-fade {
+        height: 150px;
     }
     
     .story-block.left,
@@ -457,21 +419,45 @@
     }
     
     .overview-video.playing {
-        opacity: 0.4;
+        opacity: 0.5;
     }
     
-    .overview-divider {
-        height: 120px;
+    /* Section height and fades - Mobile */
+    .overview-video-part {
+        min-height: 120vh;
+        min-height: 120dvh;
+        padding-top: var(--space-3xl);
+        padding-bottom: var(--space-4xl);
     }
     
-    .divider-line {
-        width: 85%;
+    .overview-top-fade {
+        height: 200px;
+    }
+    
+    .overview-bottom-fade {
+        height: 250px;
     }
 }
 
 @media (max-width: 480px) {
     .overview-title {
         font-size: 1.8rem;
+    }
+    
+    /* Section height and fades - Small Mobile */
+    .overview-video-part {
+        min-height: 130vh;
+        min-height: 130dvh;
+        padding-top: var(--space-2xl);
+        padding-bottom: var(--space-3xl);
+    }
+    
+    .overview-top-fade {
+        height: 180px;
+    }
+    
+    .overview-bottom-fade {
+        height: 220px;
     }
     
     .story-text {
@@ -484,15 +470,6 @@
     
     .story-block.center {
         max-width: 95%;
-    }
-    
-    .overview-divider {
-        height: 100px;
-    }
-    
-    .divider-dot {
-        width: 4px;
-        height: 4px;
     }
 }
 

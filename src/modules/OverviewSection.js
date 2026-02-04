@@ -1,7 +1,6 @@
 /**
  * OverviewSection - Game Overview with Video Background
  * The Heart of Gold
- * Updated: Includes Characters Section
  */
 
 import { gsap } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm';
@@ -36,6 +35,7 @@ class OverviewSection {
         this.container.className = 'overview-section';
         
         this.container.innerHTML = `
+            <div class="overview-top-fade"></div>
             <div class="overview-video-part">
                 <div class="overview-gradient-top"></div>
                 <div class="overview-video-container">
@@ -69,14 +69,10 @@ class OverviewSection {
             </div>
             <div class="overview-divider">
                 <div class="divider-gradient"></div>
-                <div class="divider-line"><div class="divider-glow"></div></div>
-                <div class="divider-particles">
-                    <span class="divider-dot"></span><span class="divider-dot"></span><span class="divider-dot"></span>
-                </div>
             </div>
             <div class="features-wrapper"></div>
             <div class="characters-wrapper"></div>
-            <div class="overview-gradient-bottom"></div>
+            <div class="overview-bottom-fade"></div>
         `;
         
         parent.appendChild(this.container);
