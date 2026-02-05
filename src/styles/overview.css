@@ -37,12 +37,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 200px;
+    height: 300px;
     background: linear-gradient(
         to bottom,
         transparent 0%,
-        rgba(5, 0, 16, 0.2) 40%,
-        rgba(5, 0, 16, 0.6) 75%,
+        rgba(5, 0, 16, 0.15) 25%,
+        rgba(5, 0, 16, 0.4) 50%,
+        rgba(5, 0, 16, 0.7) 75%,
         #050010 100%
     );
     z-index: 5;
@@ -135,8 +136,22 @@
         );
 }
 
+/* Difuminado del video hacia abajo */
 .video-overlay::after {
-    display: none;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(22, 4, 38, 0.3) 40%,
+        rgba(22, 4, 38, 0.7) 70%,
+        #160426 100%
+    );
+    pointer-events: none;
 }
 
 /* ==================== */
@@ -326,36 +341,6 @@
     50% { transform: translate(-10px, -50px) scale(0.8); opacity: 0.4; }
     75% { transform: translate(15px, -20px) scale(1.1); opacity: 0.5; }
 }
-
-/* ==================== */
-/* Floating Lines */
-/* ==================== */
-
-.overview-lines {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.floating-line {
-    position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(196, 30, 92, 0.3), transparent);
-    animation: floatLine 20s infinite ease-in-out;
-}
-
-.floating-line:nth-child(1) { top: 15%; width: 30%; left: 5%; animation-delay: 0s; }
-.floating-line:nth-child(2) { top: 35%; width: 25%; right: 10%; animation-delay: 5s; }
-.floating-line:nth-child(3) { top: 65%; width: 35%; left: 15%; animation-delay: 10s; }
-.floating-line:nth-child(4) { top: 85%; width: 20%; right: 5%; animation-delay: 15s; }
-
-@keyframes floatLine {
-    0%, 100% { transform: translateX(0) scaleX(1); opacity: 0.2; }
-    50% { transform: translateX(30px) scaleX(1.2); opacity: 0.5; }
-}
-
 /* ==================== */
 /* Divider - Hidden, transitions handled by section fades */
 /* ==================== */
@@ -401,9 +386,20 @@
         padding: var(--space-3xl) var(--space-md);
     }
     
-    .overview-top-fade,
-    .overview-bottom-fade {
+    .overview-top-fade {
         height: 150px;
+    }
+    
+    .overview-bottom-fade {
+        height: 280px;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(5, 0, 16, 0.1) 20%,
+            rgba(5, 0, 16, 0.35) 45%,
+            rgba(5, 0, 16, 0.65) 70%,
+            #050010 100%
+        );
     }
     
     .story-block.left,
@@ -435,7 +431,7 @@
     }
     
     .overview-bottom-fade {
-        height: 250px;
+        height: 320px;
     }
 }
 
@@ -457,7 +453,15 @@
     }
     
     .overview-bottom-fade {
-        height: 220px;
+        height: 300px;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(5, 0, 16, 0.08) 15%,
+            rgba(5, 0, 16, 0.3) 40%,
+            rgba(5, 0, 16, 0.6) 65%,
+            #050010 100%
+        );
     }
     
     .story-text {

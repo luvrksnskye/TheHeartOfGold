@@ -20,7 +20,7 @@ class NavBar {
             { name: 'Homepage', icon: 'fa-solid fa-house', submenu: null, href: '#homepage' },
             { name: 'About', icon: 'fa-solid fa-angle-down', submenu: [
                 { name: 'Overview', href: '#overview' },
-                { name: 'Characters', href: '#characters' }
+                { name: 'Characters', href: '#meet-characters' }
             ]},
             { name: 'Socials', icon: 'fa-solid fa-angle-down', submenu: [
                 { name: 'Twitter (X)', href: 'https://x.com/TheHeartOfGold7', external: true }
@@ -213,15 +213,34 @@ class NavBar {
         const sectionMap = {
             'homepage': 'home-hero',
             'overview': 'overview-section',
-            'characters': 'characters-section'
+            'characters': 'characters-section',
+            'meet-characters': 'meet-characters-subsection',
+            'voice-cast': 'voice-cast-subsection'
         };
         
         const targetId = sectionMap[section] || section;
-        const target = document.getElementById(targetId);
+        
+        // Try getElementById first, then querySelector for class-based selectors
+        let target = document.getElementById(targetId);
+        if (!target) {
+            target = document.querySelector(`.${targetId}`);
+        }
+        if (!target) {
+            target = document.querySelector(`#${targetId}`);
+        }
         
         if (target) {
+            // Calculate the correct offset considering nested elements
+            let offsetTop = 0;
+            let element = target;
+            
+            while (element && element !== scrollContainer) {
+                offsetTop += element.offsetTop;
+                element = element.offsetParent;
+            }
+            
             gsap.to(scrollContainer, { 
-                scrollTop: target.offsetTop, 
+                scrollTop: offsetTop, 
                 duration: 0.8, 
                 ease: 'power2.inOut' 
             });

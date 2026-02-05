@@ -1,5 +1,4 @@
 /**
- * Estoy intentando complementar algunas cosas, mejorarlo considerando que tenemos algo de tiempo. Ando en eso porque genuinamente me gusta este módulo y no quiero que quede a medias. Ademas, no puedo dormir sabiendo que este módulo no está perfecto. ajdajmsdj quiero pensar que esto es optimo para manejar mas personajes en el futuro.
  * Characters Section - The Heart of Gold
  * Meet the Characters & Voice Cast 
  */
@@ -312,13 +311,15 @@ class CharactersSection {
                 <div class="char-bg-stripes"></div>
             </div>
             
-         <!-- Meet Characters Subsection - Nuevo diseño -->
-            <div class="meet-characters-subsection">
+            <!-- Anchor for navigation -->
+            <div id="meet-characters-anchor" style="position: absolute; top: 0; left: 0;"></div>
+
+            <div class="meet-characters-subsection" id="meet-characters-subsection">
         
-                <!-- Fondo con patrón de puntos -->
+    
                 <div class="background-pattern"></div>
                 
-                <!-- Línea diagonal divisoria -->
+             
                 <div class="diagonal-divider"></div>
                 
                 <!-- Panel izquierdo - Selector de personajes -->
@@ -348,7 +349,7 @@ class CharactersSection {
                     </div>
                 </main>
                 
-                <!-- Panel derecho - Información del personaje -->
+             
                 <aside class="character-info">
                     <div class="info-panel">
                         <!-- Banner del personaje -->
@@ -356,7 +357,7 @@ class CharactersSection {
                             <img src="${firstChar.banner}" alt="${firstChar.name} Banner" id="characterBanner" class="banner-image">
                         </div>
                         
-                        <!-- Estadísticas -->
+        
                         <div class="stats-container">
                             <div class="stat-row">
                                 <img src="./src/assets/sword.png" alt="Attack" class="stat-icon-img">
@@ -395,7 +396,7 @@ class CharactersSection {
                             </div>
                         </div>
                         
-                        <!-- Descripción del personaje -->
+                    
                         <div class="description-container">
                             <h3 class="description-title">CHARACTER DESCRIPTION</h3>
                             <p class="character-description" id="characterDescription">${firstChar.description}</p>
@@ -410,8 +411,11 @@ class CharactersSection {
             </div>
             
             
+            <!-- Anchor for navigation -->
+            <div id="voice-cast-anchor" style="position: absolute; left: 0;"></div>
+            
             <!-- Voice Cast Subsection (mantenido igual) -->
-            <div class="voice-cast-subsection">
+            <div class="voice-cast-subsection" id="voice-cast-subsection">
                 <div class="voice-cast-header">
                     <div class="vc-title-wrapper">
                         <span class="vc-section-label">//SECTION 04//</span>
@@ -470,7 +474,7 @@ class CharactersSection {
                                 </button>
                                 <button class="vc-lang-btn clickable" data-lang="spanish">
                                     <div class="vc-lang-ink-fill"></div>
-                                    <span class="vc-lang-text">ESPANOL</span>
+                                    <span class="vc-lang-text">ESPAÑOL</span>
                                 </button>
                                 <button class="vc-lang-btn clickable" data-lang="japanese">
                                     <div class="vc-lang-ink-fill"></div>
@@ -553,7 +557,7 @@ class CharactersSection {
     }
 
     cacheElements() {
-        // Nuevos elementos del diseño actualizado
+   
         this.characterCards = Array.from(this.container.querySelectorAll('.character-card'));
         this.characterName = this.container.querySelector('#characterName');
         this.characterLevel = this.container.querySelector('#characterLevel');
@@ -706,7 +710,7 @@ class CharactersSection {
             const isActive = card.dataset.character === characterId;
             card.classList.toggle('active', isActive);
             
-            // Animación para la tarjeta activa
+       
             if (isActive) {
                 gsap.fromTo(card,
                     { scale: 0.95 },
@@ -719,7 +723,7 @@ class CharactersSection {
     animateCharacterTransition(character) {
         const characterDisplay = this.container.querySelector('.character-display');
         
-        // Agregar clase de transición
+       
         characterDisplay.classList.add('switching');
         
         const tl = gsap.timeline({
@@ -729,7 +733,7 @@ class CharactersSection {
             }
         });
         
-        // Animación de salida
+        // AnimaciÃ³n de salida
         tl.to([
             this.characterSplash,
             this.characterBanner,
@@ -754,7 +758,7 @@ class CharactersSection {
             this.updateCharacterDisplay(character);
         }, null, 0.1);
         
-        // Animación de entrada
+        // AnimaciÃ³n de entrada
         tl.to([
             this.characterSplash,
             this.characterBanner,
@@ -783,7 +787,7 @@ class CharactersSection {
             ease: 'power2.out'
         }, 0.45);
         
-        // Animación de las barras de estadísticas
+        // AnimaciÃ³n de las barras de estadÃ­sticas
         Object.keys(this.statBars).forEach((stat, index) => {
             if (this.statBars[stat]) {
                 tl.to(this.statBars[stat], {
@@ -795,7 +799,7 @@ class CharactersSection {
             }
         });
         
-        // Animación de los valores de estadísticas
+
         tl.to([
             this.statAttack,
             this.statDefense,
@@ -816,13 +820,13 @@ class CharactersSection {
         this.characterLevel.textContent = `LEVEL.${character.level}`;
         this.characterDescription.textContent = character.description;
         
-        // Actualizar valores de estadísticas
+
         this.statAttack.textContent = character.stats.attack.value.toLocaleString();
         this.statDefense.textContent = character.stats.defense.value.toLocaleString();
         this.statSpeed.textContent = character.stats.speed.value.toLocaleString();
         this.statSpecial.textContent = character.stats.special.value.toLocaleString();
         
-        // Actualizar imágenes
+   
         this.characterSplash.src = character.splash;
         this.characterSplash.alt = `${character.name} Splash`;
         this.characterBanner.src = character.banner;
@@ -831,7 +835,7 @@ class CharactersSection {
         this.characterSprite.alt = `${character.name} Sprite`;
     }
 
-    // Métodos de Voice Cast (mantenidos sin cambios)
+
     selectVCCharacter(characterId) {
         const wasActive = this.currentVCCharacter === characterId;
         this.currentVCCharacter = characterId;
@@ -1035,7 +1039,7 @@ class CharactersSection {
             ease: 'power2.out' 
         });
         
-        // Animación de las tarjetas
+    
         tl.fromTo(characterCards,
             { opacity: 0, scale: 0.8, x: -50 },
             { 
@@ -1049,7 +1053,7 @@ class CharactersSection {
             '-=0.5'
         );
         
-        // Animación del splash
+    
         if (characterSplash) {
             tl.fromTo(characterSplash,
                 { opacity: 0, scale: 0.85, y: 50 },
@@ -1064,7 +1068,7 @@ class CharactersSection {
             );
         }
         
-        // Animación del nombre
+        // AnimaciÃ³n del nombre
         if (characterName) {
             tl.fromTo(characterName,
                 { opacity: 0, y: -30, scale: 0.9 },
@@ -1079,7 +1083,7 @@ class CharactersSection {
             );
         }
         
-        // Animación del divisor
+        // AnimaciÃ³n del divisor
         tl.to(divider, { 
             opacity: 1, 
             scale: 1, 

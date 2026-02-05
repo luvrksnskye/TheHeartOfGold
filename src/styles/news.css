@@ -773,8 +773,9 @@
     }
     
     .carousel-dot {
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
+        border-width: 1.5px;
     }
     
     .news-speed-decoration {
@@ -883,12 +884,13 @@
     
     .carousel-indicators {
         max-width: 180px;
+        gap: 4px;
     }
     
     .carousel-dot {
-        width: 8px;
-        height: 8px;
-        border-width: 1.5px;
+        width: 6px;
+        height: 6px;
+        border-width: 1px;
     }
 }
 

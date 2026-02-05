@@ -18,6 +18,30 @@ class BlogScreen {
         this.resizeHandler = null;
         this.scrollHandler = null;
         this.scrollIndicatorAnimation = null;
+        this.mobileNoticeShown = false;
+        this.MOBILE_NOTICE_KEY = 'thog_blog_mobile_notice_shown';
+    }
+
+    isMobileDevice() {
+        return window.innerWidth <= 768 || 
+               ('ontouchstart' in window && window.matchMedia('(pointer: coarse)').matches);
+    }
+
+    hasMobileNoticeBeenShown() {
+        try {
+            return localStorage.getItem(this.MOBILE_NOTICE_KEY) === 'true';
+        } catch (e) {
+            return this.mobileNoticeShown;
+        }
+    }
+
+    setMobileNoticeShown() {
+        this.mobileNoticeShown = true;
+        try {
+            localStorage.setItem(this.MOBILE_NOTICE_KEY, 'true');
+        } catch (e) {
+            // localStorage not available
+        }
     }
 
     async create(blogId) {
@@ -35,7 +59,7 @@ class BlogScreen {
         
         this.container = document.createElement('div');
         this.container.id = 'blog-screen';
-        this.container.className = 'blog-screen';
+        this.container.className = 'blog-screen blog-force-desktop';
         
         const allBlogs = blogManager.getAllBlogs();
         
@@ -52,7 +76,94 @@ class BlogScreen {
         this.initAnimations();
         this.checkScrollability();
         
+        // Show mobile notice if on mobile and not shown before
+        if (this.isMobileDevice() && !this.hasMobileNoticeBeenShown()) {
+            this.showMobileNotice();
+        }
+        
         return this;
+    }
+
+    showMobileNotice() {
+        const notice = document.createElement('div');
+        notice.className = 'blog-mobile-notice';
+        notice.innerHTML = `
+            <div class="mobile-notice-backdrop"></div>
+            <div class="mobile-notice-card">
+                <div class="mobile-notice-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                        <line x1="12" y1="18" x2="12" y2="18"/>
+                    </svg>
+                    <span class="notice-arrow">→</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                        <line x1="8" y1="21" x2="16" y2="21"/>
+                        <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                </div>
+                <h3 class="mobile-notice-title">Better on Desktop!</h3>
+                <p class="mobile-notice-text">For the best blog reading experience, we recommend visiting on a larger screen.</p>
+                <button class="mobile-notice-btn clickable">Got it!</button>
+            </div>
+        `;
+        
+        this.container.appendChild(notice);
+        
+        // Cache notice elements
+        const card = notice.querySelector('.mobile-notice-card');
+        const backdrop = notice.querySelector('.mobile-notice-backdrop');
+        const btn = notice.querySelector('.mobile-notice-btn');
+        
+        // Animate in
+        gsap.set(notice, { opacity: 1 });
+        gsap.set(backdrop, { opacity: 0 });
+        gsap.set(card, { opacity: 0, scale: 0.8, y: 30 });
+        
+        const tl = gsap.timeline();
+        tl.to(backdrop, { opacity: 1, duration: 0.3 })
+          .to(card, { 
+              opacity: 1, 
+              scale: 1, 
+              y: 0, 
+              duration: 0.5, 
+              ease: 'back.out(1.7)' 
+          }, '-=0.1');
+        
+        // Squishy animation on card
+        gsap.to(card, {
+            scaleX: 1.02,
+            scaleY: 0.98,
+            duration: 0.8,
+            yoyo: true,
+            repeat: -1,
+            ease: 'sine.inOut'
+        });
+        
+        // Close button handler
+        const closeNotice = () => {
+            this.setMobileNoticeShown();
+            
+            gsap.killTweensOf(card);
+            
+            const closeTl = gsap.timeline({
+                onComplete: () => {
+                    notice.remove();
+                }
+            });
+            
+            closeTl.to(card, { 
+                opacity: 0, 
+                scale: 0.8, 
+                y: -20, 
+                duration: 0.3, 
+                ease: 'power2.in' 
+            })
+            .to(backdrop, { opacity: 0, duration: 0.2 }, '-=0.1');
+        };
+        
+        btn.addEventListener('click', closeNotice);
+        backdrop.addEventListener('click', closeNotice);
     }
 
     renderHTML(allBlogs, blogId) {

@@ -74,6 +74,7 @@ body {
     color: var(--color-white);
     min-height: 100vh;
     overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 

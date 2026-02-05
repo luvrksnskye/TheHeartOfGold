@@ -240,7 +240,7 @@
 .blog-loading-title {
     font-family: var(--font-pixel-alt);
     font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    color: var(--color-text-secondary);
+    color: white;
     text-align: center;
     letter-spacing: 0.05em;
     text-shadow: 

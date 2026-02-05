@@ -11,6 +11,7 @@ import audioManager from '../utils/AudioManager.js';
 import sakuraPetals from '../utils/SakuraPetals.js';
 import newsCarousel from './NewsCarousel.js';
 import overviewSection from './OverviewSection.js';
+import soundtrackSection from './SoundtrackSection.js';
 import sectionNav from './SectionNav.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -94,14 +95,15 @@ class HomeScreen {
         // Create Overview Section (includes Game Features and Characters)
         const scrollContainer = this.container.querySelector('.home-scroll-container');
         overviewSection.create(scrollContainer);
+        soundtrackSection.create(scrollContainer);
         
-        // Create Section Navigation
         sectionNav.sections = [
-            { id: 'home-hero', number: '01', label: 'Home' },
-            { id: 'home-news-section', number: '02', label: 'News' },
-            { id: 'overview-section', number: '03', label: 'Overview' },
-            { id: 'characters-section', number: '04', label: 'Characters' }
-        ];
+    { id: 'home-hero', number: '01', label: 'Home' },
+    { id: 'home-news-section', number: '02', label: 'News' },
+    { id: 'overview-section', number: '03', label: 'Overview' },
+    { id: 'characters-section', number: '04', label: 'Characters' },
+    { id: 'soundtrack-section', number: '05', label: 'Soundtrack' } 
+];
         sectionNav.create(scrollContainer);
         
         gsap.set(this.container, { opacity: 1 });
@@ -389,6 +391,7 @@ class HomeScreen {
         if (sakuraPetals) sakuraPetals.destroy();
         newsCarousel.destroy();
         overviewSection.destroy();
+        soundtrackSection.destroy();
         sectionNav.destroy();
         
         if (this.container && this.container.parentNode) {
