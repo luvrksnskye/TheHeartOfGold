@@ -1,0 +1,907 @@
+/**
+ * Voice Cast Section - The Heart of Gold
+ * Brutalist Street Style
+ */
+
+/* ========================================
+   Voice Cast Subsection
+======================================== */
+.voice-cast-subsection {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--space-2xl) var(--space-lg);
+    padding-top: var(--space-4xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-purple-deep);
+}
+
+.voice-cast-subsection::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, var(--color-purple-deep) 0%, rgba(20,2,59,0.4) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ========================================
+   Halftone Background
+======================================== */
+.vc-halftone-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.vc-halftone-clip-svg {
+    position: absolute;
+    width: 0; height: 0;
+}
+
+.vc-halftone-content {
+    width: 100%; height: 100%;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(153, 111, 253, 0.244) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 110, 182, 0.171) 0%, transparent 50%);
+}
+
+/* ========================================
+   Scramble Title
+======================================== */
+.voice-cast-header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.vc-section-label {
+    font-family: var(--font-pixel-alt);
+    font-size: var(--fs-xs);
+    color: var(--color-pink-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    opacity: 0.9;
+    display: block;
+    margin-bottom: var(--space-sm);
+}
+
+.vc-scramble-title {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 clamp(12px, 2vw, 24px);
+}
+
+.scramble-line {
+    visibility: hidden;
+    font-family: var(--font-pixel);
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 0.75;
+    display: flex;
+    overflow: hidden;
+    padding-bottom: 10vw;
+    color: #ffffff24;
+}
+
+.scramble-line div {
+    display: inline-block;
+    position: relative;
+    letter-spacing: clamp(-2px, -0.2vw, -1px);
+}
+
+.scramble-line div::before {
+    position: absolute;
+    top: 0; left: 0;
+    content: attr(data-char);
+    transform: translateY(-103%);
+    color: rgba(255, 255, 255, 0.795);
+}
+
+.vc-title-ink-splash {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%; height: 180%;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(236,72,153,0.18) 0%, rgba(139,92,246,0.06) 40%, transparent 70%);
+    filter: blur(30px);
+    pointer-events: none;
+}
+
+/* ========================================
+   Running Tape
+======================================== */
+.vc-tape-wrapper {
+    --tape-color: #EC4899;
+    position: relative;
+    width: 120%; left: -10%;
+    background: var(--tape-color);
+    color: #000;
+    transform: rotate(-2deg);
+    padding: 10px 0;
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    margin: var(--space-lg) 0;
+    z-index: 5;
+    overflow: hidden;
+    transition: background 0.5s ease;
+}
+
+.vc-tape-bottom {
+    transform: rotate(2deg);
+    margin-top: var(--space-xl);
+}
+
+.vc-tape-text {
+    font-family: var(--font-pixel);
+    font-size: clamp(1rem, 2.5vw, 1.8rem);
+    font-weight: 800;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    animation: tapeScroll 12s linear infinite;
+    will-change: transform;
+}
+
+.vc-tape-bottom .vc-tape-text {
+    animation-direction: reverse;
+    animation-duration: 15s;
+}
+
+@keyframes tapeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ========================================
+   Character Grid - Brutalist Cards
+======================================== */
+.vc-grid-container {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 2vw, 24px);
+    width: 100%;
+    max-width: 1200px;
+    padding: var(--space-lg) 0;
+}
+
+.vc-card {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background: #0a0a0a;
+    transition: transform 0.4s var(--ease-out-back);
+    will-change: transform;
+}
+
+.vc-card-border {
+    position: absolute;
+    inset: 0;
+    border: 3px solid rgba(255,255,255,0.06);
+    z-index: 10;
+    pointer-events: none;
+    transition: border-color 0.4s ease;
+}
+
+.vc-card.active .vc-card-border {
+    border-color: var(--card-color);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+}
+
+.vc-card-media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.vc-card-portrait {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    filter: grayscale(100%) brightness(0.6) contrast(1.1);
+    transition: filter 0.5s ease, transform 0.5s ease;
+    transform: scale(1.05);
+}
+
+.vc-card:hover .vc-card-portrait {
+    filter: grayscale(20%) brightness(0.8) contrast(1.05);
+    transform: scale(1.1);
+}
+
+.vc-card.active .vc-card-portrait {
+    filter: grayscale(0%) brightness(0.85) contrast(1);
+    transform: scale(1.12);
+}
+
+.vc-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(255, 71, 123, 0.137) 100%);
+    z-index: 2;
+}
+
+/* Card Video (replaces portrait when hasVideo) */
+.vc-card-video {
+    position: absolute;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    z-index: 1;
+    transform: scale(1.05);
+}
+
+.vc-card.active .vc-card-video {
+    filter: brightness(0.85) contrast(1);
+    transform: scale(1.08);
+}
+
+/* Card Info */
+.vc-card-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: clamp(12px, 2vw, 24px);
+    z-index: 5;
+}
+
+.vc-card-char-name {
+    display: block;
+    font-family: var(--font-pixel);
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.vc-card-char-name-outline {
+    display: block;
+    font-family: var(--font-pixel);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 0.8;
+    position: absolute;
+    top: -10%; right: -5%;
+    z-index: -1;
+    pointer-events: none;
+    transition: -webkit-text-stroke-color 0.4s ease;
+}
+
+.vc-card.active .vc-card-char-name-outline {
+    -webkit-text-stroke-color: rgba(255,255,255,0.1);
+}
+
+.vc-card-actor-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+}
+
+.vc-card-actor-label {
+    font-family: var(--font-pixel-alt);
+    font-size: clamp(0.5rem, 1vw, 0.65rem);
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.vc-card-actor {
+    font-family: var(--font-pixel-alt);
+    font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+    color: var(--card-light);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+/* Card Play Zone */
+.vc-card-play-zone {
+    position: absolute;
+    top: 12px; right: 12px;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.vc-card:hover .vc-card-play-zone,
+.vc-card.active .vc-card-play-zone {
+    opacity: 1;
+}
+
+.vc-card-play-btn {
+    width: 44px; height: 44px;
+    background: var(--card-color);
+    border: 2px solid #000;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--ease-out-back);
+}
+
+.vc-card-play-btn:hover {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.vc-card-play-btn:active {
+    transform: scale(0.9);
+}
+
+.vc-card-play-icon,
+.vc-card-pause-icon {
+    width: 20px; height: 20px;
+    fill: #000;
+}
+
+.vc-card-pause-icon { display: none; }
+.vc-card-play-btn.playing .vc-card-play-icon { display: none; }
+.vc-card-play-btn.playing .vc-card-pause-icon { display: block; }
+
+.vc-card-play-btn.playing {
+    animation: vcPlayPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes vcPlayPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* Card Progress */
+.vc-card-progress {
+    width: 44px; height: 3px;
+    background: rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.vc-card-progress-fill {
+    height: 100%; width: 0%;
+    background: var(--card-color);
+    transition: width 0.1s linear;
+}
+
+/* Card Index */
+.vc-card-index {
+    position: absolute;
+    top: 12px; left: 12px;
+    font-family: var(--font-pixel);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+    line-height: 1;
+    z-index: 3;
+    pointer-events: none;
+    transition: -webkit-text-stroke-color 0.4s ease;
+}
+
+.vc-card.active .vc-card-index {
+    -webkit-text-stroke-color: var(--card-color);
+    opacity: 0.25;
+}
+
+/* ========================================
+   Mobile Accordion (hidden on desktop)
+======================================== */
+.vc-mobile-accordion {
+    display: none;
+}
+
+/* ========================================
+   Barrel Language Picker
+======================================== */
+.vc-barrel-section {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.vc-barrel-label {
+    font-family: var(--font-pixel);
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.vc-barrel-picker {
+    position: relative;
+    width: clamp(180px, 30vw, 280px);
+    height: 144px;
+    overflow: hidden;
+    border: 3px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.6);
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.vc-barrel-picker:active { cursor: grabbing; }
+
+.vc-barrel-viewport {
+    position: relative;
+    width: 100%; height: 100%;
+    overflow: hidden;
+}
+
+.vc-barrel-track {
+    position: absolute;
+    top: 48px; left: 0;
+    width: 100%;
+    will-change: transform;
+}
+
+.vc-barrel-item {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-pixel);
+    font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.vc-barrel-item.active {
+    color: #fff;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+.vc-barrel-highlight {
+    position: absolute;
+    top: 48px; left: 0; right: 0;
+    height: 48px;
+    border-top: 2px solid rgba(255,255,255,0.15);
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.vc-barrel-fade-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 48px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    pointer-events: none;
+    z-index: 4;
+}
+
+.vc-barrel-fade-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 48px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* ========================================
+   Responsive - Voice Cast
+======================================== */
+
+@media (max-width: 1400px) {
+    .vc-grid-container {
+        max-width: 1000px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .voice-cast-subsection {
+        padding: var(--space-lg) var(--space-md);
+        padding-top: var(--space-3xl);
+    }
+
+    .vc-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(8px, 1.5vw, 16px);
+    }
+}
+
+@media (max-width: 900px) {
+    .voice-cast-subsection {
+        padding: var(--space-md);
+        padding-top: var(--space-2xl);
+    }
+
+    .scramble-line {
+        font-size: clamp(2rem, 7vw, 4rem);
+    }
+
+    .vc-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(8px, 2vw, 16px);
+    }
+
+    .vc-tape-text {
+        font-size: clamp(0.8rem, 2vw, 1.2rem);
+    }
+}
+
+/* Mobile - Switch grid to accordion */
+@media (max-width: 768px) {
+    .voice-cast-subsection {
+        padding: var(--space-md);
+        padding-top: var(--space-2xl);
+        padding-bottom: var(--space-2xl);
+    }
+
+    .voice-cast-subsection::before {
+        height: 200px;
+    }
+
+    .voice-cast-header {
+        margin-bottom: var(--space-md);
+    }
+
+    .vc-section-label {
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+    }
+
+    .scramble-line {
+        font-size: clamp(1.8rem, 6vw, 3rem);
+    }
+
+    /* Hide desktop grid, show mobile accordion */
+    .vc-grid-container {
+        display: none;
+    }
+
+    .vc-mobile-accordion {
+        display: flex;
+        flex-direction: row;
+        width: calc(100% + var(--space-md) * 2);
+        margin: 0 calc(-1 * var(--space-md));
+        height: 240px;
+        gap: 6px;
+        padding: 0 var(--space-sm);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        z-index: 10;
+        position: relative;
+    }
+
+    .vc-mobile-accordion::-webkit-scrollbar {
+        display: none;
+    }
+
+    .vc-acc-item {
+        position: relative;
+        flex: 0 0 60px;
+        height: 100%;
+        overflow: hidden;
+        cursor: pointer;
+        transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%);
+    }
+
+    .vc-acc-item.active {
+        flex: 0 0 200px;
+    }
+
+    .vc-acc-bg {
+        position: absolute;
+        inset: 0;
+    }
+
+    .vc-acc-portrait {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: center 15%;
+        filter: grayscale(60%) brightness(0.5);
+        transition: filter 0.5s ease, transform 0.5s ease;
+        transform: scale(1.05);
+    }
+
+    .vc-acc-item.active .vc-acc-portrait {
+        filter: grayscale(0%) brightness(0.75);
+        transform: scale(1.1);
+    }
+
+    .vc-acc-video {
+        position: absolute;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: center 15%;
+        z-index: 0;
+    }
+
+    .vc-acc-item.active .vc-acc-video {
+        filter: brightness(0.75);
+    }
+
+    .vc-acc-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 20%, rgba(0,0,0,0.85) 100%);
+    }
+
+    .vc-acc-name-vertical {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        font-family: var(--font-pixel);
+        font-size: 0.7rem;
+        font-weight: 900;
+        color: rgba(255,255,255,0.7);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        white-space: nowrap;
+        z-index: 5;
+        transition: opacity 0.3s ease;
+    }
+
+    .vc-acc-item.active .vc-acc-name-vertical {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .vc-acc-expanded-content {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        padding: 12px 16px;
+        z-index: 5;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
+        pointer-events: none;
+    }
+
+    .vc-acc-item.active .vc-acc-expanded-content {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .vc-acc-char-name {
+        font-family: var(--font-pixel);
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+
+    .vc-acc-actor-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        margin-bottom: 8px;
+    }
+
+    .vc-acc-actor-label {
+        font-family: var(--font-pixel-alt);
+        font-size: 0.45rem;
+        color: rgba(255,255,255,0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+    }
+
+    .vc-acc-actor {
+        font-family: var(--font-pixel-alt);
+        font-size: 0.75rem;
+        color: var(--card-light);
+        font-weight: 600;
+    }
+
+    .vc-acc-play-btn {
+        width: 36px; height: 36px;
+        background: var(--card-color);
+        border: 2px solid #000;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s var(--ease-out-back);
+        margin-bottom: 4px;
+    }
+
+    .vc-acc-play-btn:active {
+        transform: scale(0.85);
+    }
+
+    .vc-acc-play-icon,
+    .vc-acc-pause-icon {
+        width: 16px; height: 16px;
+        fill: #000;
+    }
+
+    .vc-acc-pause-icon { display: none; }
+    .vc-acc-play-btn.playing .vc-acc-play-icon { display: none; }
+    .vc-acc-play-btn.playing .vc-acc-pause-icon { display: block; }
+
+    .vc-acc-play-btn.playing {
+        animation: vcPlayPulse 0.8s ease-in-out infinite;
+    }
+
+    .vc-acc-progress {
+        width: 100%; height: 3px;
+        background: rgba(0,0,0,0.4);
+        overflow: hidden;
+    }
+
+    .vc-acc-progress-fill {
+        height: 100%; width: 0%;
+        background: var(--card-color);
+        transition: width 0.1s linear;
+    }
+
+    .vc-barrel-picker {
+        width: clamp(160px, 45vw, 220px);
+    }
+
+    .vc-barrel-label {
+        font-size: 0.65rem;
+    }
+
+    .vc-tape-wrapper {
+        margin: var(--space-md) 0;
+    }
+
+    .vc-tape-bottom {
+        margin-top: var(--space-lg);
+    }
+
+    .vc-tape-text {
+        font-size: clamp(0.75rem, 2vw, 1rem);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .voice-cast-subsection {
+        padding: var(--space-sm);
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-xl);
+    }
+
+    .voice-cast-subsection::before {
+        height: 180px;
+    }
+
+    .scramble-line {
+        font-size: clamp(1.5rem, 10vw, 2.5rem);
+    }
+
+    .vc-scramble-title {
+        gap: 0 8px;
+    }
+
+    .vc-mobile-accordion {
+        height: 200px;
+        gap: 4px;
+        margin: 0 calc(-1 * var(--space-sm));
+        width: calc(100% + var(--space-sm) * 2);
+        padding: 0 var(--space-xs);
+    }
+
+    .vc-acc-item {
+        flex: 0 0 48px;
+        clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+    }
+
+    .vc-acc-item.active {
+        flex: 0 0 170px;
+    }
+
+    .vc-acc-name-vertical {
+        font-size: 0.6rem;
+    }
+
+    .vc-acc-char-name {
+        font-size: 0.9rem;
+    }
+
+    .vc-acc-actor {
+        font-size: 0.65rem;
+    }
+
+    .vc-acc-play-btn {
+        width: 32px; height: 32px;
+    }
+
+    .vc-acc-play-icon,
+    .vc-acc-pause-icon {
+        width: 14px; height: 14px;
+    }
+
+    .vc-tape-wrapper {
+        margin: var(--space-sm) 0;
+        padding: 6px 0;
+    }
+
+    .vc-tape-bottom {
+        margin-top: var(--space-md);
+    }
+
+    .vc-tape-text {
+        font-size: 0.7rem;
+    }
+
+    .vc-barrel-section {
+        margin-top: var(--space-md);
+        gap: var(--space-md);
+    }
+
+    .vc-barrel-picker {
+        width: clamp(150px, 50vw, 200px);
+        height: 120px;
+    }
+
+    .vc-barrel-item {
+        height: 40px;
+        font-size: 0.75rem;
+    }
+
+    .vc-barrel-highlight {
+        top: 40px; height: 40px;
+    }
+
+    .vc-barrel-fade-top { height: 40px; }
+    .vc-barrel-fade-bottom { height: 40px; }
+    .vc-barrel-track { top: 40px; }
+}
+
+/* ========================================
+   Reduced Motion - Voice Cast
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+    .vc-tape-text {
+        animation: none;
+    }
+
+    .vc-card,
+    .vc-card-portrait,
+    .vc-card-play-btn,
+    .vc-acc-item,
+    .vc-acc-portrait {
+        transition: opacity 0.3s ease;
+    }
+
+    .vc-card-play-btn.playing,
+    .vc-acc-play-btn.playing {
+        animation: none;
+    }
+
+    .scramble-line div {
+        transition: none;
+    }
+}

@@ -104,8 +104,8 @@ class CharactersSection {
                 hasVideo: true,
                 voiceActors: {
                     english: 'Abby Espiritu',
-                    spanish: 'Por anunciar',
-                    japanese: 'Por anunciar'
+                    spanish: 'Jessica Angeles',
+                    japanese: ''
                 },
                 voicelines: {
                     english: './src/voicelines/irene_en.mp3',
@@ -116,12 +116,12 @@ class CharactersSection {
                 nameColor: '#E63946'
             },
             shiori: {
-                portrait: './src/characters/shiori.png',
+                portrait: './src/characters/shiori_color.png',
                 hasVideo: false,
                 voiceActors: {
                     english: 'Phoebe Chan',
-                    spanish: 'Por anunciar',
-                    japanese: 'Por anunciar'
+                    spanish: 'Meli Hernandez',
+                    japanese: ''
                 },
                 voicelines: {
                     english: './src/voicelines/shiori_eng.wav',
@@ -136,8 +136,8 @@ class CharactersSection {
                 hasVideo: false,
                 voiceActors: {
                     english: 'Su Ling Chan',
-                    spanish: 'Por anunciar',
-                    japanese: 'Por anunciar'
+                    spanish: 'Lucia Suarez',
+                    japanese: ''
                 },
                 voicelines: {
                     english: './src/voicelines/zoe_en.mp3',
@@ -152,8 +152,8 @@ class CharactersSection {
                 hasVideo: false,
                 voiceActors: {
                     english: 'Ciara Payne',
-                    spanish: 'Por anunciar',
-                    japanese: 'Por anunciar'
+                    spanish: 'Stephan Coronel',
+                    japanese: ''
                 },
                 voicelines: {
                     english: './src/voicelines/maya_en.mp3',
@@ -162,84 +162,41 @@ class CharactersSection {
                 },
                 colors: ['#10B981', '#34D399', '#6EE7B7', '#059669'],
                 nameColor: '#34D399'
+            },
+            wilhelmina: {
+                portrait: './src/characters/wilhelmina.png',
+                hasVideo: false,
+                voiceActors: {
+                    english: '',
+                    spanish: 'Erika Ugalde',
+                    japanese: ''
+                },                voicelines: {
+                    english: '',
+                    spanish: '',
+                    japanese: ''
+                },
+                colors: ['#64748B', '#94A3B8', '#CBD5E1', '#475569'],
+                nameColor: '#94A3B8'
+            },
+            fiore: {
+                portrait: './src/characters/fiore.png',
+                hasVideo: false,
+                voiceActors: {
+                    english: '',
+                    spanish: 'Ale Pilar',
+                    japanese: ''
+                },
+                voicelines: {
+                    english: './src/voicelines/fiore_en.mp3',
+                    spanish: './src/voicelines/fiore_es.mp3',
+                    japanese: './src/voicelines/fiore_jp.mp3'
+                },
+                colors: ['#f50b0b', '#fb2724', '#fc504d', '#d90629'],
+                nameColor: '#fb2456'
             }
         };
         
-        this.vcOrder = ['irene', 'shiori', 'zoe', 'maya'];
-    }
-
-    generateInkSplashSVG(colors) {
-        const [c1, c2, c3, c4] = colors;
-        return `
-            <svg class="vc-ink-splash-svg" viewBox="0 0 800 600" preserveAspectRatio="none">
-                <defs>
-                    <filter id="goo-main" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur"/>
-                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 30 -12" result="goo"/>
-                    </filter>
-                </defs>
-                <g filter="url(#goo-main)">
-                    <ellipse cx="400" cy="300" rx="320" ry="220" fill="${c1}">
-                        <animate attributeName="rx" dur="8s" values="320;340;320" repeatCount="indefinite"/>
-                        <animate attributeName="ry" dur="6s" values="220;240;220" repeatCount="indefinite"/>
-                    </ellipse>
-                    <ellipse cx="150" cy="200" rx="120" ry="100" fill="${c2}">
-                        <animate attributeName="cx" dur="10s" values="150;170;150" repeatCount="indefinite"/>
-                    </ellipse>
-                    <ellipse cx="650" cy="180" rx="100" ry="90" fill="${c3}"/>
-                    <ellipse cx="200" cy="450" rx="140" ry="100" fill="${c2}"/>
-                    <ellipse cx="600" cy="480" rx="130" ry="90" fill="${c4}"/>
-                    <circle cx="100" cy="350" r="60" fill="${c3}"/>
-                    <circle cx="700" cy="300" r="55" fill="${c1}"/>
-                    <circle cx="350" cy="100" r="50" fill="${c4}"/>
-                    <circle cx="500" cy="520" r="45" fill="${c2}"/>
-                    <ellipse cx="80" cy="150" rx="50" ry="40" fill="${c1}"/>
-                    <ellipse cx="720" cy="450" rx="55" ry="45" fill="${c3}"/>
-                </g>
-            </svg>
-        `;
-    }
-
-    generateNameSplashSVG(color) {
-        return `
-            <svg class="vc-name-splash-svg" viewBox="0 0 200 70" preserveAspectRatio="none">
-                <defs>
-                    <filter id="name-goo">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
-                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"/>
-                    </filter>
-                </defs>
-                <g filter="url(#name-goo)">
-                    <ellipse cx="100" cy="35" rx="85" ry="28" fill="${color}"/>
-                    <circle cx="25" cy="30" r="18" fill="${color}"/>
-                    <circle cx="175" cy="40" r="15" fill="${color}"/>
-                    <ellipse cx="60" cy="55" rx="22" ry="12" fill="${color}"/>
-                    <ellipse cx="145" cy="18" rx="18" ry="10" fill="${color}"/>
-                </g>
-            </svg>
-        `;
-    }
-
-    generateTitleSplashSVG() {
-        return `
-            <svg class="vc-title-splash-svg" viewBox="0 0 600 100" preserveAspectRatio="none">
-                <defs>
-                    <filter id="title-goo">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
-                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -12"/>
-                    </filter>
-                </defs>
-                <g filter="url(#title-goo)">
-                    <ellipse cx="300" cy="50" rx="260" ry="38" fill="#F472B6"/>
-                    <ellipse cx="80" cy="45" rx="60" ry="35" fill="#F472B6"/>
-                    <ellipse cx="520" cy="55" rx="55" ry="32" fill="#F472B6"/>
-                    <circle cx="180" cy="75" r="22" fill="#F472B6"/>
-                    <circle cx="420" cy="25" r="20" fill="#F472B6"/>
-                    <circle cx="40" cy="60" r="25" fill="#F472B6"/>
-                    <circle cx="560" cy="40" r="22" fill="#F472B6"/>
-                </g>
-            </svg>
-        `;
+        this.vcOrder = ['irene', 'shiori', 'zoe', 'maya', 'wilhelmina', 'fiore'];
     }
 
     create(parent) {
@@ -267,42 +224,6 @@ class CharactersSection {
             </div>
         `).join('');
 
-        const vcAccordionHTML = this.vcOrder.map((id, index) => {
-            const char = this.characters.find(c => c.id === id);
-            const vcData = this.voiceCast[id];
-            const inkSplash = this.generateInkSplashSVG(vcData.colors);
-            const nameSplash = this.generateNameSplashSVG(vcData.nameColor);
-            const charName = char?.name || id;
-            
-            const mediaHTML = vcData.hasVideo 
-                ? `<img src="${vcData.portrait}" alt="${charName}" class="vc-accordion-img" loading="lazy">
-                   <video class="vc-accordion-video" loop muted playsinline preload="metadata">
-                       <source src="${vcData.video}" type="video/mp4">
-                   </video>`
-                : `<img src="${vcData.portrait}" alt="${charName}" class="vc-accordion-img" loading="lazy">`;
-            
-            return `
-                <div class="vc-accordion-item clickable" data-vc-character="${id}" data-index="${index}" data-has-video="${vcData.hasVideo}" style="--item-color: ${vcData.colors[0]}; --item-light: ${vcData.colors[1]}; --item-lighter: ${vcData.colors[2]};">
-                    <div class="vc-accordion-ink-layer">${inkSplash}</div>
-                    <div class="vc-accordion-halftone"></div>
-                    <div class="vc-accordion-media">${mediaHTML}</div>
-                    <div class="vc-accordion-shine"></div>
-                    <div class="vc-accordion-name-tag">
-                        <div class="vc-name-splash-bg">${nameSplash}</div>
-                        <span class="vc-accordion-name">${charName}</span>
-                    </div>
-                    <div class="vc-accordion-drops">
-                        <span class="vc-drop" style="--delay: 0s; --x: 15%; --size: 14px;"></span>
-                        <span class="vc-drop" style="--delay: 0.4s; --x: 40%; --size: 10px;"></span>
-                        <span class="vc-drop" style="--delay: 0.8s; --x: 65%; --size: 16px;"></span>
-                        <span class="vc-drop" style="--delay: 1.2s; --x: 85%; --size: 12px;"></span>
-                    </div>
-                </div>
-            `;
-        }).join('');
-
-        const waveformHTML = Array(20).fill('<span class="vc-wave-bar"></span>').join('');
-        const titleSplash = this.generateTitleSplashSVG();
         const firstChar = this.characters[0];
 
         return `
@@ -414,133 +335,165 @@ class CharactersSection {
             <!-- Anchor for navigation -->
             <div id="voice-cast-anchor" style="position: absolute; left: 0;"></div>
             
-            <!-- Voice Cast Subsection (mantenido igual) -->
+            <!-- Voice Cast Subsection - Brutalist Street Style -->
             <div class="voice-cast-subsection" id="voice-cast-subsection">
-                <div class="voice-cast-header">
-                    <div class="vc-title-wrapper">
-                        <span class="vc-section-label">//SECTION 04//</span>
-                        <div class="vc-title-container">
-                            <div class="vc-title-splash-bg">${titleSplash}</div>
-                            <h2 class="vc-section-title">MEET OUR VOICE CAST</h2>
-                        </div>
-                    </div>
-                </div>
                 
-                <div class="voice-cast-interface">
-                    <div class="vc-accordion-container">${vcAccordionHTML}</div>
-                    
-                    <div class="vc-control-panel" id="vc-control-panel">
-                        <div class="vc-panel-splash-bg">
-                            <svg viewBox="0 0 900 380" preserveAspectRatio="none">
-                                <defs>
-                                    <filter id="panel-goo">
-                                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
-                                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 30 -14"/>
-                                    </filter>
-                                </defs>
-                                <g filter="url(#panel-goo)">
-                                    <rect x="40" y="40" width="820" height="300" rx="25" fill="#0f0f0f"/>
-                                    <circle cx="30" cy="120" r="40" fill="#0f0f0f"/>
-                                    <circle cx="870" cy="260" r="45" fill="#0f0f0f"/>
-                                    <ellipse cx="120" cy="350" rx="55" ry="35" fill="#0f0f0f"/>
-                                    <ellipse cx="780" cy="30" rx="50" ry="30" fill="#0f0f0f"/>
-                                    <circle cx="450" cy="15" r="25" fill="#0f0f0f"/>
-                                    <circle cx="450" cy="365" r="28" fill="#0f0f0f"/>
-                                </g>
-                            </svg>
+                <!-- Halftone dot pattern background -->
+                <div class="vc-halftone-bg">
+                    <svg class="vc-halftone-clip-svg" width="0" height="0">
+                        <defs>
+                            <clipPath id="vc-halftone-clip"></clipPath>
+                        </defs>
+                    </svg>
+                    <div class="vc-halftone-content" style="clip-path: url(#vc-halftone-clip);"></div>
+                </div>
+
+                <!-- Scramble Title -->
+                <div class="voice-cast-header">
+                    <span class="vc-section-label">//SECTION 04//</span>
+                    <div class="vc-scramble-title">
+                        <div class="scramble-line" data-scramble>
+                            <div data-char="M">M</div>
+                            <div data-char="E">E</div>
+                            <div data-char="E">E</div>
+                            <div data-char="T">T</div>
                         </div>
-                        <div class="vc-panel-border"></div>
-                        
-                        <div class="vc-language-section">
-                            <div class="vc-language-header">
-                                <div class="vc-label-splash">
-                                    <svg viewBox="0 0 200 55" preserveAspectRatio="none">
-                                        <defs>
-                                            <filter id="label-goo"><feGaussianBlur stdDeviation="4"/><feColorMatrix mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/></filter>
-                                        </defs>
-                                        <g filter="url(#label-goo)">
-                                            <ellipse cx="100" cy="27" rx="88" ry="22" fill="var(--active-color, #EC4899)"/>
-                                            <circle cx="18" cy="24" r="14" fill="var(--active-color, #EC4899)"/>
-                                            <circle cx="182" cy="30" r="12" fill="var(--active-color, #EC4899)"/>
-                                        </g>
-                                    </svg>
-                                    <span>SELECT LANGUAGE</span>
-                                </div>
-                            </div>
-                            <div class="vc-language-buttons">
-                                <button class="vc-lang-btn clickable active" data-lang="english">
-                                    <div class="vc-lang-ink-fill"></div>
-                                    <span class="vc-lang-text">ENGLISH</span>
-                                </button>
-                                <button class="vc-lang-btn clickable" data-lang="spanish">
-                                    <div class="vc-lang-ink-fill"></div>
-                                    <span class="vc-lang-text">ESPAÑOL</span>
-                                </button>
-                                <button class="vc-lang-btn clickable" data-lang="japanese">
-                                    <div class="vc-lang-ink-fill"></div>
-                                    <span class="vc-lang-text">日本語</span>
-                                </button>
-                            </div>
+                        <div class="scramble-line" data-scramble>
+                            <div data-char="O">O</div>
+                            <div data-char="U">U</div>
+                            <div data-char="R">R</div>
                         </div>
-                        
-                        <div class="vc-actor-section">
-                            <div class="vc-actor-card">
-                                <div class="vc-actor-ink-blob"></div>
-                                <div class="vc-actor-info">
-                                    <span class="vc-actor-label">VOICE ACTOR</span>
-                                    <span class="vc-actor-name" id="vc-actor-name">-</span>
-                                </div>
-                                <div class="vc-character-tag">
-                                    <span class="vc-character-label" id="vc-character-label">Select a character</span>
-                                </div>
-                            </div>
+                        <div class="scramble-line" data-scramble>
+                            <div data-char="V">V</div>
+                            <div data-char="O">O</div>
+                            <div data-char="I">I</div>
+                            <div data-char="C">C</div>
+                            <div data-char="E">E</div>
                         </div>
-                        
-                        <div class="vc-player-section">
-                            <div class="vc-player-header">
-                                <div class="vc-label-splash small">
-                                    <svg viewBox="0 0 160 45" preserveAspectRatio="none">
-                                        <defs>
-                                            <filter id="label-goo-sm"><feGaussianBlur stdDeviation="3.5"/><feColorMatrix mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8"/></filter>
-                                        </defs>
-                                        <g filter="url(#label-goo-sm)">
-                                            <ellipse cx="80" cy="22" rx="68" ry="18" fill="var(--active-color, #EC4899)"/>
-                                            <circle cx="15" cy="20" r="11" fill="var(--active-color, #EC4899)"/>
-                                            <circle cx="145" cy="24" r="10" fill="var(--active-color, #EC4899)"/>
-                                        </g>
-                                    </svg>
-                                    <span>VOICE SAMPLE</span>
-                                </div>
-                            </div>
-                            <div class="vc-player-controls" id="vc-player-controls">
-                                <button class="vc-play-btn clickable" id="vc-play-btn" aria-label="Play voiceline">
-                                    <div class="vc-play-splash">
-                                        <svg viewBox="0 0 90 90">
-                                            <defs>
-                                                <filter id="play-goo"><feGaussianBlur stdDeviation="4"/><feColorMatrix mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"/></filter>
-                                            </defs>
-                                            <g filter="url(#play-goo)">
-                                                <circle cx="45" cy="45" r="35" fill="var(--active-color, #EC4899)"/>
-                                                <circle cx="18" cy="40" r="14" fill="var(--active-color, #EC4899)"/>
-                                                <circle cx="72" cy="50" r="12" fill="var(--active-color, #EC4899)"/>
-                                                <circle cx="45" cy="15" r="10" fill="var(--active-color, #EC4899)"/>
-                                                <circle cx="45" cy="75" r="11" fill="var(--active-color, #EC4899)"/>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                    <svg class="vc-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    <svg class="vc-pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                                </button>
-                                <div class="vc-waveform-container">
-                                    <div class="vc-waveform">${waveformHTML}</div>
-                                </div>
-                            </div>
-                            <div class="vc-progress">
-                                <div class="vc-progress-bar" id="vc-progress-bar"></div>
-                            </div>
+                        <div class="scramble-line" data-scramble>
+                            <div data-char="C">C</div>
+                            <div data-char="A">A</div>
+                            <div data-char="S">S</div>
+                            <div data-char="T">T</div>
                         </div>
                     </div>
+                    <!-- Ink splash behind title -->
+                    <div class="vc-title-ink-splash"></div>
                 </div>
+
+                <!-- Running Tape -->
+                <div class="vc-tape-wrapper" id="vc-tape">
+                    <div class="vc-tape-text">
+                        VOICE CAST &#x2726; THE HEART OF GOLD &#x2726; VOICE CAST &#x2726; THE HEART OF GOLD &#x2726; VOICE CAST &#x2726; THE HEART OF GOLD &#x2726; VOICE CAST &#x2726; THE HEART OF GOLD &#x2726;
+                    </div>
+                </div>
+
+                <!-- Character Grid - Brutalist Cards -->
+                <div class="vc-grid-container">
+                    ${this.vcOrder.map((id, index) => {
+                        const char = this.characters.find(c => c.id === id);
+                        const vcData = this.voiceCast[id];
+                        const charName = char?.name || id.toUpperCase();
+                        const actorEN = vcData.voiceActors.english || '---';
+                        const actorES = vcData.voiceActors.spanish || '---';
+                        const actorJP = vcData.voiceActors.japanese || '---';
+                        
+                        return `
+                            <div class="vc-card clickable" data-vc-character="${id}" data-index="${index}" 
+                                 style="--card-color: ${vcData.colors[0]}; --card-light: ${vcData.colors[1]}; --card-lighter: ${vcData.colors[2]}; --card-dark: ${vcData.colors[3]};">
+                                <div class="vc-card-border"></div>
+                                <div class="vc-card-media">
+                                    <img src="${vcData.portrait}" alt="${charName}" class="vc-card-portrait" loading="lazy">
+                                    <div class="vc-card-overlay"></div>
+                                </div>
+                                <div class="vc-card-info">
+                                    <span class="vc-card-char-name">${charName}</span>
+                                    <span class="vc-card-char-name-outline" aria-hidden="true">${charName}</span>
+                                    <div class="vc-card-actor-info">
+                                        <span class="vc-card-actor-label">VOICED BY</span>
+                                        <span class="vc-card-actor" data-lang="english">${actorEN}</span>
+                                        <span class="vc-card-actor" data-lang="spanish" style="display:none">${actorES}</span>
+                                        <span class="vc-card-actor" data-lang="japanese" style="display:none">${actorJP || '---'}</span>
+                                    </div>
+                                </div>
+                                <div class="vc-card-play-zone">
+                                    <button class="vc-card-play-btn clickable" aria-label="Play voiceline for ${charName}">
+                                        <svg class="vc-card-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        <svg class="vc-card-pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                                    </button>
+                                    <div class="vc-card-progress">
+                                        <div class="vc-card-progress-fill"></div>
+                                    </div>
+                                </div>
+                                <div class="vc-card-index">${String(index + 1).padStart(2, '0')}</div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <!-- Mobile Accordion (visible only on small screens) -->
+                <div class="vc-mobile-accordion" id="vc-mobile-accordion">
+                    ${this.vcOrder.map((id, index) => {
+                        const char = this.characters.find(c => c.id === id);
+                        const vcData = this.voiceCast[id];
+                        const charName = char?.name || id.toUpperCase();
+                        const actorEN = vcData.voiceActors.english || '---';
+                        const actorES = vcData.voiceActors.spanish || '---';
+                        const actorJP = vcData.voiceActors.japanese || '---';
+                        
+                        return `
+                            <div class="vc-acc-item clickable ${index === 0 ? 'active' : ''}" data-vc-character="${id}"
+                                 style="--card-color: ${vcData.colors[0]}; --card-light: ${vcData.colors[1]};">
+                                <div class="vc-acc-bg">
+                                    <img src="${vcData.portrait}" alt="${charName}" class="vc-acc-portrait" loading="lazy">
+                                    <div class="vc-acc-gradient"></div>
+                                </div>
+                                <span class="vc-acc-name-vertical">${charName}</span>
+                                <div class="vc-acc-expanded-content">
+                                    <span class="vc-acc-char-name">${charName}</span>
+                                    <div class="vc-acc-actor-info">
+                                        <span class="vc-acc-actor-label">VOICED BY</span>
+                                        <span class="vc-acc-actor" data-lang="english">${actorEN}</span>
+                                        <span class="vc-acc-actor" data-lang="spanish" style="display:none">${actorES}</span>
+                                        <span class="vc-acc-actor" data-lang="japanese" style="display:none">${actorJP || '---'}</span>
+                                    </div>
+                                    <button class="vc-acc-play-btn clickable" aria-label="Play voiceline for ${charName}">
+                                        <svg class="vc-acc-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        <svg class="vc-acc-pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                                    </button>
+                                    <div class="vc-acc-progress">
+                                        <div class="vc-acc-progress-fill"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <!-- Bottom Tape -->
+                <div class="vc-tape-wrapper vc-tape-bottom" id="vc-tape-bottom">
+                    <div class="vc-tape-text">
+                        SELECT YOUR CHARACTER &#x2726; LISTEN TO THEIR VOICE &#x2726; SELECT YOUR CHARACTER &#x2726; LISTEN TO THEIR VOICE &#x2726; SELECT YOUR CHARACTER &#x2726; LISTEN TO THEIR VOICE &#x2726;
+                    </div>
+                </div>
+
+                <!-- Language Barrel Picker -->
+                <div class="vc-barrel-section">
+                    <span class="vc-barrel-label">LANGUAGE</span>
+                    <div class="vc-barrel-picker" id="vc-barrel-picker">
+                        <div class="vc-barrel-viewport">
+                            <div class="vc-barrel-track" id="vc-barrel-track">
+                                <div class="vc-barrel-item" data-lang="english">ENGLISH</div>
+                                <div class="vc-barrel-item active" data-lang="spanish">ESPAÑOL</div>
+                                <div class="vc-barrel-item" data-lang="japanese">JAPANESE</div>
+                            </div>
+                        </div>
+                        <div class="vc-barrel-highlight"></div>
+                        <div class="vc-barrel-fade-top"></div>
+                        <div class="vc-barrel-fade-bottom"></div>
+                    </div>
+                </div>
+
             </div>
         `;
     }
@@ -578,26 +531,56 @@ class CharactersSection {
             special: this.container.querySelector('#stat-bar-special')
         };
         
-        // Voice cast elements (mantenidos)
-        this.vcAccordionItems = Array.from(this.container.querySelectorAll('.vc-accordion-item'));
-        this.vcControlPanel = this.container.querySelector('#vc-control-panel');
-        this.vcLangBtns = Array.from(this.container.querySelectorAll('.vc-lang-btn'));
-        this.vcActorName = this.container.querySelector('#vc-actor-name');
-        this.vcCharacterLabel = this.container.querySelector('#vc-character-label');
-        this.vcPlayerControls = this.container.querySelector('#vc-player-controls');
-        this.vcPlayBtn = this.container.querySelector('#vc-play-btn');
-        this.vcProgressBar = this.container.querySelector('#vc-progress-bar');
+        // Voice cast elements - new brutalist design
+        this.vcCards = Array.from(this.container.querySelectorAll('.vc-card'));
+        this.vcTape = this.container.querySelector('#vc-tape');
+        this.vcBarrelTrack = this.container.querySelector('#vc-barrel-track');
+        this.vcBarrelItems = Array.from(this.container.querySelectorAll('.vc-barrel-item'));
+        this.scrambleLines = Array.from(this.container.querySelectorAll('.scramble-line'));
+        
+        // Barrel picker state
+        this.barrelCurrentIndex = 0;
+        this.barrelItemHeight = 48;
+        this.barrelIsDragging = false;
+        this.barrelStartY = 0;
+        this.barrelCurrentY = 0;
+        this.languages = ['english', 'spanish', 'japanese'];
+        
+        // Mobile accordion elements
+        this.vcAccordionItems = Array.from(this.container.querySelectorAll('.vc-acc-item'));
     }
 
     setInitialStates() {
         const meetSection = this.container.querySelector('.meet-characters-subsection');
         const vcHeader = this.container.querySelector('.voice-cast-header');
-        const vcInterface = this.container.querySelector('.voice-cast-interface');
         const divider = this.container.querySelector('.section-divider');
         
-        gsap.set([meetSection, vcHeader], { opacity: 0, y: 30 });
-        gsap.set(vcInterface, { opacity: 0 });
+        gsap.set(meetSection, { opacity: 0, y: 30 });
+        gsap.set(vcHeader, { opacity: 0, y: 30 });
         gsap.set(divider, { opacity: 0, scale: 0.8 });
+        
+        // Scramble initial state
+        gsap.set('.scramble-line div', { yPercent: -103 });
+        gsap.set('.scramble-line', { autoAlpha: 1 });
+        
+        // Cards initial state
+        this.vcCards.forEach(card => {
+            gsap.set(card, { opacity: 0, y: 60, scale: 0.9 });
+        });
+        
+        // Tape initial state
+        if (this.vcTape) {
+            gsap.set(this.vcTape, { opacity: 0, scaleX: 0 });
+        }
+        const bottomTape = this.container.querySelector('.vc-tape-bottom');
+        if (bottomTape) {
+            gsap.set(bottomTape, { opacity: 0, scaleX: 0 });
+        }
+        
+        // Mobile accordion initial state
+        this.vcAccordionItems.forEach(item => {
+            gsap.set(item, { opacity: 0, x: 30 });
+        });
     }
 
     bindEvents() {
@@ -630,39 +613,67 @@ class CharactersSection {
             });
         });
         
-        // Eventos para Voice Cast (mantenidos)
-        this.vcAccordionItems.forEach(item => {
-            const shine = item.querySelector('.vc-accordion-shine');
+        // Voice Cast card events
+        this.vcCards.forEach(card => {
+            const playBtn = card.querySelector('.vc-card-play-btn');
             
-            item.addEventListener('click', () => {
-                this.selectVCCharacter(item.dataset.vcCharacter);
-                sfxManager.playCheck1();
-            });
-            
-            item.addEventListener('mouseenter', () => {
-                if (!item.classList.contains('active')) {
-                    gsap.to(item, { scale: 1.03, duration: 0.4, ease: 'elastic.out(1, 0.5)' });
-                    gsap.to(shine, { opacity: 1, duration: 0.3 });
+            card.addEventListener('mouseenter', () => {
+                if (!card.classList.contains('active')) {
+                    gsap.to(card, { 
+                        scale: 1.03, y: -5,
+                        duration: 0.4, ease: 'elastic.out(1, 0.5)' 
+                    });
                 }
                 sfxManager.playGhost();
             });
             
-            item.addEventListener('mouseleave', () => {
-                if (!item.classList.contains('active')) {
-                    gsap.to(item, { scale: 1, duration: 0.4, ease: 'power2.out' });
-                    gsap.to(shine, { opacity: 0, duration: 0.3 });
+            card.addEventListener('mouseleave', () => {
+                if (!card.classList.contains('active')) {
+                    gsap.to(card, { 
+                        scale: 1, y: 0,
+                        duration: 0.4, ease: 'power2.out' 
+                    });
                 }
             });
-        });
-        
-        this.vcLangBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.selectLanguage(btn.dataset.lang);
-                sfxManager.playCheck2();
+            
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.vc-card-play-btn')) return;
+                this.selectVCCard(card.dataset.vcCharacter);
+                sfxManager.playCheck1();
             });
+            
+            if (playBtn) {
+                playBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectVCCard(card.dataset.vcCharacter);
+                    this.toggleVoicelineForCard(card.dataset.vcCharacter);
+                    sfxManager.playConfirm();
+                });
+            }
         });
         
-        this.vcPlayBtn?.addEventListener('click', () => this.toggleVoiceline());
+        // Barrel picker events
+        this.initBarrelPicker();
+        
+        // Mobile accordion events
+        this.vcAccordionItems.forEach(item => {
+            const playBtn = item.querySelector('.vc-acc-play-btn');
+            
+            item.addEventListener('click', (e) => {
+                if (e.target.closest('.vc-acc-play-btn')) return;
+                this.selectAccordionItem(item.dataset.vcCharacter);
+                sfxManager.playCheck1();
+            });
+            
+            if (playBtn) {
+                playBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectAccordionItem(item.dataset.vcCharacter);
+                    this.toggleVoicelineForAccordion(item.dataset.vcCharacter);
+                    sfxManager.playConfirm();
+                });
+            }
+        });
         
         this.initTouchSwipe();
     }
@@ -733,7 +744,7 @@ class CharactersSection {
             }
         });
         
-        // AnimaciÃ³n de salida
+        // AnimaciÃƒÂ³n de salida
         tl.to([
             this.characterSplash,
             this.characterBanner,
@@ -758,7 +769,7 @@ class CharactersSection {
             this.updateCharacterDisplay(character);
         }, null, 0.1);
         
-        // AnimaciÃ³n de entrada
+        // AnimaciÃƒÂ³n de entrada
         tl.to([
             this.characterSplash,
             this.characterBanner,
@@ -787,7 +798,7 @@ class CharactersSection {
             ease: 'power2.out'
         }, 0.45);
         
-        // AnimaciÃ³n de las barras de estadÃ­sticas
+        // AnimaciÃƒÂ³n de las barras de estadÃƒÂ­sticas
         Object.keys(this.statBars).forEach((stat, index) => {
             if (this.statBars[stat]) {
                 tl.to(this.statBars[stat], {
@@ -836,158 +847,166 @@ class CharactersSection {
     }
 
 
-    selectVCCharacter(characterId) {
+    selectVCCard(characterId) {
         const wasActive = this.currentVCCharacter === characterId;
         this.currentVCCharacter = characterId;
         
         const vcData = this.voiceCast[characterId];
-        const themeColor = vcData?.colors[0] || '#EC4899';
-        const lightColor = vcData?.colors[1] || '#F472B6';
+        if (!vcData) return;
         
-        this.vcAccordionItems.forEach(item => {
-            const isActive = item.dataset.vcCharacter === characterId;
-            const video = item.querySelector('.vc-accordion-video');
-            const img = item.querySelector('.vc-accordion-img');
-            const inkLayer = item.querySelector('.vc-accordion-ink-layer');
-            const shine = item.querySelector('.vc-accordion-shine');
-            const hasVideo = item.dataset.hasVideo === 'true';
+        const themeColor = vcData.colors[0];
+        
+        // Update tape color
+        if (this.vcTape) {
+            gsap.to(this.vcTape, {
+                '--tape-color': themeColor,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+            this.vcTape.style.setProperty('--tape-color', themeColor);
+        }
+        
+        // Update cards active state + video swap
+        this.vcCards.forEach(card => {
+            const isActive = card.dataset.vcCharacter === characterId;
+            const cardId = card.dataset.vcCharacter;
+            const cardVCData = this.voiceCast[cardId];
+            const mediaContainer = card.querySelector('.vc-card-media');
+            const existingVideo = mediaContainer?.querySelector('.vc-card-video');
+            const portrait = mediaContainer?.querySelector('.vc-card-portrait');
             
             if (isActive) {
-                item.classList.add('active');
-                gsap.to(item, { flex: 3, duration: 0.7, ease: 'elastic.out(1, 0.6)' });
-                gsap.to(inkLayer, { scale: 1.1, opacity: 1, duration: 0.6, ease: 'power2.out' });
-                gsap.to(shine, { opacity: 0.5, duration: 0.4 });
-                
-                if (hasVideo && video) {
-                    img?.classList.add('hidden');
-                    video.currentTime = 0;
-                    video.play().catch(() => {
-                        img?.classList.remove('hidden');
-                    });
+                card.classList.add('active');
+                gsap.to(card, {
+                    scale: 1, y: -5,
+                    duration: 0.5, ease: 'elastic.out(1.2, 0.5)'
+                });
+                if (!wasActive) {
+                    gsap.fromTo(card,
+                        { scaleY: 0.94, scaleX: 1.02 },
+                        { scaleY: 1, scaleX: 1, duration: 0.5, ease: 'elastic.out(1.3, 0.4)' }
+                    );
                 }
                 
-                if (!wasActive) {
-                    gsap.fromTo(item,
-                        { scaleY: 0.92, scaleX: 1.03 },
-                        { scaleY: 1, scaleX: 1, duration: 0.6, ease: 'elastic.out(1.3, 0.4)' }
+                // Swap to video if character has one
+                if (cardVCData?.hasVideo && cardVCData.video && !existingVideo) {
+                    const video = document.createElement('video');
+                    video.className = 'vc-card-video';
+                    video.src = cardVCData.video;
+                    video.loop = true;
+                    video.muted = true;
+                    video.playsInline = true;
+                    video.autoplay = true;
+                    video.setAttribute('playsinline', '');
+                    if (portrait) portrait.style.display = 'none';
+                    mediaContainer.insertBefore(video, mediaContainer.querySelector('.vc-card-overlay'));
+                    video.play().catch(() => {});
+                    gsap.fromTo(video,
+                        { opacity: 0, scale: 1.15 },
+                        { opacity: 1, scale: 1.05, duration: 0.6, ease: 'power2.out' }
                     );
                 }
             } else {
-                item.classList.remove('active');
-                gsap.to(item, { flex: 1, duration: 0.5, ease: 'power3.out' });
-                gsap.to(inkLayer, { scale: 1, opacity: 0.7, duration: 0.4 });
-                gsap.to(shine, { opacity: 0, duration: 0.3 });
+                card.classList.remove('active');
+                gsap.to(card, {
+                    scale: 1, y: 0,
+                    duration: 0.4, ease: 'power2.out'
+                });
                 
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
+                // Remove video, restore portrait
+                if (existingVideo) {
+                    existingVideo.pause();
+                    existingVideo.remove();
+                    if (portrait) portrait.style.display = '';
                 }
-                img?.classList.remove('hidden');
             }
         });
         
-        this.vcControlPanel?.classList.add('active');
-        this.vcControlPanel?.style.setProperty('--active-color', themeColor);
-        this.vcControlPanel?.style.setProperty('--active-light', lightColor);
+        // Update displayed actor names on all cards for current language
+        this.updateCardActorDisplay();
         
-        gsap.fromTo(this.vcControlPanel,
-            { opacity: 0, y: 60, scale: 0.9 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'elastic.out(1, 0.7)', clearProps: 'scale' }
-        );
-        
-        this.updateVoiceActorDisplay();
-        this.stopVoiceline();
+        if (this.isPlayingVoiceline && this.currentPlayingId !== characterId) {
+            this.stopVoiceline();
+        }
     }
-
+    
     selectLanguage(language) {
         this.currentLanguage = language;
         
-        this.vcLangBtns.forEach(btn => {
-            const isActive = btn.dataset.lang === language;
-            btn.classList.toggle('active', isActive);
-            
-            const inkFill = btn.querySelector('.vc-lang-ink-fill');
-            gsap.to(inkFill, {
-                scaleX: isActive ? 1 : 0,
-                duration: 0.5,
-                ease: isActive ? 'elastic.out(1, 0.5)' : 'power2.in'
-            });
-            
-            if (isActive) {
-                gsap.fromTo(btn, { scale: 0.92 }, { scale: 1, duration: 0.5, ease: 'elastic.out(1.3, 0.4)' });
-            }
+        this.vcBarrelItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.lang === language);
         });
         
-        this.updateVoiceActorDisplay();
+        this.updateCardActorDisplay();
+        this.updateAccordionActorDisplay();
         this.stopVoiceline();
     }
-
-    updateVoiceActorDisplay() {
-        if (!this.currentVCCharacter) return;
-        
-        const vcData = this.voiceCast[this.currentVCCharacter];
-        const char = this.characters.find(c => c.id === this.currentVCCharacter);
-        if (!vcData) return;
-        
-        const actorName = vcData.voiceActors[this.currentLanguage] || '-';
-        
-        gsap.to(this.vcActorName, {
-            opacity: 0, y: -25, scale: 0.85, duration: 0.25, ease: 'power2.in',
-            onComplete: () => {
-                if (this.vcActorName) this.vcActorName.textContent = actorName;
-                gsap.to(this.vcActorName, {
-                    opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.5)'
-                });
-            }
-        });
-        
-        if (this.vcCharacterLabel) {
-            gsap.to(this.vcCharacterLabel, {
-                opacity: 0, x: -10, duration: 0.2,
-                onComplete: () => {
-                    this.vcCharacterLabel.textContent = `as ${char?.name || this.currentVCCharacter}`;
-                    gsap.to(this.vcCharacterLabel, {
-                        opacity: 1, x: 0, duration: 0.3, ease: 'back.out(2)'
-                    });
+    
+    updateCardActorDisplay() {
+        this.vcCards.forEach(card => {
+            const actors = card.querySelectorAll('.vc-card-actor');
+            actors.forEach(actor => {
+                const isCurrentLang = actor.dataset.lang === this.currentLanguage;
+                if (isCurrentLang) {
+                    actor.style.display = '';
+                    gsap.fromTo(actor, 
+                        { opacity: 0, y: 10 }, 
+                        { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(2)' }
+                    );
+                } else {
+                    actor.style.display = 'none';
                 }
             });
-        }
+        });
     }
-
-    toggleVoiceline() {
-        if (!this.currentVCCharacter) return;
-        
-        if (this.isPlayingVoiceline && this.currentAudio) {
+    
+    toggleVoicelineForCard(characterId) {
+        if (this.isPlayingVoiceline && this.currentPlayingId === characterId) {
             this.stopVoiceline();
             return;
         }
         
-        const vcData = this.voiceCast[this.currentVCCharacter];
+        // Stop any existing
+        this.stopVoiceline();
+        
+        const vcData = this.voiceCast[characterId];
         if (!vcData) return;
         
         const voicelineSrc = vcData.voicelines[this.currentLanguage];
+        if (!voicelineSrc) return;
+        
+        this.currentPlayingId = characterId;
         this.currentAudio = new Audio(voicelineSrc);
         this.currentAudio.volume = 0.7;
+        
+        const card = this.container.querySelector(`.vc-card[data-vc-character="${characterId}"]`);
+        const progressFill = card?.querySelector('.vc-card-progress-fill');
+        const playBtn = card?.querySelector('.vc-card-play-btn');
         
         this.currentAudio.addEventListener('ended', () => this.stopVoiceline());
         this.currentAudio.addEventListener('error', () => this.stopVoiceline());
         this.currentAudio.addEventListener('timeupdate', () => {
-            if (this.currentAudio && this.vcProgressBar) {
+            if (this.currentAudio && progressFill) {
                 const progress = (this.currentAudio.currentTime / this.currentAudio.duration) * 100;
-                this.vcProgressBar.style.width = `${progress}%`;
+                progressFill.style.width = `${progress}%`;
             }
         });
         
         this.currentAudio.play().then(() => {
             this.isPlayingVoiceline = true;
-            this.vcPlayBtn?.classList.add('playing');
-            this.vcPlayerControls?.classList.add('playing');
-            gsap.fromTo(this.vcPlayBtn,
+            playBtn?.classList.add('playing');
+            card?.classList.add('playing');
+            gsap.fromTo(playBtn,
                 { scale: 0.75, rotation: -10 },
                 { scale: 1, rotation: 0, duration: 0.5, ease: 'elastic.out(1.5, 0.4)' }
             );
-            sfxManager.playConfirm();
         }).catch(() => {});
+    }
+
+    toggleVoiceline() {
+        if (this.currentVCCharacter) {
+            this.toggleVoicelineForCard(this.currentVCCharacter);
+        }
     }
 
     stopVoiceline() {
@@ -997,9 +1016,282 @@ class CharactersSection {
             this.currentAudio = null;
         }
         this.isPlayingVoiceline = false;
-        this.vcPlayBtn?.classList.remove('playing');
-        this.vcPlayerControls?.classList.remove('playing');
-        if (this.vcProgressBar) this.vcProgressBar.style.width = '0%';
+        
+        // Reset desktop card play states
+        this.vcCards.forEach(card => {
+            card.classList.remove('playing');
+            const playBtn = card.querySelector('.vc-card-play-btn');
+            playBtn?.classList.remove('playing');
+            const progressFill = card.querySelector('.vc-card-progress-fill');
+            if (progressFill) progressFill.style.width = '0%';
+        });
+        
+        // Reset mobile accordion play states
+        this.vcAccordionItems.forEach(item => {
+            const playBtn = item.querySelector('.vc-acc-play-btn');
+            playBtn?.classList.remove('playing');
+            const progressFill = item.querySelector('.vc-acc-progress-fill');
+            if (progressFill) progressFill.style.width = '0%';
+        });
+        
+        this.currentPlayingId = null;
+    }
+    
+    // Mobile Accordion
+    selectAccordionItem(characterId) {
+        this.currentVCCharacter = characterId;
+        const vcData = this.voiceCast[characterId];
+        if (!vcData) return;
+        
+        if (this.vcTape) {
+            this.vcTape.style.setProperty('--tape-color', vcData.colors[0]);
+        }
+        
+        this.vcAccordionItems.forEach(item => {
+            const isActive = item.dataset.vcCharacter === characterId;
+            const itemId = item.dataset.vcCharacter;
+            const itemVCData = this.voiceCast[itemId];
+            const bgContainer = item.querySelector('.vc-acc-bg');
+            const existingVideo = bgContainer?.querySelector('.vc-acc-video');
+            const portrait = bgContainer?.querySelector('.vc-acc-portrait');
+            
+            if (isActive && !item.classList.contains('active')) {
+                item.classList.add('active');
+                gsap.fromTo(item, 
+                    { scaleY: 0.96 },
+                    { scaleY: 1, duration: 0.5, ease: 'elastic.out(1.2, 0.5)' }
+                );
+                
+                if (itemVCData?.hasVideo && itemVCData.video && !existingVideo) {
+                    const video = document.createElement('video');
+                    video.className = 'vc-acc-video';
+                    video.src = itemVCData.video;
+                    video.loop = true;
+                    video.muted = true;
+                    video.playsInline = true;
+                    video.autoplay = true;
+                    video.setAttribute('playsinline', '');
+                    if (portrait) portrait.style.display = 'none';
+                    bgContainer.insertBefore(video, bgContainer.querySelector('.vc-acc-gradient'));
+                    video.play().catch(() => {});
+                    gsap.fromTo(video, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' });
+                }
+            } else if (!isActive) {
+                item.classList.remove('active');
+                if (existingVideo) {
+                    existingVideo.pause();
+                    existingVideo.remove();
+                    if (portrait) portrait.style.display = '';
+                }
+            }
+        });
+        
+        this.vcCards.forEach(card => {
+            card.classList.toggle('active', card.dataset.vcCharacter === characterId);
+        });
+        
+        this.updateAccordionActorDisplay();
+        
+        if (this.isPlayingVoiceline && this.currentPlayingId !== characterId) {
+            this.stopVoiceline();
+        }
+    }
+    
+    updateAccordionActorDisplay() {
+        this.vcAccordionItems.forEach(item => {
+            const actors = item.querySelectorAll('.vc-acc-actor');
+            actors.forEach(actor => {
+                const isCurrentLang = actor.dataset.lang === this.currentLanguage;
+                if (isCurrentLang) {
+                    actor.style.display = '';
+                    gsap.fromTo(actor, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: 'back.out(2)' });
+                } else {
+                    actor.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    toggleVoicelineForAccordion(characterId) {
+        if (this.isPlayingVoiceline && this.currentPlayingId === characterId) {
+            this.stopVoiceline();
+            return;
+        }
+        this.stopVoiceline();
+        
+        const vcData = this.voiceCast[characterId];
+        if (!vcData) return;
+        const voicelineSrc = vcData.voicelines[this.currentLanguage];
+        if (!voicelineSrc) return;
+        
+        this.currentPlayingId = characterId;
+        this.currentAudio = new Audio(voicelineSrc);
+        this.currentAudio.volume = 0.7;
+        
+        const item = this.container.querySelector(`.vc-acc-item[data-vc-character="${characterId}"]`);
+        const progressFill = item?.querySelector('.vc-acc-progress-fill');
+        const playBtn = item?.querySelector('.vc-acc-play-btn');
+        
+        this.currentAudio.addEventListener('ended', () => this.stopVoiceline());
+        this.currentAudio.addEventListener('error', () => this.stopVoiceline());
+        this.currentAudio.addEventListener('timeupdate', () => {
+            if (this.currentAudio && progressFill) {
+                const pct = (this.currentAudio.currentTime / this.currentAudio.duration) * 100;
+                progressFill.style.width = `${pct}%`;
+            }
+        });
+        
+        this.currentAudio.play().then(() => {
+            this.isPlayingVoiceline = true;
+            playBtn?.classList.add('playing');
+            gsap.fromTo(playBtn, { scale: 0.8, rotation: -8 }, { scale: 1, rotation: 0, duration: 0.5, ease: 'elastic.out(1.5, 0.4)' });
+        }).catch(() => {});
+    }
+
+    // Barrel Picker (iOS-style scroll selector)
+    initBarrelPicker() {
+        const picker = this.container.querySelector('#vc-barrel-picker');
+        const track = this.vcBarrelTrack;
+        if (!picker || !track) return;
+        
+        let startY = 0;
+        let currentOffset = 0;
+        let isDragging = false;
+        
+        const snapToIndex = (index) => {
+            index = Math.max(0, Math.min(index, this.languages.length - 1));
+            this.barrelCurrentIndex = index;
+            const offset = -index * this.barrelItemHeight;
+            
+            gsap.to(track, {
+                y: offset,
+                duration: 0.4,
+                ease: 'elastic.out(1, 0.7)',
+                onComplete: () => {
+                    this.selectLanguage(this.languages[index]);
+                    sfxManager.playCheck2();
+                }
+            });
+            
+            this.vcBarrelItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        };
+        
+        // Mouse wheel
+        picker.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY > 0) {
+                snapToIndex(this.barrelCurrentIndex + 1);
+            } else {
+                snapToIndex(this.barrelCurrentIndex - 1);
+            }
+        }, { passive: false });
+        
+        // Touch events
+        picker.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startY = e.touches[0].clientY;
+            currentOffset = -this.barrelCurrentIndex * this.barrelItemHeight;
+        }, { passive: true });
+        
+        picker.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const delta = e.touches[0].clientY - startY;
+            gsap.set(track, { y: currentOffset + delta });
+        }, { passive: true });
+        
+        picker.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            const delta = e.changedTouches[0].clientY - startY;
+            const indexDelta = Math.round(-delta / this.barrelItemHeight);
+            snapToIndex(this.barrelCurrentIndex + indexDelta);
+        });
+        
+        // Click on items
+        this.vcBarrelItems.forEach((item, i) => {
+            item.addEventListener('click', () => snapToIndex(i));
+        });
+        
+        // Initialize position
+        snapToIndex(0);
+    }
+    
+    // Halftone reveal effect
+    initHalftoneReveal() {
+        const clipPath = this.container.querySelector('#vc-halftone-clip');
+        const bgContainer = this.container.querySelector('.vc-halftone-bg');
+        if (!clipPath || !bgContainer) return;
+        
+        const rect = bgContainer.getBoundingClientRect();
+        const spacing = 25;
+        const cols = Math.max(1, Math.floor(rect.width / spacing));
+        const rows = Math.max(1, Math.floor(rect.height / spacing));
+        const spacingX = rect.width / cols;
+        const spacingY = rect.height / rows;
+        const maxRadius = Math.max(spacingX, spacingY);
+        
+        clipPath.innerHTML = '';
+        
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const x = (col + 0.5) * spacingX;
+                const y = (row + 0.5) * spacingY;
+                
+                const centerRow = (rows - 1) / 2;
+                const centerCol = (cols - 1) / 2;
+                const distance = Math.sqrt(
+                    Math.pow(row - centerRow, 2) + Math.pow(col - centerCol, 2)
+                );
+                const delay = distance * 0.04;
+                
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', '0');
+                
+                const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+                animate.setAttribute('attributeName', 'r');
+                animate.setAttribute('values', `0;${maxRadius};0`);
+                animate.setAttribute('dur', '4s');
+                animate.setAttribute('repeatCount', 'indefinite');
+                animate.setAttribute('fill', 'freeze');
+                animate.setAttribute('begin', `${delay}s`);
+                
+                circle.appendChild(animate);
+                clipPath.appendChild(circle);
+            }
+        }
+    }
+    
+    // Scramble title animation
+    animateScrambleTitle() {
+        const tl = gsap.timeline();
+        
+        this.scrambleLines.forEach((line, i) => {
+            const divs = line.querySelectorAll('div');
+            
+            tl.to(divs, {
+                duration: 0.8,
+                yPercent: 0,
+                stagger: 0.04,
+                ease: 'expo.inOut'
+            }, i !== 0 ? '<' : 0);
+            
+            // Filter out divs where data-char is NOT "." for the exit
+            const exitDivs = Array.from(divs).filter(d => d.dataset.char !== '.');
+            
+            tl.to(exitDivs, {
+                duration: 0.8,
+                yPercent: 103,
+                stagger: 0.06,
+                ease: 'expo.inOut'
+            });
+        });
+        
+        this.timelines.push(tl);
+        return tl;
     }
 
     initScrollAnimations(scroller) {
@@ -1033,99 +1325,84 @@ class CharactersSection {
         this.timelines.push(tl);
         
         tl.to(meetSection, { 
-            opacity: 1, 
-            y: 0, 
-            duration: 0.8, 
-            ease: 'power2.out' 
+            opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' 
         });
         
-    
         tl.fromTo(characterCards,
             { opacity: 0, scale: 0.8, x: -50 },
-            { 
-                opacity: 1, 
-                scale: 1, 
-                x: 0, 
-                duration: 0.6, 
-                stagger: 0.1, 
-                ease: 'back.out(1.8)' 
-            },
+            { opacity: 1, scale: 1, x: 0, duration: 0.6, stagger: 0.1, ease: 'back.out(1.8)' },
             '-=0.5'
         );
         
-    
         if (characterSplash) {
             tl.fromTo(characterSplash,
                 { opacity: 0, scale: 0.85, y: 50 },
-                { 
-                    opacity: 1, 
-                    scale: 1, 
-                    y: 0, 
-                    duration: 0.9, 
-                    ease: 'elastic.out(1, 0.6)' 
-                },
+                { opacity: 1, scale: 1, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.6)' },
                 '-=0.4'
             );
         }
         
-        // AnimaciÃ³n del nombre
         if (characterName) {
             tl.fromTo(characterName,
                 { opacity: 0, y: -30, scale: 0.9 },
-                { 
-                    opacity: 1, 
-                    y: 0, 
-                    scale: 1, 
-                    duration: 0.7, 
-                    ease: 'back.out(1.7)' 
-                },
+                { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.7)' },
                 '-=0.6'
             );
         }
         
-        // AnimaciÃ³n del divisor
-        tl.to(divider, { 
-            opacity: 1, 
-            scale: 1, 
-            duration: 0.5, 
-            ease: 'back.out(1.8)' 
-        }, '-=0.3');
+        if (divider) {
+            tl.to(divider, { 
+                opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' 
+            }, '-=0.3');
+        }
     }
 
     animateVCEntrance() {
         const header = this.container.querySelector('.voice-cast-header');
-        const interface_ = this.container.querySelector('.voice-cast-interface');
-        const bgSplashes = this.container.querySelectorAll('.vc-bg-splash');
+        const bottomTape = this.container.querySelector('.vc-tape-bottom');
         
         const tl = gsap.timeline();
         this.timelines.push(tl);
         
-        tl.fromTo(bgSplashes,
-            { scale: 0, opacity: 0, rotation: -30 },
-            { scale: 1, opacity: 1, rotation: 0, duration: 1.2, stagger: 0.1, ease: 'elastic.out(1, 0.5)' }
-        );
-        tl.to(header, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '-=0.8');
-        tl.to(interface_, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.5');
-        tl.fromTo(this.vcAccordionItems,
-            { opacity: 0, scaleX: 0.2, x: -80 },
-            { opacity: 1, scaleX: 1, x: 0, duration: 0.8, stagger: 0.12, ease: 'elastic.out(1, 0.6)' },
-            '-=0.5'
-        );
+        tl.to(header, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+        tl.add(this.animateScrambleTitle(), '-=0.3');
+        
+        if (this.vcTape) {
+            tl.to(this.vcTape, { 
+                opacity: 1, scaleX: 1, 
+                duration: 0.8, ease: 'elastic.out(1, 0.6)' 
+            }, '-=1');
+        }
+        
+        // Desktop cards stagger
+        tl.to(this.vcCards, {
+            opacity: 1, y: 0, scale: 1,
+            duration: 0.7, stagger: 0.1,
+            ease: 'elastic.out(1, 0.6)'
+        }, '-=0.5');
+        
+        // Mobile accordion stagger
+        tl.to(this.vcAccordionItems, {
+            opacity: 1, x: 0,
+            duration: 0.5, stagger: 0.08,
+            ease: 'back.out(1.5)'
+        }, '-=0.8');
+        
+        // Bottom tape
+        if (bottomTape) {
+            tl.to(bottomTape, {
+                opacity: 1, scaleX: 1,
+                duration: 0.8, ease: 'elastic.out(1, 0.6)'
+            }, '-=0.4');
+        }
+        
+        tl.call(() => this.initHalftoneReveal(), null, '-=0.3');
     }
 
     destroy() {
         this.scrollTriggers.forEach(st => st.kill());
         this.timelines.forEach(tl => tl?.kill?.());
         this.stopVoiceline();
-        
-        this.vcAccordionItems?.forEach(item => {
-            const video = item.querySelector('.vc-accordion-video');
-            if (video) {
-                video.pause();
-                video.removeAttribute('src');
-                video.load();
-            }
-        });
         
         if (this.container?.parentNode) {
             this.container.parentNode.removeChild(this.container);
